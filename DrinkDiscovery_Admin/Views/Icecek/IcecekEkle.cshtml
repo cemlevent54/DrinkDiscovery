@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "IcecekEkle";
+}
+
+<h1>Icecek Ekle</h1>
+
+
+<div class="mb-3">
+    <label for="icecek_adi" class="form-label">İçecek Adı</label>
+    <input type="text" class="form-control" id="icecek_adi" style="width: 400px;">
+</div>
+
+
+<div class="mb-3">
+    <label for="icecek_resmi" class="form-label">İçecek Resmi</label>
+    <input type="file" class="form-control" id="icecek_resmi" style="width: 400px;" accept="image/*">
+</div>
+<div class="mt-3">
+    <img id="selectedImage" src="#" alt="Seçilen Resim" style="display: none; max-width: 300px; max-height: 300px;">
+</div>
+
+<br />
+
+
+<div class="mb-3">
+    <label for="icecek_icerik" class="form-label">İçecek İçerik</label>
+    <input type="text" class="form-control" id="icecek_icerik" style="width: 400px;">
+</div>
+
+<div class="mb-3">
+    <label for="icecek_malzemeler" class="form-label">İçecek Malzemeler</label>
+    <input type="text" class="form-control" id="icecek_malzemeler" style="width: 400px;">
+</div>
+
+<div class="mb-3">
+    <label for="icecek_puan" class="form-label">İçecek Puanı</label>
+    <input type="text" class="form-control" id="icecek_puan" style="width: 400px;">
+</div>
+
+<div class="mb-3">
+    <label for="icecek_fiyati" class="form-label">İçecek Fiyatı</label>
+    <input type="text" class="form-control" id="icecek_fiyati" style="width: 400px;">
+</div>
+
+<button type="button" class="btn btn-primary">İçecek Ekle</button>
+
+
+
+
+<script>
+    document.getElementById('icecek_resmi').addEventListener('change', function (event) {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const image = document.getElementById('selectedImage');
+                image.src = e.target.result;
+                image.style.display = 'flex';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    });
+</script>
+
+
+
+
