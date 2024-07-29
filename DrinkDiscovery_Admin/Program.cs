@@ -1,11 +1,13 @@
 using DrinkDiscovery_Admin.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<Context>();
-builder.Services.AddScoped<IRepository,EfRepository>();
+builder.Services.AddScoped<IRepository, EfRepository>();
+//builder.Services.AddTransient<IRepository, EfRepository>();
 
 var app = builder.Build();
 

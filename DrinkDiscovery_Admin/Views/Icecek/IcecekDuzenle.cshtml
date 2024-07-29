@@ -1,22 +1,23 @@
 ﻿@model DrinkDiscovery_Admin.Models.Iceceklers
 @{
-    ViewData["Title"] = "IcecekEkle";
+    ViewData["Title"] = "IcecekDuzenle";
 }
 
-<h1>Icecek Ekle</h1>
-
-<form asp-action="IcecekEkle" class="form-group" enctype="multipart/form-data">
-    <div class="mb-3">
-        <label for="icecek_adi" class="form-label">İçecek Adı</label>
-        @Html.TextBoxFor(x => x.icecek_ad, new { @class = "form-control" })
-    </div>
+<h1>Icecek Duzenle</h1>
+@using (Html.BeginForm("IcecekDuzenle", "Icecek", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <b>Icecek id:</b>
+    @Html.TextBoxFor(item => item.icecek_id, new { @class = "form-control", @readonly = "readonly" })
+    <br />
+    <b>Icecek ad:</b>
+    @Html.TextBoxFor(item => item.icecek_ad, new { @class = "form-control" })
+    <br />
+    <b>İçecek resim: </b>
+    <img id="selectedImage" src="@Url.Action("GetImage", "Icecek", new { id = Model.icecek_id })" style="width:100px;height:100px;" />
+    <br />
     <div class="mb-3">
         <label for="icecek_resmi" class="form-label">İçecek Resmi</label>
         <input type="file" class="form-control" id="icecek_resmi" name="icecek_resmi" style="width: 400px;" accept="image/*">
-    </div>
-    <br />
-    <div class="mt-3">
-        <img id="selectedImage" src="#" alt="Seçilen Resim" style="display: none; max-width: 300px; max-height: 300px;">
     </div>
     <br />
     <div class="mb-3">
@@ -39,11 +40,9 @@
         @Html.TextBoxFor(x => x.icecek_fiyat, new { @class = "form-control" })
     </div>
     <br />
-    <button class="btn btn-info">İçecek Ekle</button>
-</form>
 
-
-
+    <button class="btn btn-primary">Güncelleme</button>
+}
 
 <script>
     document.getElementById('icecek_resmi').addEventListener('change', function (event) {
@@ -53,13 +52,11 @@
             reader.onload = function (e) {
                 const image = document.getElementById('selectedImage');
                 image.src = e.target.result;
-                image.style.display = 'flex';
+                image.style.display = 'block';
+                image.style.width = '100px';
+                image.style.height = '100px';
             }
             reader.readAsDataURL(input.files[0]);
         }
     });
 </script>
-
-
-
-

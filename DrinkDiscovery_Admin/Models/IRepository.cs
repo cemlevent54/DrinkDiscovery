@@ -1,15 +1,36 @@
-﻿using NuGet.Common;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace DrinkDiscovery_Admin.Models
 {
-    public interface IRepository
+    public interface IRepository 
     {
-        public IEnumerable<Iceceklers> repo_icecekler { get; }
-        public IEnumerable<Urunlers> repo_urunler { get; }
-        //IEnumerable<Kategori> repo_kategoriler { get; }
-        public IEnumerable<Yorumlars> repo_yorumlar { get; }
-        public IEnumerable<Kullanicilars> repo_kullanicilar { get; }
-        public IEnumerable<Adminlers> repo_adminler { get; }
+        public IQueryable<Iceceklers> Icecekler { get; }
+        public IQueryable<Urunlers> Urunler { get; }
+        public IQueryable<Kullanicilars> Kullanicilar { get; }
+        public IQueryable<Yorumlars> Yorumlar { get; }
+        public IQueryable<Adminlers> Adminler { get; }
+
+
+
+        public void Add<T>(T entity) where T : class;
+        void Update<T>(T entity) where T : class;
+        void Delete<T>(T entity) where T : class;
+        void SaveChanges();
+        void DeleteAll();
+        IQueryable<T> Find<T>(Expression<Func<T, bool>> predicate) where T : class;
+
+        // async 
+        Task AddAsync<T>(T entity) where T : class;
+        Task UpdateAsync<T>(T entity) where T : class;
+        Task DeleteAsync<T>(T entity) where T : class;
+        Task SaveChangesAsync();
+        Task DeleteAllAsync();
+        Task<IQueryable<T>> FindAsync<T>(Expression<Func<T, bool>> predicate) where T : class;
+        
+
+
 
     }
 }

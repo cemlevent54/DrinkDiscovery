@@ -4,6 +4,7 @@ using DrinkDiscovery_Admin.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrinkDiscovery_Admin.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240729100650_kategori_guncelleme")]
+    partial class kategori_guncelleme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,17 +52,17 @@ namespace DrinkDiscovery_Admin.Migrations
 
             modelBuilder.Entity("DrinkDiscovery_Admin.Models.IcecekKategori", b =>
                 {
-                    b.Property<int>("drink_kategori_id")
+                    b.Property<int>("icecek_kategori_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("drink_kategori_id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("icecek_kategori_id"));
 
                     b.Property<string>("icecek_kategori_ad")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("drink_kategori_id");
+                    b.HasKey("icecek_kategori_id");
 
                     b.ToTable("IcecekKategori");
                 });
@@ -83,7 +86,10 @@ namespace DrinkDiscovery_Admin.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("icecek_kategorisdrink_kategori_id")
+                    b.Property<int>("icecek_kategori_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("icecek_kategorisicecek_kategori_id")
                         .HasColumnType("int");
 
                     b.Property<string>("icecek_malzemeler")
@@ -97,12 +103,9 @@ namespace DrinkDiscovery_Admin.Migrations
                     b.Property<byte[]>("icecek_resim")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("kategori_id")
-                        .HasColumnType("int");
-
                     b.HasKey("icecek_id");
 
-                    b.HasIndex("icecek_kategorisdrink_kategori_id");
+                    b.HasIndex("icecek_kategorisicecek_kategori_id");
 
                     b.ToTable("Icecekler");
                 });
@@ -252,7 +255,7 @@ namespace DrinkDiscovery_Admin.Migrations
                 {
                     b.HasOne("DrinkDiscovery_Admin.Models.IcecekKategori", "icecek_kategoris")
                         .WithMany("Iceceklers")
-                        .HasForeignKey("icecek_kategorisdrink_kategori_id")
+                        .HasForeignKey("icecek_kategorisicecek_kategori_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -1,0 +1,44 @@
+﻿@model List<DrinkDiscovery_Admin.Models.Iceceklers>
+@{
+    ViewData["Title"] = "IcecekListele";
+}
+
+<h1>IcecekListele</h1>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>İçecek Adı</th>
+            <th>İçecek Resmi</th>
+            <th>İçecek İçerik</th>
+            <th>İçecek Malzemeler</th>
+            <th>İçecek Puanı</th>
+            <th>İçecek Fiyatı</th>
+            <th>İçecek Sil</th>
+            <th>İçecek Düzenle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.icecek_ad</td>
+                <td>
+                    <img src="@Url.Action("GetImage", "Icecek", new { id = item.icecek_id })" style="width:100px;height:100px;" />
+                </td>
+                <td>@item.icecek_icerik</td>
+                <td>@item.icecek_malzemeler</td>
+                <td>@item.icecek_puan</td>
+                <td>@item.icecek_fiyat</td>
+                <td>
+                     <a href="@Url.Action("IcecekSil", "Icecek", new { id = item.icecek_id })" class="btn btn-danger">Sil</a> 
+                </td>
+                <td>
+                    <a href="@Url.Action("IcecekDuzenle", "Icecek", new { id = item.icecek_id })" class="btn btn-primary">Düzenle</a>
+                </td>
+            </tr>
+        }
+</table>
+
+
+

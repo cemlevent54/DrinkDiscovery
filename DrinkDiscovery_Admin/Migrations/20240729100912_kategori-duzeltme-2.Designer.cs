@@ -4,6 +4,7 @@ using DrinkDiscovery_Admin.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrinkDiscovery_Admin.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240729100912_kategori-duzeltme-2")]
+    partial class kategoriduzeltme2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,6 +86,9 @@ namespace DrinkDiscovery_Admin.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("icecek_kategori_id")
+                        .HasColumnType("int");
+
                     b.Property<int>("icecek_kategorisdrink_kategori_id")
                         .HasColumnType("int");
 
@@ -96,9 +102,6 @@ namespace DrinkDiscovery_Admin.Migrations
 
                     b.Property<byte[]>("icecek_resim")
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<int>("kategori_id")
-                        .HasColumnType("int");
 
                     b.HasKey("icecek_id");
 

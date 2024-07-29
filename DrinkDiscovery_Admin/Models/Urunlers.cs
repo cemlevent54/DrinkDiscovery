@@ -14,5 +14,7 @@ namespace DrinkDiscovery_Admin.Models
         public int urun_puan { get; set; }
         public IList<Yorumlars> urun_yorumlar { get; set; }
 
+        
+
     }
 }
