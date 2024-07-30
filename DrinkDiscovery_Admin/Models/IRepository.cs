@@ -11,6 +11,9 @@ namespace DrinkDiscovery_Admin.Models
         public IQueryable<Kullanicilars> Kullanicilar { get; }
         public IQueryable<Yorumlars> Yorumlar { get; }
         public IQueryable<Adminlers> Adminler { get; }
+        public IQueryable<IcecekKategoris> IcecekKategoriler { get; }
+        public IQueryable<UrunKategoris> UrunKategoriler { get; }
+
 
 
 

@@ -9,6 +9,8 @@
     <thead>
         <tr>
             <th>İçecek Adı</th>
+            <th>İçecek Kategori ID</th>
+            <th>İçecek Kategori Adi</th>
             <th>İçecek Resmi</th>
             <th>İçecek İçerik</th>
             <th>İçecek Malzemeler</th>
@@ -23,6 +25,8 @@
         {
             <tr>
                 <td>@item.icecek_ad</td>
+                <td>@item.icecek_kategori.icecek_kategori_id</td>
+                <td>@item.icecek_kategori.icecek_kategori_ad</td>
                 <td>
                     <img src="@Url.Action("GetImage", "Icecek", new { id = item.icecek_id })" style="width:100px;height:100px;" />
                 </td>

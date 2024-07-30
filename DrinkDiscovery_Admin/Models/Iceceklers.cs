@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DrinkDiscovery_Admin.Models
 {
@@ -13,6 +14,12 @@ namespace DrinkDiscovery_Admin.Models
         public string icecek_malzemeler { get; set; }
         public string icecek_puan { get; set; }
         public IList<Yorumlars>? icecek_yorumlar { get; set; }
+
+
+        [ForeignKey("icecek_kategori_id")]
+        public IcecekKategoris? icecek_kategori { get; set; }
+        
+
 
     }
 }

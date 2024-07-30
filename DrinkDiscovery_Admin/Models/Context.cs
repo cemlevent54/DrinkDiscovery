@@ -16,7 +16,8 @@ namespace DrinkDiscovery_Admin.Models
         public DbSet<Urunlers> Urunler { get; set; }
         public DbSet<Kullanicilars> Kullanicilar { get; set; }
         public DbSet<Yorumlars> Yorumlar { get; set; }
-
         public DbSet<Adminlers> Adminler { get; set; }
+        public DbSet<IcecekKategoris> IcecekKategoriler { get; set; }
+        public DbSet<UrunKategoris> UrunKategoriler { get; set; }
     }
 }

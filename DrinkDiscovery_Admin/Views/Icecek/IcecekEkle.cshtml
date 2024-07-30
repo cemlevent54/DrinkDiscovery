@@ -3,12 +3,12 @@
     ViewData["Title"] = "IcecekEkle";
 }
 
-<h1>Icecek Ekle</h1>
+<h1>İçecek Ekle</h1>
 
 <form asp-action="IcecekEkle" class="form-group" enctype="multipart/form-data">
     <div class="mb-3">
-        <label for="icecek_adi" class="form-label">İçecek Adı</label>
-        @Html.TextBoxFor(x => x.icecek_ad, new { @class = "form-control" })
+        <label for="icecek_ad" class="form-label">İçecek Adı</label>
+        @Html.TextBoxFor(x => x.icecek_ad, new { @class = "form-control", @id = "icecek_ad" })
     </div>
     <div class="mb-3">
         <label for="icecek_resmi" class="form-label">İçecek Resmi</label>
@@ -21,29 +21,33 @@
     <br />
     <div class="mb-3">
         <label for="icecek_icerik" class="form-label">İçecek İçerik</label>
-        @Html.TextBoxFor(x => x.icecek_icerik, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.icecek_icerik, new { @class = "form-control", @id = "icecek_icerik" })
     </div>
 
     <div class="mb-3">
         <label for="icecek_malzemeler" class="form-label">İçecek Malzemeler</label>
-        @Html.TextBoxFor(x => x.icecek_malzemeler, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.icecek_malzemeler, new { @class = "form-control", @id = "icecek_malzemeler" })
     </div>
 
     <div class="mb-3">
         <label for="icecek_puan" class="form-label">İçecek Puanı</label>
-        @Html.TextBoxFor(x => x.icecek_puan, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.icecek_puan, new { @class = "form-control", @id = "icecek_puan" })
     </div>
 
     <div class="mb-3">
-        <label for="icecek_fiyati" class="form-label">İçecek Fiyatı</label>
-        @Html.TextBoxFor(x => x.icecek_fiyat, new { @class = "form-control" })
+        <label for="icecek_fiyat" class="form-label">İçecek Fiyatı</label>
+        @Html.TextBoxFor(x => x.icecek_fiyat, new { @class = "form-control", @id = "icecek_fiyat" })
+    </div>
+
+    @* burada kaldık *@
+    <div class="form-group">
+        <label asp-for="icecek_kategori.icecek_kategori_id" class="control-label"></label>
+        <select asp-for="icecek_kategori.icecek_kategori_id" class="form-control" asp-items="ViewBag.dgr"></select>
+        <span asp-validation-for="icecek_kategori.icecek_kategori_id" class="text-danger"></span>
     </div>
     <br />
     <button class="btn btn-info">İçecek Ekle</button>
 </form>
-
-
-
 
 <script>
     document.getElementById('icecek_resmi').addEventListener('change', function (event) {
@@ -53,13 +57,9 @@
             reader.onload = function (e) {
                 const image = document.getElementById('selectedImage');
                 image.src = e.target.result;
-                image.style.display = 'flex';
+                image.style.display = 'block';
             }
             reader.readAsDataURL(input.files[0]);
         }
     });
 </script>
-
-
-
-

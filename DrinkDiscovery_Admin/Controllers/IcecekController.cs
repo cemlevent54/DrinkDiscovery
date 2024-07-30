@@ -23,23 +23,36 @@ namespace DrinkDiscovery_Admin.Controllers
         public IActionResult IcecekListele()
         {
             //var degerler = c.Icecekler.ToList();
-            var degerler = repository.Icecekler.ToList();
-            
+            //var degerler = repository.Icecekler.ToList();
+
+            //return View(degerler);
+            var degerler = repository.Icecekler
+                                     .Include(i => i.icecek_kategori)
+                                     .ToList();
             return View(degerler);
         }
 
         [HttpGet]
         public IActionResult IcecekEkle()
         {
-            
+            var kategoriler = repository.IcecekKategoriler
+                                        .Select(k => new SelectListItem
+                                        {
+                                            Text = k.icecek_kategori_ad,
+                                            Value = k.icecek_kategori_id.ToString()
+                                        }).ToList();
+            ViewBag.dgr = kategoriler;
             return View();
         }
 
+        //burada kaldık
         [HttpPost]
         public async Task<IActionResult> IcecekEkle(Iceceklers icecekler, IFormFile icecek_resmi)
         {
             if (ModelState.IsValid)
             {
+                
+                // resim ekleme
                 if (icecek_resmi != null && icecek_resmi.Length > 0)
                 {
                     using (var memoryStream = new MemoryStream())
@@ -48,7 +61,13 @@ namespace DrinkDiscovery_Admin.Controllers
                         icecekler.icecek_resim = memoryStream.ToArray();
                     }
                 }
+                // resim ekleme sonu
 
+                
+                // dropdown kategori alma işlemi sonu
+
+
+                
                 repository.Add(icecekler);
                 await repository.SaveChangesAsync();
 
@@ -78,12 +97,24 @@ namespace DrinkDiscovery_Admin.Controllers
             return RedirectToAction("IcecekListele");
         }
 
-        
+
 
         [HttpGet]
         public IActionResult IcecekDuzenle(int id)
         {
             var deger = repository.Icecekler.FirstOrDefault(i => i.icecek_id == id);
+            if (deger == null)
+            {
+                return NotFound();
+            }
+
+            var kategoriler = repository.IcecekKategoriler
+                                .Select(k => new SelectListItem
+                                {
+                                    Text = k.icecek_kategori_ad,
+                                    Value = k.icecek_kategori_id.ToString()
+                                }).ToList();
+            ViewBag.dgr = kategoriler;
             return View(deger);
         }
 
@@ -92,8 +123,7 @@ namespace DrinkDiscovery_Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var icecek = repository.Icecekler.FirstOrDefault(x => x.icecek_id == model.icecek_id);
-
+                var icecek = await repository.Icecekler.FirstOrDefaultAsync(x => x.icecek_id == model.icecek_id);
                 if (icecek == null)
                 {
                     return NotFound();
@@ -105,6 +135,9 @@ namespace DrinkDiscovery_Admin.Controllers
                 icecek.icecek_malzemeler = model.icecek_malzemeler;
                 icecek.icecek_puan = model.icecek_puan;
                 icecek.icecek_fiyat = model.icecek_fiyat;
+
+                // Update category
+                icecek.icecek_kategori.icecek_kategori_id = model.icecek_kategori.icecek_kategori_id;
 
                 // Handle file upload
                 if (icecek_resmi != null && icecek_resmi.Length > 0)
@@ -119,11 +152,22 @@ namespace DrinkDiscovery_Admin.Controllers
                 repository.Update(icecek);
                 await repository.SaveChangesAsync();
 
-                
+                return RedirectToAction("IcecekListele");
             }
 
-            return RedirectToAction("IcecekListele");
+            // Populate categories if the model state is invalid
+            var kategoriler = repository.IcecekKategoriler
+                            .Select(k => new SelectListItem
+                            {
+                                Text = k.icecek_kategori_ad,
+                                Value = k.icecek_kategori_id.ToString()
+                            }).ToList();
+            ViewBag.dgr = kategoriler;
+
+            return View(model);
         }
+
+
 
 
 

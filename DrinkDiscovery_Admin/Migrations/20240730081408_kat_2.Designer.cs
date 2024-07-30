@@ -4,6 +4,7 @@ using DrinkDiscovery_Admin.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrinkDiscovery_Admin.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240730081408_kat_2")]
+    partial class kat_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +64,7 @@ namespace DrinkDiscovery_Admin.Migrations
 
                     b.HasKey("icecek_kategori_id");
 
-                    b.ToTable("IcecekKategoriler");
+                    b.ToTable("IcecekKategoris");
                 });
 
             modelBuilder.Entity("DrinkDiscovery_Admin.Models.Iceceklers", b =>
@@ -141,23 +144,6 @@ namespace DrinkDiscovery_Admin.Migrations
                     b.ToTable("Kullanicilar");
                 });
 
-            modelBuilder.Entity("DrinkDiscovery_Admin.Models.UrunKategoris", b =>
-                {
-                    b.Property<int>("urun_kategori_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("urun_kategori_id"));
-
-                    b.Property<string>("urun_kategori_ad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("urun_kategori_id");
-
-                    b.ToTable("UrunKategoriler");
-                });
-
             modelBuilder.Entity("DrinkDiscovery_Admin.Models.Urunlers", b =>
                 {
                     b.Property<int>("urun_id")
@@ -177,9 +163,6 @@ namespace DrinkDiscovery_Admin.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("urun_kategori_id")
-                        .HasColumnType("int");
-
                     b.Property<string>("urun_malzemeler")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -192,8 +175,6 @@ namespace DrinkDiscovery_Admin.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("urun_id");
-
-                    b.HasIndex("urun_kategori_id");
 
                     b.ToTable("Urunler");
                 });
@@ -251,15 +232,6 @@ namespace DrinkDiscovery_Admin.Migrations
                     b.Navigation("icecek_kategori");
                 });
 
-            modelBuilder.Entity("DrinkDiscovery_Admin.Models.Urunlers", b =>
-                {
-                    b.HasOne("DrinkDiscovery_Admin.Models.UrunKategoris", "urun_kategori")
-                        .WithMany("urunler")
-                        .HasForeignKey("urun_kategori_id");
-
-                    b.Navigation("urun_kategori");
-                });
-
             modelBuilder.Entity("DrinkDiscovery_Admin.Models.Yorumlars", b =>
                 {
                     b.HasOne("DrinkDiscovery_Admin.Models.Iceceklers", null)
@@ -288,11 +260,6 @@ namespace DrinkDiscovery_Admin.Migrations
             modelBuilder.Entity("DrinkDiscovery_Admin.Models.Kullanicilars", b =>
                 {
                     b.Navigation("kullanici_yorumlar");
-                });
-
-            modelBuilder.Entity("DrinkDiscovery_Admin.Models.UrunKategoris", b =>
-                {
-                    b.Navigation("urunler");
                 });
 
             modelBuilder.Entity("DrinkDiscovery_Admin.Models.Urunlers", b =>
