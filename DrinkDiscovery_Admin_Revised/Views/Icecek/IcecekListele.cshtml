@@ -40,7 +40,7 @@
                 <td>@item.icecek_puan</td>
                 <td>@item.icecek_fiyat</td>
                 <td>
-                    <a href="@Url.Action("IcecekSil", "Icecek", new { id = item.icecek_id })" class="btn btn-danger">Sil</a>
+                    <a href="@Url.Action("IcecekSil", "Icecek", new { id = item.icecek_id })" class="btn btn-danger" onclick="confirmDeletion('@Url.Action("Delete", "Icecek", new { id = item.icecek_id })')">Sil</a>
                 </td>
                 <td>
                     <a href="@Url.Action("IcecekDuzenle", "Icecek", new { id = item.icecek_id })" class="btn btn-primary">Düzenle</a>
@@ -48,3 +48,14 @@
             </tr>
         }
 </table>
+
+<!-- JavaScript -->
+<script src="~/js/site.js"></script>
+
+<script type="text/javascript">
+    function confirmDeletion(url) {
+        if (confirm("Gerçekten silmek istiyor musunuz?")) {
+            window.location.href = url;
+        }
+    }
+</script>

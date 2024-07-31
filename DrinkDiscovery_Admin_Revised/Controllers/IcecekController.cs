@@ -1,6 +1,7 @@
 ﻿using DrinkDiscovery_Admin_Revised.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Versioning;
 
@@ -96,63 +97,97 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
         [HttpGet]
         public IActionResult IcecekDuzenle(int id)
         {
-            var deger = repository.Icecekler.FirstOrDefault(i => i.icecek_id == id);
-            //deger.icecek_kategori.icecek_kategori_id;
+            var deger = repository.Icecekler
+                          .Include(i => i.icecek_kategori)
+                          .FirstOrDefault(i => i.icecek_id == id);
+
             if (deger == null)
             {
                 return NotFound();
             }
 
-            var kategoriler = repository.IcecekKategoriler
+            // onceden secilmis icecek kategori id sini dropdownlistte gosteren kod. bu degiskeni viewbagde tutuyoruz
+            var katid = deger.icecek_kategori?.icecek_kategori_id;
+
+            List<SelectListItem> kategoriler = repository.IcecekKategoriler
                                 .Select(k => new SelectListItem
                                 {
                                     Text = k.icecek_kategori_ad,
                                     Value = k.icecek_kategori_id.ToString()
                                 }).ToList();
+
             ViewBag.dgr = kategoriler;
-            return View(deger);
+            ViewBag.selectedcategory = katid;
+
+            return View("IcecekDuzenle", deger);
         }
 
         [HttpPost]
         public async Task<IActionResult> IcecekDuzenle(Iceceklers model, IFormFile icecek_resmi)
         {
-            if (ModelState.IsValid)
+            if (repository.Icecekler == null)
             {
-                var icecek = await repository.Icecekler.FirstOrDefaultAsync(x => x.icecek_id == model.icecek_id);
-                if (icecek == null)
-                {
-                    return NotFound();
-                }
-
-                // Update fields
-                icecek.icecek_ad = model.icecek_ad;
-                icecek.icecek_icerik = model.icecek_icerik;
-                icecek.icecek_malzemeler = model.icecek_malzemeler;
-                icecek.icecek_puan = model.icecek_puan;
-                icecek.icecek_fiyat = model.icecek_fiyat;
-
-                // Update category
-                var kategori = repository.IcecekKategoriler
-                                     .FirstOrDefault(i => i.icecek_kategori_id == icecek.icecek_kategori.icecek_kategori_id);
-                icecek.icecek_kategori = kategori;
-
-                // Handle file upload
-                if (icecek_resmi != null && icecek_resmi.Length > 0)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        await icecek_resmi.CopyToAsync(ms);
-                        icecek.icecek_resim = ms.ToArray();
-                    }
-                }
-
-                //repository.Update(icecek);
-                await repository.SaveChangesAsync();
-
-                
+                return StatusCode(StatusCodes.Status500InternalServerError, "Icecekler repository is null.");
             }
-            return RedirectToAction("IcecekListele");
 
+            var icecek = await repository.Icecekler.FirstOrDefaultAsync(x => x.icecek_id == model.icecek_id);
+            if (icecek == null)
+            {
+                return NotFound();
+            }
+
+            // Update fields
+            icecek.icecek_ad = model.icecek_ad;
+            icecek.icecek_icerik = model.icecek_icerik;
+            icecek.icecek_malzemeler = model.icecek_malzemeler;
+            icecek.icecek_puan = model.icecek_puan;
+            icecek.icecek_fiyat = model.icecek_fiyat;
+
+            // model nesnesinde icecek_kategori var mi kontrol et
+            
+            if (model.icecek_kategori != null)
+            {
+
+                var kategori = await repository.IcecekKategoriler
+                                        .FirstOrDefaultAsync(i => i.icecek_kategori_id == model.icecek_kategori.icecek_kategori_id);
+                if (kategori != null)
+                {
+                    // varsa nesne ozelliklerini guncelle
+                    icecek.icecek_kategori = kategori;
+                    icecek.icecek_kategori.icecek_kategori_ad = kategori.icecek_kategori_ad;
+                    icecek.icecek_kategori.icecek_kategori_id = kategori.icecek_kategori_id;
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Kategori not found.");
+                }
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "icecek_kategori is null in the model.");
+            }
+
+            // file upload ve resim ekleme fonksiyonu
+            if (icecek_resmi != null && icecek_resmi.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    await icecek_resmi.CopyToAsync(ms);
+                    icecek.icecek_resim = ms.ToArray();
+                }
+            }
+
+            // hatalar icin try catch blogu
+            try
+            {
+                repository.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error saving changes: {ex.Message}");
+            }
+
+            return RedirectToAction("IcecekListele");
         }
     }
 }

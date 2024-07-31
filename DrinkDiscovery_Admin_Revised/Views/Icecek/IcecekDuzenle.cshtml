@@ -46,7 +46,7 @@
 
     <div class="form-group">
         <label for="icecek_kategori_id" class="control-label">Kategori</label>
-        @Html.DropDownListFor(i => i.icecek_kategori.icecek_kategori_id, (IEnumerable<SelectListItem>)ViewBag.dgr, new { @class = "form-control" })
+        @Html.DropDownListFor(i => i.icecek_kategori.icecek_kategori_id, new SelectList((IEnumerable<SelectListItem>)ViewBag.dgr, "Value", "Text", ViewBag.selectedcategory), new { @class = "form-control" })
     </div>
     <br />
     <button class="btn btn-primary">Güncelleme</button>
