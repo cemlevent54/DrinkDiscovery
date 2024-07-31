@@ -7,6 +7,6 @@ namespace DrinkDiscovery_Admin.Models
         [Key]
         public int icecek_kategori_id { get; set; }
         public string icecek_kategori_ad { get; set; }
-        public IList<Iceceklers>? icecekler { get; set; }
+        public IList<Iceceklers>? Iceceklers { get; set; }
     }
 }

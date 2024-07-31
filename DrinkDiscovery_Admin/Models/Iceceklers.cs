@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace DrinkDiscovery_Admin.Models
 {
@@ -17,9 +17,7 @@ namespace DrinkDiscovery_Admin.Models
 
 
         [ForeignKey("icecek_kategori_id")]
+        public int icecek_kategori_id { get; set; }
         public IcecekKategoris? icecek_kategori { get; set; }
-        
-
-
     }
 }

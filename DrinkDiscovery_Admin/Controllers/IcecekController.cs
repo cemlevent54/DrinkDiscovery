@@ -3,6 +3,7 @@ using DrinkDiscovery_Admin.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
 
 namespace DrinkDiscovery_Admin.Controllers
 {
@@ -41,7 +42,7 @@ namespace DrinkDiscovery_Admin.Controllers
                                             Text = k.icecek_kategori_ad,
                                             Value = k.icecek_kategori_id.ToString()
                                         }).ToList();
-            ViewBag.dgr = kategoriler;
+            ViewBag.dgr = new SelectList(kategoriler, "Value", "Text");
             return View();
         }
 
@@ -51,8 +52,6 @@ namespace DrinkDiscovery_Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                // resim ekleme
                 if (icecek_resmi != null && icecek_resmi.Length > 0)
                 {
                     using (var memoryStream = new MemoryStream())
@@ -61,16 +60,9 @@ namespace DrinkDiscovery_Admin.Controllers
                         icecekler.icecek_resim = memoryStream.ToArray();
                     }
                 }
-                // resim ekleme sonu
 
-                
-                // dropdown kategori alma işlemi sonu
-
-
-                
                 repository.Add(icecekler);
                 await repository.SaveChangesAsync();
-
             }
 
             return RedirectToAction("IcecekListele");

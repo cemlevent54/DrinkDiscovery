@@ -1,0 +1,72 @@
+﻿@model DrinkDiscovery_Admin_Revised.Models.Iceceklers
+@using DrinkDiscovery_Admin_Revised.Models
+
+
+@{
+    ViewData["Title"] = "IcecekDuzenle";
+}
+
+<h1>Icecek Duzenle</h1>
+@using (Html.BeginForm("IcecekDuzenle", "Icecek", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <b>Icecek id:</b>
+    @Html.TextBoxFor(item => item.icecek_id, new { @class = "form-control", @readonly = "readonly" })
+    <br />
+    <b>Icecek ad:</b>
+    @Html.TextBoxFor(item => item.icecek_ad, new { @class = "form-control" })
+    <br />
+    <b>İçecek resim: </b>
+    <img id="selectedImage" src="@Url.Action("GetImage", "Icecek", new { id = Model.icecek_id })" style="width:100px;height:100px;" />
+    <br />
+    <div class="mb-3">
+        <label for="icecek_resmi" class="form-label">İçecek Resmi</label>
+        <input type="file" class="form-control" id="icecek_resmi" name="icecek_resmi" style="width: 400px;" accept="image/*">
+    </div>
+    <br />
+    <div class="mb-3">
+        <label for="icecek_icerik" class="form-label">İçecek İçerik</label>
+        @Html.TextBoxFor(x => x.icecek_icerik, new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label for="icecek_malzemeler" class="form-label">İçecek Malzemeler</label>
+        @Html.TextBoxFor(x => x.icecek_malzemeler, new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label for="icecek_puan" class="form-label">İçecek Puanı</label>
+        @Html.TextBoxFor(x => x.icecek_puan, new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label for="icecek_fiyati" class="form-label">İçecek Fiyatı</label>
+        @Html.TextBoxFor(x => x.icecek_fiyat, new { @class = "form-control" })
+    </div>
+    <br />
+
+    <div class="form-group">
+        <label for="icecek_kategori_id" class="control-label">Kategori</label>
+        @Html.DropDownListFor(i => i.icecek_kategori.icecek_kategori_id, (IEnumerable<SelectListItem>)ViewBag.dgr, new { @class = "form-control" })
+    </div>
+    <br />
+    <button class="btn btn-primary">Güncelleme</button>
+}
+
+<script>
+    document.getElementById('icecek_resmi').addEventListener('change', function (event) {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const image = document.getElementById('selectedImage');
+                image.src = e.target.result;
+                image.style.display = 'block';
+                image.style.width = '100px';
+                image.style.height = '100px';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    });
+</script>
+
+

@@ -1,4 +1,6 @@
 ﻿@model DrinkDiscovery_Admin.Models.Iceceklers
+@using DrinkDiscovery_Admin.Models
+
 @{
     ViewData["Title"] = "IcecekEkle";
 }
@@ -40,10 +42,11 @@
     </div>
 
     @* burada kaldık *@
+    @* (List<SelectListItem>) *@
     <div class="form-group">
-        <label asp-for="icecek_kategori.icecek_kategori_id" class="control-label"></label>
-        <select asp-for="icecek_kategori.icecek_kategori_id" class="form-control" asp-items="ViewBag.dgr"></select>
-        <span asp-validation-for="icecek_kategori.icecek_kategori_id" class="text-danger"></span>
+        <label for="icecek_kategori_id" class="control-label">Kategori</label>
+        @Html.DropDownListFor(x => x.icecek_kategori.icecek_kategori_id, (List<SelectListItem>)ViewBag.dgr, "Select Category", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.icecek_kategori.icecek_kategori_id, "", new { @class = "text-danger" })
     </div>
     <br />
     <button class="btn btn-info">İçecek Ekle</button>
