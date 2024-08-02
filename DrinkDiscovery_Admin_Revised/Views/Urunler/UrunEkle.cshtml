@@ -1,0 +1,102 @@
+﻿@model DrinkDiscovery_Admin_Revised.Models.Urunlers
+@using DrinkDiscovery_Admin_Revised.Models
+@{
+    ViewData["Title"] = "UrunEkle";
+}
+
+<h1>Urun Ekle</h1>
+
+<form asp-action="UrunEkle" class="form-group" enctype="multipart/form-data">
+
+    <table class="table table-active">
+        <tr>
+            <td>
+                <div class="mb-3">
+                    <label for="urun_ad" class="form-label">Ürün Adı</label>
+                    @Html.TextBoxFor(x => x.urun_ad, new { @class = "form-control", @id = "urun_ad", style = "width: 350px;" })
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label for="urun_resim" class="form-label">Ürün Resmi</label>
+                    <input type="file" class="form-control" id="urun_resim" name="urun_resim" style="width: 350px;" accept="image/*">
+                </div>
+                <br />
+                <div class="mt-3">
+                    <img id="selectedImage" src="#" alt="Seçilen Resim" style="display: none; max-width: 350px; max-height: 300px;">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="mb-3">
+                    <label for="urun_icerik" class="form-label">Ürün İçerik</label>
+                    @Html.TextAreaFor(x => x.urun_icerik, new { @class = "form-control", @id = "urun_icerik", style = "width: 600px;height: 200px;", rows = "5" })
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label for="urun_malzemeler" class="form-label">Ürün Malzemeler</label>
+                    @Html.TextAreaFor(x => x.urun_malzemeler, new { @class = "form-control", @id = "urun_malzemeler", style = "width: 600px;height: 200px;", rows = "5" })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="mb-3">
+                    <label for="urun_puan" class="form-label">Ürün Puanı</label>
+                    @Html.TextBoxFor(x => x.urun_puan, new { @class = "form-control", @id = "urun_puan", style = "width: 350px;" })
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label for="urun_fiyat" class="form-label">Ürün Fiyatı</label>
+                    @Html.TextBoxFor(x => x.urun_fiyat, new { @class = "form-control", @id = "urun_fiyat", style = "width: 350px;" })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-group">
+                    <label for="urun_kategori_id" class="control-label">Kategori</label>
+                    @Html.DropDownListFor(i => i.urun_kategori.urun_kategori_id, (IEnumerable<SelectListItem>)ViewBag.dgr, new { @class = "form-control", style = "width: 350px;" }) 
+                </div>
+            </td>
+            <td>
+                <button class="btn btn-info" style="width: 350px;">Ürün Ekle</button>
+            </td>
+        </tr>
+
+    </table>
+
+
+
+    <br />
+
+
+
+
+
+
+
+
+
+
+    <br />
+
+</form>
+
+<script>
+    document.getElementById('urun_resim').addEventListener('change', function (event) {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const image = document.getElementById('selectedImage');
+                image.src = e.target.result;
+                image.style.display = 'block';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    });
+</script>

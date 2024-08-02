@@ -138,7 +138,7 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
 
             // Update fields
             icecek.icecek_ad = model.icecek_ad;
-            icecek.icecek_icerik = model.icecek_icerik;
+            icecek.icecek_yapilis = model.icecek_yapilis;
             icecek.icecek_malzemeler = model.icecek_malzemeler;
             icecek.icecek_puan = model.icecek_puan;
             icecek.icecek_fiyat = model.icecek_fiyat;

@@ -4,6 +4,7 @@ using DrinkDiscovery_Admin_Revised.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrinkDiscovery_Admin_Revised.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240802082025_allow_nulls")]
+    partial class allow_nulls
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,8 +82,12 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("icecek_fiyat")
-                        .HasColumnType("real");
+                    b.Property<int>("icecek_fiyat")
+                        .HasColumnType("int");
+
+                    b.Property<string>("icecek_icerik")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("icecek_kategori_id")
                         .HasColumnType("int");
@@ -89,15 +96,12 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("icecek_puan")
-                        .HasColumnType("real");
+                    b.Property<string>("icecek_puan")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("icecek_resim")
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("icecek_yapilis")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("icecek_id");
 
@@ -175,8 +179,8 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("urun_fiyat")
-                        .HasColumnType("real");
+                    b.Property<int>("urun_fiyat")
+                        .HasColumnType("int");
 
                     b.Property<string>("urun_icerik")
                         .IsRequired()
@@ -189,8 +193,8 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("urun_puan")
-                        .HasColumnType("real");
+                    b.Property<int>("urun_puan")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("urun_resim")
                         .HasColumnType("varbinary(max)");

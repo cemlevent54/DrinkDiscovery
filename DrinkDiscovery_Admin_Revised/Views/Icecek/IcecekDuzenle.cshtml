@@ -9,47 +9,89 @@
 <h1>Icecek Duzenle</h1>
 @using (Html.BeginForm("IcecekDuzenle", "Icecek", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <b>Icecek id:</b>
-    @Html.TextBoxFor(item => item.icecek_id, new { @class = "form-control", @readonly = "readonly" })
+    <table class="table table-active">
+        <tr>
+            <td>
+                <b>Icecek id:</b>
+                @Html.TextBoxFor(item => item.icecek_id, new { @class = "form-control", @readonly = "readonly" })
+            </td>
+            <td>
+                <b>Icecek ad:</b>
+                @Html.TextBoxFor(item => item.icecek_ad, new { @class = "form-control" })
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                
+                <div class="mb-3">
+                    <label for="icecek_malzemeler" class="form-label">İçecek Malzemeler</label>
+                    @Html.TextAreaFor(x => x.icecek_malzemeler, new { @class = "form-control", style = "width: 600px;height: 200px;", rows = "5" })
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label for="icecek_icerik" class="form-label">İçecek Yapılış</label>
+                    @Html.TextAreaFor(x => x.icecek_yapilis, new { @class = "form-control", style = "width: 600px;height: 200px;", rows = "5" })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>İçecek resim: </b>
+                <img id="selectedImage" src="@Url.Action("GetImage", "Icecek", new { id = Model.icecek_id })" style="width:100px;height:100px;" />
+                <br />
+                <div class="mb-3">
+                    <label for="icecek_resmi" class="form-label">İçecek Resmi</label>
+                    <input type="file" class="form-control" id="icecek_resmi" name="icecek_resmi" style="width: 400px;" accept="image/*">
+                </div>
+                <br />
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label for="icecek_puan" class="form-label">İçecek Puanı</label>
+                    @Html.TextBoxFor(x => x.icecek_puan, new { @class = "form-control" })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="mb-3">
+                    <label for="icecek_fiyati" class="form-label">İçecek Fiyatı</label>
+                    @Html.TextBoxFor(x => x.icecek_fiyat, new { @class = "form-control" })
+                </div>
+                <br />
+            </td>
+            <td>
+                <div class="form-group">
+                    <label for="icecek_kategori_id" class="control-label">Kategori</label>
+                    @Html.DropDownListFor(i => i.icecek_kategori.icecek_kategori_id, new SelectList((IEnumerable<SelectListItem>)ViewBag.dgr, "Value", "Text", ViewBag.selectedcategory), new { @class = "form-control" })
+                </div>
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-primary">Güncelleme</button>
+            </td>
+            <td>
+            </td>
+        </tr>
+    </table>
+    
     <br />
-    <b>Icecek ad:</b>
-    @Html.TextBoxFor(item => item.icecek_ad, new { @class = "form-control" })
-    <br />
-    <b>İçecek resim: </b>
-    <img id="selectedImage" src="@Url.Action("GetImage", "Icecek", new { id = Model.icecek_id })" style="width:100px;height:100px;" />
-    <br />
-    <div class="mb-3">
-        <label for="icecek_resmi" class="form-label">İçecek Resmi</label>
-        <input type="file" class="form-control" id="icecek_resmi" name="icecek_resmi" style="width: 400px;" accept="image/*">
-    </div>
-    <br />
-    <div class="mb-3">
-        <label for="icecek_icerik" class="form-label">İçecek İçerik</label>
-        @Html.TextBoxFor(x => x.icecek_icerik, new { @class = "form-control" })
-    </div>
+    
+    
+    
 
-    <div class="mb-3">
-        <label for="icecek_malzemeler" class="form-label">İçecek Malzemeler</label>
-        @Html.TextBoxFor(x => x.icecek_malzemeler, new { @class = "form-control" })
-    </div>
+    
 
-    <div class="mb-3">
-        <label for="icecek_puan" class="form-label">İçecek Puanı</label>
-        @Html.TextBoxFor(x => x.icecek_puan, new { @class = "form-control" })
-    </div>
+    
 
-    <div class="mb-3">
-        <label for="icecek_fiyati" class="form-label">İçecek Fiyatı</label>
-        @Html.TextBoxFor(x => x.icecek_fiyat, new { @class = "form-control" })
-    </div>
-    <br />
+    
 
-    <div class="form-group">
-        <label for="icecek_kategori_id" class="control-label">Kategori</label>
-        @Html.DropDownListFor(i => i.icecek_kategori.icecek_kategori_id, new SelectList((IEnumerable<SelectListItem>)ViewBag.dgr, "Value", "Text", ViewBag.selectedcategory), new { @class = "form-control" })
-    </div>
-    <br />
-    <button class="btn btn-primary">Güncelleme</button>
+    
+    
 }
 
 <script>

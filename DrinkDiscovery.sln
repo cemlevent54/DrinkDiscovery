@@ -5,9 +5,7 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrinkDiscovery", "DrinkDiscovery\DrinkDiscovery.csproj", "{709D8A11-5D87-4C38-BBB1-6EE29DC0BCD8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrinkDiscovery_Admin", "DrinkDiscovery_Admin\DrinkDiscovery_Admin.csproj", "{9C3449EC-9005-4698-8CAF-4C3EE4B1CCCA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrinkDiscovery_Admin_Revised", "DrinkDiscovery_Admin_Revised\DrinkDiscovery_Admin_Revised.csproj", "{736A148A-13B1-4E03-81CF-552A0F47BE4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrinkDiscovery_Admin_Revised", "DrinkDiscovery_Admin_Revised\DrinkDiscovery_Admin_Revised.csproj", "{736A148A-13B1-4E03-81CF-552A0F47BE4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{709D8A11-5D87-4C38-BBB1-6EE29DC0BCD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{709D8A11-5D87-4C38-BBB1-6EE29DC0BCD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{709D8A11-5D87-4C38-BBB1-6EE29DC0BCD8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C3449EC-9005-4698-8CAF-4C3EE4B1CCCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C3449EC-9005-4698-8CAF-4C3EE4B1CCCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C3449EC-9005-4698-8CAF-4C3EE4B1CCCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C3449EC-9005-4698-8CAF-4C3EE4B1CCCA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{736A148A-13B1-4E03-81CF-552A0F47BE4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{736A148A-13B1-4E03-81CF-552A0F47BE4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{736A148A-13B1-4E03-81CF-552A0F47BE4E}.Release|Any CPU.ActiveCfg = Release|Any CPU

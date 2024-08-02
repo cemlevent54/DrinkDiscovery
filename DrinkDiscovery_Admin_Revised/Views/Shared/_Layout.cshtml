@@ -32,8 +32,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Icecek" asp-action="IcecekListele">İçecek Görüntüle</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Icecek" asp-action="IcecekEkle">İçecek Ekleme</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Icecek" asp-action="IcecekEkle">İçecek Kategorileri Görüntüle</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Icecek" asp-action="IcecekEkle">İçecek Kategori Ekle</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="IcecekKategori" asp-action="KategoriListele">İçecek Kategorileri Görüntüle</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="IcecekKategori" asp-action="KategoriEkle">İçecek Kategori Ekle</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -41,7 +41,8 @@
                                 Ürünler
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Ürün Ekleme</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Urunler" asp-action="UrunGoruntule">Ürün Görüntüle</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Urunler" asp-action="UrunEkle">Ürün Ekleme</a></li>
                                 <li><a class="dropdown-item" href="#">Ürün Silme</a></li>
                                 <li><a class="dropdown-item" href="#">Ürün Düzenleme</a></li>
                             </ul>

@@ -1,0 +1,60 @@
+﻿@using DrinkDiscovery_Admin_Revised.Models
+@model IEnumerable<DrinkDiscovery_Admin_Revised.Models.Urunlers>
+@{
+    ViewData["Title"] = "UrunGoruntule";
+}
+
+<h1>Urun Goruntule</h1>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Ürün ID</th>
+            <th>Ürün Adı</th>
+            <th>Ürün Kategori ID</th>
+            <th>Ürün Kategori Adi</th>
+            <th>Ürün Resmi</th>
+            <th>Ürün İçerik</th>
+            <th>Ürün Malzemeler</th>
+            <th>Ürün Puanı</th>
+            <th>Ürün Fiyatı</th>
+            <th>Ürün Sil</th>
+            <th>Ürün Düzenle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.urun_id</td>
+                <td>@item.urun_ad</td>
+                <td>@item.urun_kategori.urun_kategori_id</td>
+                <td>@item.urun_kategori.urun_kategori_ad</td>
+                <td><img src="@Url.Action("GetImage", "Urunler", new { id = item.urun_id })" style="width:100px;height:100px;" /></td>
+                <td>@item.urun_icerik</td>
+                <td>@item.urun_malzemeler</td>
+                <td>@item.urun_puan</td>
+                <td>@item.urun_fiyat</td>
+                <td>
+                    <a href="@Url.Action("UrunSil", "Urunler", new { id = item.urun_id })" class="btn btn-danger" onclick="confirmDeletion('@Url.Action("Delete", "Urunler", new { id = item.urun_id })')">Sil</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("UrunDuzenle", "Urunler", new { id = item.urun_id })" class="btn btn-primary">Düzenle</a>
+                </td>
+            </tr>
+        } 
+
+    </tbody>
+</table>
+
+<!-- JavaScript -->
+<script src="~/js/site.js"></script>
+
+<script type="text/javascript">
+    function confirmDeletion(url) {
+        if (confirm("Gerçekten silmek istiyor musunuz?")) {
+            window.location.href = url;
+        }
+    }
+</script>
+
