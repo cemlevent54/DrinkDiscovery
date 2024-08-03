@@ -5,6 +5,7 @@ namespace DrinkDiscovery_Admin_Revised.Models
     public class EfRepository : IRepository
     {
         private Context context;
+
         public EfRepository(Context _context)
         {
             context = _context;

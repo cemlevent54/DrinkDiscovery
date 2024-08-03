@@ -1,0 +1,34 @@
+﻿@model DrinkDiscovery_Admin_Revised.Models.UrunKategoris;
+@using DrinkDiscovery_Admin_Revised.Models;
+
+@{
+    ViewData["Title"] = "KategoriDuzenle";
+}
+
+<h1>Ürün Kategori Duzenle</h1>
+
+@using (Html.BeginForm("KategoriDuzenle", "UrunlerKategori", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <table class="table table-active">
+        <tr>
+            <td>
+                <div class="mb-3">
+                    <label for="urun_kategori_id" class="form-label">Ürün Kategori ID</label>
+                    @Html.TextBoxFor(x => x.urun_kategori_id, new { @class = "form-control", @id = "urun_kategori_id", style = "width: 350px;", @readonly = "readonly" })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="mb-3">
+                    <label for="urun_kategori_ad" class="form-label">Ürün Kategori Adı</label>
+                    @Html.TextBoxFor(x => x.urun_kategori_ad, new { @class = "form-control", @id = "urun_kategori_ad", style = "width: 350px;" })
+                </div>
+            </td>
+        </tr>
+
+    </table>
+
+    <br />
+    <button class="btn btn-info" style="width: 350px;">Ürün Kategori Düzenle</button>
+}

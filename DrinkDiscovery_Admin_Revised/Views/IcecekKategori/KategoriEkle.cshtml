@@ -1,0 +1,32 @@
+﻿@model DrinkDiscovery_Admin_Revised.Models.IcecekKategoris
+@using DrinkDiscovery_Admin_Revised.Models
+
+@{
+    ViewData["Title"] = "KategoriEkle";
+}
+
+<h1>Kategori Ekle</h1>
+
+<form asp-action="KategoriEkle" class="form-group" enctype="multipart/form-data">
+
+    <table class="table table-active">
+        <tr>
+            <td>
+                <div class="mb-3">
+                    <label for="icecek_kategori_ad" class="form-label">Kategori Adı</label>
+                    @Html.TextBoxFor(x => x.icecek_kategori_ad, new { @class = "form-control", @id = "icecek_ad", style = "width: 350px;" })
+                </div>
+            </td>
+        </tr>
+
+    </table>
+
+    <button class="btn btn-info" style="width: 350px;">Kategori Ekle</button>
+
+
+
+    <br />
+
+
+</form>
+
