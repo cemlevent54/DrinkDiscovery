@@ -11,6 +11,8 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public IQueryable<Adminlers> Adminler { get; }
         public IQueryable<IcecekKategoris> IcecekKategoriler { get; }
         public IQueryable<UrunKategoris> UrunKategoriler { get; }
+        public IQueryable<Tatlilars> Tatlilar { get; }
+        public IQueryable<TatlilarKategoris> TatlilarKategoriler { get; }
 
 
 

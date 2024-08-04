@@ -1,0 +1,108 @@
+﻿@model DrinkDiscovery_Admin_Revised.Models.Tatlilars
+@using DrinkDiscovery_Admin_Revised.Models
+@{
+    ViewData["Title"] = "TatliEkle";
+}
+
+<h1>Tatli Ekle</h1>
+
+<form asp-action="TatliEkle" class="form-group" enctype="multipart/form-data">
+
+    <table class="table table-active">
+        <tr>
+            <td>
+                <div class="mb-3">
+                    <label for="tatli_ad" class="form-label">Tatli Adı</label>
+                    @Html.TextBoxFor(x => x.tatli_ad, new { @class = "form-control", @id = "tatli_ad", style = "width: 350px;" })
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label for="tatli_resmi" class="form-label">Tatli Resmi</label>
+                    <input type="file" class="form-control" id="tatli_resmi" name="tatli_resmi" style="width: 350px;" accept="image/*">
+                </div>
+                <br />
+                <div class="mt-3">
+                    <img id="selectedImage" src="#" alt="Seçilen Resim" style="display: none; max-width: 350px; max-height: 300px;">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="mb-3">
+                    <label for="tatli_aciklama" class="form-label">Tatlı İçerik</label>
+                    @Html.TextAreaFor(x => x.tatli_aciklama, new { @class = "form-control", @id = "tatli_aciklama", style = "width: 600px;height: 200px;", rows = "5" })
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label for="tatli_malzemeler" class="form-label">Tatlı Malzemeler</label>
+                    @Html.TextAreaFor(x => x.tatli_malzemeler, new { @class = "form-control", @id = "tatli_malzemeler", style = "width: 600px;height: 200px;", rows = "5" })
+                </div>
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                <div class="form-group">
+                    <label for="tatli_kategori_id" class="control-label">Kategori</label>
+                    @Html.DropDownListFor(i => i.tatli_kategori.tatli_kategori_id, (IEnumerable<SelectListItem>)ViewBag.dgr, new { @class = "form-control", style = "width: 350px;" })
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label for="tatli_yapilis" class="form-label">Tatlı Yapılış</label>
+                    @Html.TextAreaFor(x => x.tatli_yapilis, new { @class = "form-control", @id = "tatli_yapilis", style = "width: 600px;height: 200px;", rows = "5" })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="mb-3">
+                    <label for="tatli_puan" class="form-label">Tatlı Puanı</label>
+                    @Html.TextBoxFor(x => x.tatli_puan, new { @class = "form-control", @id = "tatli_puan", style = "width: 350px;" })
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label for="tatli_fiyat" class="form-label">Tatlı Fiyatı</label>
+                    @Html.TextBoxFor(x => x.tatli_fiyat, new { @class = "form-control", @id = "tatli_fiyat", style = "width: 350px;" })
+                </div>
+            </td>
+        </tr>
+        
+
+    </table>
+    <button class="btn btn-info" style="width: 350px;">Tatlı Ekle</button>
+
+
+    <br />
+
+
+
+
+
+
+
+
+
+
+    <br />
+
+</form>
+
+<script>
+    document.getElementById('tatli_resmi').addEventListener('change', function (event) {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const image = document.getElementById('selectedImage');
+                image.src = e.target.result;
+                image.style.display = 'block';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    });
+</script>
+

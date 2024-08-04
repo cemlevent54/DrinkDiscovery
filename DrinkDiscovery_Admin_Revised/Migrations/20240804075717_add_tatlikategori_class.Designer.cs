@@ -4,6 +4,7 @@ using DrinkDiscovery_Admin_Revised.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrinkDiscovery_Admin_Revised.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240804075717_add_tatlikategori_class")]
+    partial class add_tatlikategori_class
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,8 +188,8 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.Property<float?>("tatli_puan")
                         .HasColumnType("real");
 
-                    b.Property<byte[]>("tatli_resim")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("tatli_resim")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("tatli_yapilis")
                         .HasColumnType("nvarchar(max)");

@@ -17,6 +17,9 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public IQueryable<Yorumlars> Yorumlar => context.Yorumlar;
         public IQueryable<IcecekKategoris> IcecekKategoriler => context.IcecekKategoriler;
         public IQueryable<UrunKategoris> UrunKategoriler => context.UrunKategoriler;
+        public IQueryable<Tatlilars> Tatlilar => context.Tatlilar;
+        public IQueryable<TatlilarKategoris> TatlilarKategoriler => context.TatlilarKategoriler;
+
 
         public void Add<T>(T entity) where T : class
         {

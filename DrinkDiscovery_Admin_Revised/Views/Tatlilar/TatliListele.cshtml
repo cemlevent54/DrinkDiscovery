@@ -1,0 +1,60 @@
+﻿@model IEnumerable<DrinkDiscovery_Admin_Revised.Models.Tatlilars>
+@using DrinkDiscovery_Admin_Revised.Models
+@{
+    ViewData["Title"] = "TatliListele";
+}
+
+<h1>Tatli Listele</h1>
+
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Tatlı ID</th>
+            <th>Tatlı Adı</th>
+            <th>Tatlı Kategorisi</th>
+            <th>Tatlı Resmi</th>
+            <th>Tatlı Açıklama</th>
+            <th>Tatlı Fiyatı</th>
+            <th>Tatlı Puanı</th>
+            <th>Tatlı Malzemeleri</th>
+            <th>Tatlı Sil</th>
+            <th>Tatlı Düzenle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.tatli_id</td>
+                <td>@item.tatli_ad</td>
+                <td>@item.tatli_kategori.tatli_kategori_ad</td>
+                <td>
+                    <img src="@Url.Action("GetImage", "Tatlilar", new { id = item.tatli_id })" style="width:100px;height:100px;" />
+                </td>
+                <td>@item.tatli_aciklama</td>
+                <td>@item.tatli_fiyat</td>
+                <td>@item.tatli_puan</td>
+                <td>@item.tatli_malzemeler</td>
+                <td>
+                    <a href="@Url.Action("TatliSil", "Tatlilar", new { id = item.tatli_id })" class="btn btn-danger" onclick="confirmDeletion('@Url.Action("Delete", "Tatli", new { id = item.tatli_id })')">Sil</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("TatliDuzenle", "Tatlilar", new { id = item.tatli_id })" class="btn btn-primary">Düzenle</a>
+                </td>
+            </tr>
+        }
+</table>
+
+<!-- JavaScript -->
+<script src="~/js/site.js"></script>
+
+<script type="text/javascript">
+    function confirmDeletion(url) {
+        if (confirm("Gerçekten silmek istiyor musunuz?")) {
+            window.location.href = url;
+        }
+    }
+</script>
+
+
