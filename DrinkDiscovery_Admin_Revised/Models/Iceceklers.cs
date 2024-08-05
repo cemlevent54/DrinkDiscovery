@@ -13,6 +13,7 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public string icecek_yapilis { get; set; }
         public string icecek_malzemeler { get; set; }
         public float icecek_puan { get; set; }
+        public bool? haftanin_icecegi { get; set; }
         public IList<Yorumlars>? icecek_yorumlar { get; set; }
 
 

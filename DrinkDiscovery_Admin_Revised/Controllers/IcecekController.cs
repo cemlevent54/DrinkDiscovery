@@ -189,5 +189,16 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
 
             return RedirectToAction("IcecekListele");
         }
+
+        [HttpGet]
+        public IActionResult HaftaninIcecekleriBelirle()
+        {
+            var haftaninIcecekleri = repository.Icecekler
+                .Include(h => h.icecek_kategori)
+                .ToList();
+
+            return View(haftaninIcecekleri);
+
+        }
     }
 }

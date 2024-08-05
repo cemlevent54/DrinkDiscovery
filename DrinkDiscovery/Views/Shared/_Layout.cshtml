@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@model HomeViewModel
+@using DrinkDiscovery.Models
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -27,16 +30,38 @@
                                 İçecekler
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Page 1-1</a></li>
-                                <li><a class="dropdown-item" href="#">Page 1-2</a></li>
-                                <li><a class="dropdown-item" href="#">Page 1-3</a></li>
+                                @foreach (var icecek in Model.IcecekKategoriler)
+                                {
+                                    <li><a class="dropdown-item" href="#">@icecek.IcecekKategoriAd</a></li>
+                                }  
                             </ul>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Ürünler</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Tatlılar
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach (var product in Model.TatlilarKategoriler)
+                                {
+                                <li><a class="dropdown-item" href="#">@product.TatliKategoriAd</a></li>
+                                } 
+                            </ul>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                                Ürünler
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                                @foreach (var product in Model.UrunKategoriler)
+                                {
+                                    <li><a class="dropdown-item" href="#">@product.UrunKategoriAd</a></li>
+                                }
+                            </ul>
+                        </li>
+                        
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Hakkımızda</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Hakkımızda</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">İletişim</a>

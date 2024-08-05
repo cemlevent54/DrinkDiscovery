@@ -7,15 +7,30 @@ namespace DrinkDiscovery.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        public IRepository repository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IRepository _repository)
         {
             _logger = logger;
+            repository= _repository;
         }
 
         public IActionResult Index()
         {
-            return View();
+            // ViewModel'i olustur
+            var viewModel = new HomeViewModel
+            {
+                // ilgili verileri repository'den al ve ViewModel'e ekle
+                IcecekKategoriler = repository.GetIcecekKategoriler(),
+                TatlilarKategoriler = repository.GetTatlilarKategoriler(),
+                UrunKategoriler = repository.GetUrunKategoriler(),
+                HaftaninIcecekleri = repository.GetHaftaninIcecekleri(),
+                Urunler = repository.GetUrunler()
+            };
+
+            var v = viewModel;
+            // View'e ViewModel'i geçir
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
@@ -28,5 +43,7 @@ namespace DrinkDiscovery.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        
     }
 }
