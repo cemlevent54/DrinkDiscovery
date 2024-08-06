@@ -190,15 +190,49 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
             return RedirectToAction("IcecekListele");
         }
 
-        [HttpGet]
-        public IActionResult HaftaninIcecekleriBelirle()
+        public IActionResult HaftaninIcecekleriListele()
         {
-            var haftaninIcecekleri = repository.Icecekler
-                .Include(h => h.icecek_kategori)
-                .ToList();
+            var degerler = repository.Icecekler
+                                     .Include(i => i.icecek_kategori)
+                                     .ToList();
+            return View(degerler);
+        }
+        
+        public IActionResult HaftaninIcecekleriBelirle(int id)
+        {
+            // eger secili icecek sayisi 4'ten fazla ise hata verdir
+            var haftaninIcecekleri = repository.Icecekler.Where(i => i.haftanin_icecegi == true).ToList();
+            if (haftaninIcecekleri.Count >= 3)
+            {
+                TempData["ErrorMessage"] = "Seçili içecek sayısı 3'ten fazla olamaz.";
+                return RedirectToAction("HaftaninIcecekleriListele");
+            }
 
-            return View(haftaninIcecekleri);
+            var icecek = repository.Icecekler.FirstOrDefault(i => i.icecek_id == id);
+            if (icecek != null)
+            {
+                icecek.haftanin_icecegi = true;
+                repository.SaveChanges();
+            }
+            
+            return RedirectToAction("HaftaninIcecekleriListele");
 
         }
+
+        
+        
+        public IActionResult HaftaninIcecekleriKaldir(int id)
+        {
+            var icecek = repository.Icecekler.FirstOrDefault(i => i.icecek_id == id);
+            if (icecek != null)
+            {
+                icecek.haftanin_icecegi = false;
+                repository.SaveChanges();
+            }
+
+            return RedirectToAction("HaftaninIcecekleriListele");
+        }
+
+        
     }
 }

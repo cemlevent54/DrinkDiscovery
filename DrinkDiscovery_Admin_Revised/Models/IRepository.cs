@@ -20,6 +20,7 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public void Add<T>(T entity) where T : class;
         void Update<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
+        //void UpdateBool<T>(T entity) where T : class;
         void SaveChanges();
         void DeleteAll();
         IQueryable<T> Find<T>(Expression<Func<T, bool>> predicate) where T : class;

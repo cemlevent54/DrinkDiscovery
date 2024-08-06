@@ -182,23 +182,23 @@
     <div class="row">
         @foreach(var haftaninicecek in Model.HaftaninIcecekleri)
         {
-            <div class="col-md-3 col-sm-5">
-                <div class="card card-block" style="text-align:center;justify-content:center;">
-                    @* <img src="@Url.Action("GetImage", "Icecek", new { id = item.icecek_id })" style="width:100px;height:100px;" /> *@
-                    <img src="@Url.Action("GetImage", "Icecek", new { id = haftaninicecek.IcecekId })">
-                    <div class="card-body" style="display:flex;flex-direction:column;">
-                        <h5 class="card-title mt-3 mb-3">@haftaninicecek.IcecekAd</h5>
-                        @* <p class="card-text">Açıklama</p> *@
-                        <p> @haftaninicecek.IcecekFiyat TL </p>
-                        @* <a href="#" class="btn btn-primary">Sepete Ekle</a> *@
+            if(haftaninicecek.HaftaninIcecegi == true)
+            {
+                <div class="col-md-3 col-sm-5">
+                    <div class="card card-block" style="text-align:center;justify-content:center;" onclick="location.href='@Url.Action("IcecekDetay", "Icecek", new { id = haftaninicecek.IcecekId })'" style="cursor:pointer;">
+                        @* <img src="@Url.Action("GetImage", "Icecek", new { id = item.icecek_id })" style="width:100px;height:100px;" /> *@
+                        <img src="@Url.Action("GetImage", "Icecek", new { id = haftaninicecek.IcecekId })">
+                        <div class="card-body" style="display:flex;flex-direction:column;">
+                            <h5 class="card-title mt-3 mb-3">@haftaninicecek.IcecekAd</h5>
+                            @* <p class="card-text">Açıklama</p> *@
+                            <p> @haftaninicecek.IcecekFiyat TL </p>
+                            @* <a href="#" class="btn btn-primary">Sepete Ekle</a> *@
 
-
-
-
-
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
+            
         }
         
         @* <div class="col-md-3 col-sm-6">

@@ -1,0 +1,21 @@
+﻿@* @model DrinkDiscovery.Models.HomeViewModel
+@{
+    ViewData["Title"] = "IcecekDetay";
+    var selectedIcecek = Model.Icecekler.FirstOrDefault(i => i.IcecekId == ViewBag.SelectedIcecekId);
+    var selectedIcecekKategori = ViewBag.SelectedIcecekKategoriId;
+}
+
+<h1>Icecek Detay</h1>
+
+@if (selectedIcecek != null)
+{
+    <div>
+        <b>Icecek id:</b> @selectedIcecek.IcecekId
+    </div>
+}
+else
+{
+    <div>
+        <b>Icecek bulunamadı</b>
+    </div>
+} *@

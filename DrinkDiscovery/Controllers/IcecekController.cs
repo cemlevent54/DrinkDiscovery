@@ -1,5 +1,6 @@
 ﻿using DrinkDiscovery.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
 
 namespace DrinkDiscovery.Controllers
 {
@@ -23,6 +24,19 @@ namespace DrinkDiscovery.Controllers
                 return File(icecek.IcecekResim, "image/jpeg");
             }
             return NotFound();
+        }
+
+        public IActionResult IcecekDetay(int id)
+        {
+            var model = new HomeViewModel
+            {
+                Icecekler = repository.Icecekler
+            };
+
+            ViewBag.SelectedIcecekId = id;
+            ViewBag.SelectedIcecekKategoriId = repository.Icecekler.FirstOrDefault(i => i.IcecekId == id)?.IcecekKategoriId;
+            var x = 5;
+            return View(model);
         }
     }
 }
