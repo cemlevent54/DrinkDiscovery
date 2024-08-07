@@ -1,21 +1,53 @@
-﻿@* @model DrinkDiscovery.Models.HomeViewModel
+﻿@model DrinkDiscovery.Models.HomeViewModel
 @{
     ViewData["Title"] = "IcecekDetay";
-    var selectedIcecek = Model.Icecekler.FirstOrDefault(i => i.IcecekId == ViewBag.SelectedIcecekId);
-    var selectedIcecekKategori = ViewBag.SelectedIcecekKategoriId;
+    var selectedBeverage = ViewBag.SelectedBeverage;
+    var selectedBeverageCategory = ViewBag.SelectedBeverageCategory;
 }
 
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+</style>
 <h1>Icecek Detay</h1>
 
-@if (selectedIcecek != null)
-{
-    <div>
-        <b>Icecek id:</b> @selectedIcecek.IcecekId
-    </div>
-}
-else
-{
-    <div>
-        <b>Icecek bulunamadı</b>
-    </div>
-} *@
+
+<table class="table table-borderless">
+    <tr>
+        <td>
+            <img id="selectedImage" src="@Url.Action("GetImage", "Icecek", new { id = selectedBeverage.IcecekId })" style="width:800px;height:400px;" alt="İçecek Resmi"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h2>@selectedBeverage.IcecekAd</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h5> @selectedBeverage.IcecekFiyat TL </h5>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Malzemeler: </b> @selectedBeverage.IcecekMalzemeler</p>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Yapılış: </b> @selectedBeverage.IcecekYapilis</p>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Puan: </b> @selectedBeverage.IcecekPuan</p>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Kategori: </b> @selectedBeverageCategory.IcecekKategoriAd</p>
+        </td>
+    </tr>
+
+</table>

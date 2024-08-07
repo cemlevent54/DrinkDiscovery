@@ -202,9 +202,9 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
         {
             // eger secili icecek sayisi 4'ten fazla ise hata verdir
             var haftaninIcecekleri = repository.Icecekler.Where(i => i.haftanin_icecegi == true).ToList();
-            if (haftaninIcecekleri.Count >= 3)
+            if (haftaninIcecekleri.Count >= 4)
             {
-                TempData["ErrorMessage"] = "Seçili içecek sayısı 3'ten fazla olamaz.";
+                TempData["ErrorMessage"] = "Seçili içecek sayısı 4'ten fazla olamaz.";
                 return RedirectToAction("HaftaninIcecekleriListele");
             }
 

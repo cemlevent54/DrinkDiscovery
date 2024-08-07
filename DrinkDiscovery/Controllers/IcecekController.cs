@@ -1,5 +1,6 @@
 ﻿using DrinkDiscovery.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Web;
 
 namespace DrinkDiscovery.Controllers
@@ -25,17 +26,27 @@ namespace DrinkDiscovery.Controllers
             }
             return NotFound();
         }
+        
+
+
 
         public IActionResult IcecekDetay(int id)
         {
-            var model = new HomeViewModel
-            {
-                Icecekler = repository.Icecekler
-            };
+            var selectedBeverage = repository.Icecekler
+                                       .Include(i => i.IcecekKategori) // Ensure you include the related category
+                                       .FirstOrDefault(i => i.IcecekId == id);
 
-            ViewBag.SelectedIcecekId = id;
-            ViewBag.SelectedIcecekKategoriId = repository.Icecekler.FirstOrDefault(i => i.IcecekId == id)?.IcecekKategoriId;
-            var x = 5;
+            ViewBag.SelectedBeverage = selectedBeverage;
+            ViewBag.SelectedBeverageCategory = selectedBeverage?.IcecekKategori;
+
+            var model = new HomeViewModel(repository);
+            //{
+            //    Icecekler = repository.Icecekler,
+            //    IcecekKategoriler = repository.IcecekKategoriler,
+            //    TatlilarKategoriler = repository.TatlilarKategoriler,
+            //    UrunKategoriler = repository.UrunKategoriler,
+            //};
+
             return View(model);
         }
     }

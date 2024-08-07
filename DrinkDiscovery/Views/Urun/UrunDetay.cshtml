@@ -1,0 +1,56 @@
+﻿@model DrinkDiscovery.Models.HomeViewModel
+@{
+    ViewData["Title"] = "UrunDetay";
+    var selectedProduct = ViewBag.selectedProduct;
+    var selectedProductCategory = ViewBag.selectedProductCategory;
+}
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+</style>
+
+<h1>Ürün Detay</h1>
+
+<table class="table table-borderless">
+    <tr>
+        <td>
+            <img id="selectedImage" src="@Url.Action("GetImage", "Urun", new { id = selectedProduct.UrunId })" style="width:800px;height:400px;" alt="Ürün Resmi" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h2>@selectedProduct.UrunAd</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h5> @selectedProduct.UrunFiyat TL </h5>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Ürün İçerik: </b> @selectedProduct.UrunIcerik</p>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Malzemeler: </b> @selectedProduct.UrunMalzemeler</p>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Puan: </b> @selectedProduct.UrunPuan</p>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Kategori: </b> @selectedProductCategory.UrunKategoriAd</p>
+        </td>
+    </tr>
+
+</table>
+
+
+
+

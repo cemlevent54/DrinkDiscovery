@@ -13,6 +13,9 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public float? tatli_puan { get; set; }
         public string? tatli_malzemeler { get; set; }
         public string? tatli_yapilis { get; set; }
+
+        public bool display { get; set; }
+
         public IList<Yorumlars>? tatli_yorumlar { get; set; }
         public TatlilarKategoris? tatli_kategori { get; set; }
 

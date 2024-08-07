@@ -185,6 +185,55 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
 
             return RedirectToAction("TatliListele");
         }
+        public IActionResult AnasayfaTatliListele()
+        {
+            var degerler = repository.Tatlilar
+                                     .Include(i => i.tatli_kategori)
+                                     .ToList();
+            return View(degerler);
 
+
+        }
+
+        public IActionResult AnasayfaTatliEkle(int id)
+        {
+            // eger secili icecek sayisi 4'ten fazla ise hata verdir
+            var displayTatli = repository.Tatlilar.Where(i => i.display == true).ToList();
+            if (displayTatli.Count >= 4)
+            {
+                TempData["ErrorMessage"] = "Seçili tatlı sayısı 4'ten fazla olamaz.";
+                return RedirectToAction("AnasayfaTatliListele");
+            }
+
+            var tatli = repository.Tatlilar.FirstOrDefault(i => i.tatli_id == id);
+            if (tatli != null)
+            {
+                tatli.display = true;
+                repository.SaveChanges();
+            }
+
+            return RedirectToAction("AnasayfaTatliListele");
+
+        }
+
+        public IActionResult AnasayfaTatliSil(int id)
+        {
+            // eger secili icecek sayisi 4'ten az ise hata verdir
+            var displayTatli = repository.Tatlilar.Where(i => i.display == true).ToList();
+            if (displayTatli.Count <= 4)
+            {
+                TempData["ErrorMessage"] = "Seçili tatlı sayısı 4'ten az olamaz.";
+                return RedirectToAction("AnasayfaTatliListele");
+            }
+
+            var tatli = repository.Tatlilar.FirstOrDefault(i => i.tatli_id == id);
+            if (tatli != null)
+            {
+                tatli.display = true;
+                repository.SaveChanges();
+            }
+
+            return RedirectToAction("AnasayfaTatliListele");
+        }
     }
 }

@@ -23,6 +23,8 @@ public partial class Urunler
 
     public int ProductCatId { get; set; }
 
+    public bool DisplaySlider { get; set; }
+
     public virtual UrunKategoriler? UrunKategori { get; set; }
 
     public virtual ICollection<Yorumlar> Yorumlars { get; set; } = new List<Yorumlar>();

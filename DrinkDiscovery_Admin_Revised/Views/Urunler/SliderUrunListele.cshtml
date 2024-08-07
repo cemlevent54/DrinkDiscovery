@@ -1,0 +1,74 @@
+﻿@using DrinkDiscovery_Admin_Revised.Models
+@model IEnumerable<DrinkDiscovery_Admin_Revised.Models.Urunlers>
+
+@{
+    ViewData["Title"] = "SliderUrunListele";
+}
+
+<h1>Sliderda Display Edilecek Ürünleri Listele</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+<style>
+    .selected {
+        background-color: #99ff99;
+    }
+</style>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Ürün Adı</th>
+            <th>Ürün Kategorisi</th>
+            <th>Ürün Resmi</th>
+            <th>Ürün Puanı</th>
+            <th>Ürün Fiyatı</th>
+            <th>Sliderda Göster</th>
+            <th>Sliderdan Kaldır</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr class="@((bool)item.display_slider ? "selected" : "")">
+                <td>@item.urun_ad</td>
+                <td>@item.urun_kategori.urun_kategori_ad</td>
+                <td>
+                    <img src="@Url.Action("GetImage", "Urunler", new { id = item.urun_id })" style="width:100px;height:100px;" />
+                </td>
+                <td>@item.urun_puan</td>
+                <td>@item.urun_fiyat</td>
+                <td>
+                    <a href="@Url.Action("SliderUrunEkle", "Urunler", new { id = item.urun_id })" class="btn btn-light">
+                        <img src="~/images/checkedicon.png" style="width:30px;height:30px;">
+
+                    </a>
+                </td>
+                <td>
+                    <a href="@Url.Action("SliderUrunSil", "Urunler", new { id = item.urun_id })" class="btn btn-light">
+                        <img src="~/images/cancel.png" style="width:30px;height:30px;">
+
+                    </a>
+                </td>
+
+            </tr>
+
+        }
+</table>
+
+<!-- JavaScript -->
+<script src="~/js/site.js"></script>
+
+<script type="text/javascript">
+
+    function confirmDeletion(url) {
+        if (confirm("Gerçekten silmek istiyor musunuz?")) {
+            window.location.href = url;
+        }
+    }
+</script>

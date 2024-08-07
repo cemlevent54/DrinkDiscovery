@@ -18,15 +18,15 @@ namespace DrinkDiscovery.Controllers
         public IActionResult Index()
         {
             // ViewModel'i olustur
-            var viewModel = new HomeViewModel
-            {
-                // ilgili verileri repository'den al ve ViewModel'e ekle
-                IcecekKategoriler = repository.GetIcecekKategoriler(),
-                TatlilarKategoriler = repository.GetTatlilarKategoriler(),
-                UrunKategoriler = repository.GetUrunKategoriler(),
-                HaftaninIcecekleri = repository.GetHaftaninIcecekleri(),
-                Urunler = repository.GetUrunler()
-            };
+            var viewModel = new HomeViewModel(repository);
+            //{
+            //    // ilgili verileri repository'den al ve ViewModel'e ekle
+            //    IcecekKategoriler = repository.GetIcecekKategoriler(),
+            //    TatlilarKategoriler = repository.GetTatlilarKategoriler(),
+            //    UrunKategoriler = repository.GetUrunKategoriler(),
+            //    HaftaninIcecekleri = repository.GetHaftaninIcecekleri(),
+            //    Urunler = repository.GetUrunler()
+            //};
 
             var v = viewModel;
             // View'e ViewModel'i geçir

@@ -1,5 +1,7 @@
 ﻿using DrinkDiscovery.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace DrinkDiscovery.Controllers
 {
@@ -24,6 +26,21 @@ namespace DrinkDiscovery.Controllers
                 return File(urun.UrunResim, "image/jpeg");
             }
             return NotFound();
+        }
+
+        public IActionResult UrunDetay(int id)
+        {
+            var selectedProduct = repository.Urunler
+                                       .Include(i => i.UrunKategori) // Ensure you include the related category
+                                       .FirstOrDefault(i => i.UrunId == id);
+
+            ViewBag.selectedProduct = selectedProduct;
+            ViewBag.selectedProductCategory = selectedProduct?.UrunKategori;
+
+            var model = new HomeViewModel(repository);
+            
+
+            return View(model);
         }
     }
 }

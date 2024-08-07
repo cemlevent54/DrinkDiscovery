@@ -23,6 +23,8 @@ public partial class Tatlilar
 
     public byte[]? TatliResim { get; set; }
 
+    public bool Display { get; set; }
+
     public virtual TatlilarKategoriler? TatliKategori { get; set; }
 
     public virtual ICollection<Yorumlar> Yorumlars { get; set; } = new List<Yorumlar>();

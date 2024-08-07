@@ -2,6 +2,7 @@
 using DrinkDiscovery_Admin_Revised.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 
 namespace DrinkDiscovery_Admin_Revised.Controllers
 {
@@ -183,6 +184,54 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
             return RedirectToAction("UrunGoruntule");
         }
 
+        public IActionResult SliderUrunListele()
+        {
+            var degerler = repository.Urunler
+                                     .Include(i => i.urun_kategori)
+                                     .ToList();
+            return View(degerler);
+
+
+        }
+
+        public IActionResult SliderUrunEkle(int id)
+        {
+            // eger secili icecek sayisi 4'ten fazla ise hata verdir
+            var sliderUrun = repository.Urunler.Where(i => i.display_slider == true).ToList();
+            if (sliderUrun.Count >= 4)
+            {
+                TempData["ErrorMessage"] = "Seçili içecek sayısı 4'ten fazla olamaz.";
+                return RedirectToAction("SliderUrunListele");
+            }
+
+            var urun = repository.Urunler.FirstOrDefault(i => i.urun_id == id);
+            if (urun != null)
+            {
+                urun.display_slider = true;
+                repository.SaveChanges();
+            }
+
+            return RedirectToAction("SliderUrunListele");
+
+        }
+
+        public IActionResult SliderUrunSil(int id)
+        {
+            var sliderUrun = repository.Urunler.Where(i => i.display_slider == true).ToList();
+            if (sliderUrun.Count <= 4)
+            {
+                TempData["ErrorMessage"] = "Seçili içecek sayısı 4'ten az olamaz.";
+                return RedirectToAction("SliderUrunListele");
+            }
+            var urun = repository.Urunler.FirstOrDefault(i => i.urun_id == id);
+            if (urun != null)
+            {
+                urun.display_slider = false;
+                repository.SaveChanges();
+            }
+
+            return RedirectToAction("SliderUrunListele");
+        }
 
 
     }

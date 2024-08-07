@@ -144,8 +144,11 @@
         }
         @foreach (var item in Model.Urunler)
         {
-            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="@indicatorIndex" class="@(indicatorIndex == 0 ? "active" : "")" aria-current="true" aria-label="Slide @(indicatorIndex + 1)"></button>
-            indicatorIndex++;
+            if (item.DisplaySlider)
+            {
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="@indicatorIndex" class="@(indicatorIndex == 0 ? "active" : "")" aria-current="true" aria-label="Slide @(indicatorIndex + 1)"></button>
+                indicatorIndex++;
+            }
         }
     </div>
     <div class="carousel-inner">
@@ -154,14 +157,19 @@
         }
         @foreach (var item in Model.Urunler)
         {
-            <div class="carousel-item @(itemIndex == 0 ? "active" : "")" data-bs-interval="2000">
-                <img src="@Url.Action("GetImage", "Urun", new { id = item.UrunId })" class="d-block w-100" alt="@item.UrunAd">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>@item.UrunAd</h5>
-                    <p>@item.UrunIcerik</p>
+            if (item.DisplaySlider)
+            {
+                <div class="carousel-item @(itemIndex == 0 ? "active" : "")" data-bs-interval="2000">
+                    <a href="@Url.Action("UrunDetay", "Urun", new { id = item.UrunId })">
+                        <img src="@Url.Action("GetImage", "Urun", new { id = item.UrunId })" class="d-block w-100" alt="@item.UrunAd">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>@item.UrunAd</h5>
+                            <p>@item.UrunIcerik</p>
+                        </div>
+                    </a>
                 </div>
-            </div>
-            itemIndex++;
+                itemIndex++;
+            }
         }
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -173,6 +181,8 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+
+
 
 
 
