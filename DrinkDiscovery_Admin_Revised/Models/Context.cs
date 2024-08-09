@@ -7,7 +7,8 @@ namespace DrinkDiscovery_Admin_Revised.Models
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-0PCHDQV;Initial Catalog=DrinkDiscovery_Admin;Integrated Security=True;Encrypt=False");
+            // sql server changed
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-5T6VOVK;Initial Catalog=DrinkDiscovery_Admin;Integrated Security=True;Encrypt=False");
         }
 
         public DbSet<Iceceklers> Icecekler { get; set; }
