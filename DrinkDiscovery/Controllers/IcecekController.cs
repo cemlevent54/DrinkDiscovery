@@ -40,6 +40,7 @@ namespace DrinkDiscovery.Controllers
             ViewBag.SelectedBeverageCategory = selectedBeverage?.IcecekKategori;
 
             var model = new HomeViewModel(repository);
+            //
             //{
             //    Icecekler = repository.Icecekler,
             //    IcecekKategoriler = repository.IcecekKategoriler,

@@ -1,5 +1,6 @@
 ﻿using DrinkDiscovery.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DrinkDiscovery.Controllers
 {
@@ -18,6 +19,7 @@ namespace DrinkDiscovery.Controllers
         public IActionResult Icecekler(int kategoriId)
         {
             var model = new HomeViewModel(repository);
+            //
             
             // kategoriId'ye göre filtreleme yap
             if (kategoriId != 0)
@@ -26,6 +28,20 @@ namespace DrinkDiscovery.Controllers
             }
             return View(model);
 
+        }
+
+        public IActionResult Search(string search)
+        {
+            //// If search string is empty or null, return all beverages
+            //var icecekler = string.IsNullOrEmpty(search)
+            //    ? repository.Icecekler.ToList()
+            //    : repository.Icecekler
+            //        .Where(i => i.IcecekAd.Contains(search))
+            //        .ToList();
+
+            //return View("Icecekler", icecekler); // Replace "YourViewName" with the actual view name
+
+            return View();
         }
     }
 }

@@ -38,6 +38,7 @@ namespace DrinkDiscovery.Controllers
             ViewBag.selectedProductCategory = selectedProduct?.UrunKategori;
 
             var model = new HomeViewModel(repository);
+            //
             
 
             return View(model);

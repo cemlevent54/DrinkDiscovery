@@ -3,13 +3,13 @@
     public class HomeViewModel
     {
         private IRepository repository;
-        public IEnumerable<DrinkDiscovery.Models.UrunKategoriler> UrunKategoriler { get; set; }
-        public IEnumerable<DrinkDiscovery.Models.IcecekKategoriler> IcecekKategoriler { get; set; }
-        public IEnumerable<DrinkDiscovery.Models.TatlilarKategoriler> TatlilarKategoriler { get; set; }
-        public IEnumerable<DrinkDiscovery.Models.Icecekler> HaftaninIcecekleri { get; set; }
-        public IEnumerable<DrinkDiscovery.Models.Urunler> Urunler { get; set; }
-        public IEnumerable<DrinkDiscovery.Models.Icecekler> Icecekler { get; set; }
-        public IEnumerable<DrinkDiscovery.Models.Tatlilar> Tatlilar { get; set; }
+        public IQueryable<DrinkDiscovery.Models.UrunKategoriler> UrunKategoriler { get; set; }
+        public IQueryable<DrinkDiscovery.Models.IcecekKategoriler> IcecekKategoriler { get; set; }
+        public IQueryable<DrinkDiscovery.Models.TatlilarKategoriler> TatlilarKategoriler { get; set; }
+        public IQueryable<DrinkDiscovery.Models.Icecekler> HaftaninIcecekleri { get; set; }
+        public IQueryable<DrinkDiscovery.Models.Urunler> Urunler { get; set; }
+        public IQueryable<DrinkDiscovery.Models.Icecekler> Icecekler { get; set; }
+        public IQueryable<DrinkDiscovery.Models.Tatlilar> Tatlilar { get; set; }
 
         public HomeViewModel(IRepository repository)
         {

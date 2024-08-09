@@ -42,9 +42,10 @@
                                 Tatlılar
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @foreach (var product in Model.TatlilarKategoriler)
+                                @foreach (var tatli in Model.TatlilarKategoriler)
                                 {
-                                <li><a class="dropdown-item" href="#">@product.TatliKategoriAd</a></li>
+
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="TatliKategori" asp-action="Tatlilar" asp-route-kategoriId="@tatli.TatliKategoriId">@tatli.TatliKategoriAd</a></li>
                                 } 
                             </ul>
                         </li>
@@ -56,7 +57,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
                                 @foreach (var product in Model.UrunKategoriler)
                                 {
-                                    <li><a class="dropdown-item"  asp-area="" asp-controller="Home" asp-action="Privacy">@product.UrunKategoriAd</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="UrunKategori" asp-action="Urunler" asp-route-kategoriId="@product.UrunKategoriId">@product.UrunKategoriAd</a></li>
                                 }
                             </ul>
                         </li>
@@ -71,8 +72,8 @@
 
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <form class="d-flex me-3">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="max-width:300px">
+                            <form class="d-flex" action="@Url.Action("Search", "Home")" method="get" style="width: 100%; justify-content: flex-end;">
+                                <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" style="max-width: 300px;">
                                 <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
                             </form>
                         </li>

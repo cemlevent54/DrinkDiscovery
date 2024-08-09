@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using NuGet.Versioning;
 
 namespace DrinkDiscovery_Admin_Revised.Controllers
@@ -18,6 +19,19 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
         {
             return View();
         }
+
+        public IActionResult Search(string search)
+        {
+            // İçcek adına göre arama
+            var icecekler = repository.Icecekler
+                .Include(i => i.icecek_kategori) // Include the related category if needed
+                .Where(i => i.icecek_ad.StartsWith(search) || string.IsNullOrEmpty(search))
+                .ToList();
+
+            return View("IcecekListele", icecekler);
+        }
+
+
         public IActionResult GetImage(int id)
         {
             var icecek = repository.Icecekler.FirstOrDefault(i => i.icecek_id == id);
@@ -144,7 +158,7 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
             icecek.icecek_fiyat = model.icecek_fiyat;
 
             // model nesnesinde icecek_kategori var mi kontrol et
-            
+
             if (model.icecek_kategori != null)
             {
 
@@ -197,7 +211,7 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
                                      .ToList();
             return View(degerler);
         }
-        
+
         public IActionResult HaftaninIcecekleriBelirle(int id)
         {
             // eger secili icecek sayisi 4'ten fazla ise hata verdir
@@ -214,13 +228,13 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
                 icecek.haftanin_icecegi = true;
                 repository.SaveChanges();
             }
-            
+
             return RedirectToAction("HaftaninIcecekleriListele");
 
         }
 
-        
-        
+
+
         public IActionResult HaftaninIcecekleriKaldir(int id)
         {
             var icecek = repository.Icecekler.FirstOrDefault(i => i.icecek_id == id);
@@ -233,6 +247,6 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
             return RedirectToAction("HaftaninIcecekleriListele");
         }
 
-        
+
     }
 }

@@ -17,6 +17,16 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
         {
             return View();
         }
+        public IActionResult Search(string search)
+        {
+            // İçcek adına göre arama
+            var urun = repository.Urunler
+                .Include(i => i.urun_kategori) // Include the related category if needed
+                .Where(i => i.urun_ad.StartsWith(search) || string.IsNullOrEmpty(search))
+                .ToList();
+
+            return View("UrunGoruntule", urun);
+        }
         public IActionResult GetImage(int id)
         {
             var urun = repository.Urunler.FirstOrDefault(i => i.urun_id == id);

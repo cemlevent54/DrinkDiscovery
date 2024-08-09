@@ -3,29 +3,32 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DrinkDiscovery.Controllers
 {
-    public class UrunKategoriController : Controller
+    public class TatliKategoriController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
+
         public IRepository repository { get; set; }
 
-        public UrunKategoriController(IRepository _repository)
+        public TatliKategoriController(IRepository repo)
         {
-            repository = _repository;
+            repository = repo;
         }
 
-        public IActionResult Urunler(int kategoriId)
+        public IActionResult Tatlilar(int kategoriId)
         {
             var model = new HomeViewModel(repository);
             //
+
             // kategoriId'ye göre filtreleme yap
             if (kategoriId != 0)
             {
-                model.Urunler = repository.Urunler.Where(i => i.UrunKategoriId == kategoriId);
+                model.Tatlilar = repository.Tatlilar.Where(i => i.TatliKategoriId == kategoriId);
             }
             return View(model);
+
         }
     }
 }

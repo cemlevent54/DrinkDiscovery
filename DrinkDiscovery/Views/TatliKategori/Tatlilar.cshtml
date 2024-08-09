@@ -1,8 +1,9 @@
-﻿@{
-    ViewData["Title"] = "Urunler";
+﻿
+@{
+    ViewData["Title"] = "Tatlilar";
 }
 
-<h1>Ürünler</h1>
+<h1>Tatlilar</h1>
 
 <style>
     #carouselExampleDark .carousel-inner img {
@@ -143,17 +144,18 @@
 
 <div class="container mt-2">
     <div class="row">
-        @foreach (var urun in Model.Urunler)
+        @foreach (var tatli in Model.Tatlilar)
         {
+
             <div class="col-md-3 col-sm-5">
-                <div class="card card-block" style="text-align:center;justify-content:center;" onclick="location.href='@Url.Action("UrunDetay", "Urun", new { id = urun.UrunId })'" style="cursor:pointer;">
+                <div class="card card-block" style="text-align:center;justify-content:center;" onclick="location.href='@Url.Action("IcecekDetay", "Tatli", new { id = tatli.TatliId })'" style="cursor:pointer;">
                     @* <img src="@Url.Action("GetImage", "Icecek", new { id = item.icecek_id })" style="width:100px;height:100px;" /> *@
-                    <img src="@Url.Action("GetImage", "Urun", new { id = urun.UrunId })">
+                    <img src="@Url.Action("GetImage", "Tatli", new { id = tatli.TatliId })">
                     <div class="card-body" style="display:flex;flex-direction:column;">
-                        <h5 class="card-title mt-3 mb-3">@urun.UrunAd</h5>
+                        <h5 class="card-title mt-3 mb-3">@tatli.TatliAd</h5>
                         @* <p class="card-text">Açıklama</p> *@
-                        <p> @urun.UrunFiyat TL </p>
-                        <a href="#" class="btn btn-primary">Sepete Ekle</a>
+                        <p> @tatli.TatliFiyat TL </p>
+                        @* <a href="#" class="btn btn-primary">Sepete Ekle</a> *@
 
                     </div>
                 </div>

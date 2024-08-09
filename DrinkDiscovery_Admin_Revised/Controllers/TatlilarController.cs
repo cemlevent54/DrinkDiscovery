@@ -28,7 +28,16 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
             }
             return NotFound();
         }
+        public IActionResult Search(string search)
+        {
+            // İçcek adına göre arama
+            var tatlilar = repository.Tatlilar
+                .Include(i => i.tatli_kategori) // Include the related category if needed
+                .Where(i => i.tatli_ad.StartsWith(search) || string.IsNullOrEmpty(search))
+                .ToList();
 
+            return View("TatliListele", tatlilar);
+        }
         public IActionResult TatliListele()
         {
             var tatlilar = repository.Tatlilar

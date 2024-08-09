@@ -1,0 +1,59 @@
+﻿@model DrinkDiscovery.Models.HomeViewModel
+@{
+    ViewData["Title"] = "TatliDetay";
+    var selectedSweet = ViewBag.SelectedSweet;
+    var selectedSweetCategory = ViewBag.SelectedSweetCategory;
+}
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+</style>
+
+<h1>Tatlı Detay</h1>
+
+
+<table class="table table-borderless">
+    <tr>
+        <td>
+            <img id="selectedImage" src="@Url.Action("GetImage", "Tatli", new { id = selectedSweet.TatliId })" style="width:800px;height:400px;" alt="Tatlı Resmi" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h2>@selectedSweet.TatliAd</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h5> @selectedSweet.TatliFiyat TL </h5>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Açıklama: </b> @selectedSweet.TatliAciklama</p>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Malzemeler: </b> @selectedSweet.TatliMalzemeler</p>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Yapılış: </b> @selectedSweet.TatliYapilis</p>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Puan: </b> @selectedSweet.TatliPuan</p>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Kategori: </b> @selectedSweetCategory.TatliKategoriAd</p>
+        </td>
+    </tr>
+
+</table>
