@@ -7,7 +7,7 @@ public partial class Kullanicilar
 {
     public int KullaniciId { get; set; }
 
-    public string KullaniciAd { get; set; } = null!;
+    public string KullaniciAd { get; set; } 
 
     public string KullaniciSoyad { get; set; } = null!;
 

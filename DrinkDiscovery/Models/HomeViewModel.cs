@@ -10,7 +10,12 @@
         public IQueryable<DrinkDiscovery.Models.Urunler> Urunler { get; set; }
         public IQueryable<DrinkDiscovery.Models.Icecekler> Icecekler { get; set; }
         public IQueryable<DrinkDiscovery.Models.Tatlilar> Tatlilar { get; set; }
+        public IQueryable<DrinkDiscovery.Models.Adminler> Adminler { get; set; }
+        public IQueryable<DrinkDiscovery.Models.Kullanicilar> Kullanicilar { get; set; }
 
+        public Kullanicilar Kullanicilar_ { get; set; }
+
+        
         public HomeViewModel(IRepository repository)
         {
             UrunKategoriler = repository.UrunKategoriler;
@@ -20,6 +25,9 @@
             Urunler = repository.Urunler;
             Icecekler = repository.Icecekler;
             Tatlilar = repository.Tatlilar;
+            Adminler = repository.Adminler;
+            Kullanicilar = repository.Kullanicilar;
+            Kullanicilar_ = new Kullanicilar();
         }
     }
 }

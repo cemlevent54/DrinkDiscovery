@@ -1,6 +1,8 @@
 using DrinkDiscovery.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DrinkDiscovery.Controllers
 {
@@ -48,6 +50,47 @@ namespace DrinkDiscovery.Controllers
         {
 
             return View();
+        }
+
+        public IActionResult Login()
+        {
+            var viewModel = new HomeViewModel(repository);
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult SignUp()
+        {
+            var viewModel = new HomeViewModel(repository);
+            return View(viewModel);
+        }
+
+        // burada kaldýk. bu fonksiyonu implement et
+        [HttpPost]
+        public async Task<IActionResult> SignUp (Kullanicilar yeni_kullanici,IFormFile kullanici_resmi)
+        {
+            HomeViewModel hvminstance = new HomeViewModel(repository);
+            try
+            {
+                
+                if (kullanici_resmi != null && kullanici_resmi.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await kullanici_resmi.CopyToAsync(memoryStream);
+                        yeni_kullanici.KullaniciFotograf = memoryStream.ToArray();
+                    }
+                }
+
+                await repository.AddAsync(yeni_kullanici);
+                await repository.SaveChangesAsync();
+                return View("SignUp", hvminstance);
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(hvminstance);
+            }
         }
         
     }
