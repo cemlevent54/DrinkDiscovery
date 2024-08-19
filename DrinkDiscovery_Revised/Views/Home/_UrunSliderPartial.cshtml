@@ -1,0 +1,54 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model List<DrinkDiscovery_Revised.Models.Urunler>
+
+@{
+    var urunler = (List<DrinkDiscovery_Revised.Models.Urunler>)ViewBag.Urunler;
+}
+
+<div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        @{
+            int indicatorIndex = 0;
+        }
+        @foreach (var item in urunler)
+        {
+            if (item.DisplaySlider)
+            {
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="@indicatorIndex" class="@(indicatorIndex == 0 ? "active" : "")" aria-current="true" aria-label="Slide @(indicatorIndex + 1)"></button>
+                indicatorIndex++;
+            }
+        }
+    </div>
+    <div class="carousel-inner">
+        @{
+            int itemIndex = 0;
+        }
+        @foreach (var item in urunler)
+        {
+            if (item.DisplaySlider)
+            {
+                <div class="carousel-item @(itemIndex == 0 ? "active" : "")" data-bs-interval="2000">
+                    <a href="@Url.Action("UrunDetay", "Urun", new { id = item.UrunId })">
+                        <img src="@Url.Action("GetImage", "Urun", new { id = item.UrunId })" class="d-block w-100" alt="@item.UrunAd">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>@item.UrunAd</h5>
+                            <p>@item.UrunIcerik</p>
+                        </div>
+                    </a>
+                </div>
+                itemIndex++;
+            }
+        }
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

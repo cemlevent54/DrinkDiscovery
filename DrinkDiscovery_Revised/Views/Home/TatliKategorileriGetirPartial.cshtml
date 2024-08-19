@@ -1,0 +1,11 @@
+﻿@model List<DrinkDiscovery_Revised.Models.TatlilarKategoriler>
+
+
+@foreach (var tatli in Model)
+{
+    <li>
+        <a class="dropdown-item" asp-area="" asp-controller="TatliKategori" asp-action="Tatlilar" asp-route-kategoriId="@tatli.TatliKategoriId">
+            @tatli.TatliKategoriAd
+        </a>
+    </li>
+}

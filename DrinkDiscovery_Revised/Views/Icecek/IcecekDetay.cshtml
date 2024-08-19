@@ -1,0 +1,59 @@
+﻿@* @model DrinkDiscovery_Revised.Models.HomeViewModel *@
+@{
+    ViewData["Title"] = "IcecekDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var selectedBeverage = (DrinkDiscovery_Revised.Models.Icecekler)ViewBag.SelectedBeverage;
+    var selectedBeverageCategory = (DrinkDiscovery_Revised.Models.IcecekKategoriler)ViewBag.SelectedBeverageCategory;
+}
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+</style>
+
+<h1>IcecekDetay</h1>
+
+
+
+<table class="table table-borderless">
+    <tr>
+        <td>
+            <img id="selectedImage" src="@Url.Action("GetImage", "Icecek", new { id = selectedBeverage.IcecekId })" style="width:800px;height:400px;" alt="İçecek Resmi" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h2>@selectedBeverage.IcecekAd</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h2 style="background-color:bisque;width:10%;"> @selectedBeverage.IcecekFiyat TL </h2>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Malzemeler: </b> @selectedBeverage.IcecekMalzemeler</p>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Yapılış: </b> @selectedBeverage.IcecekYapilis</p>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Puan: </b> @selectedBeverage.IcecekPuan</p>
+        </td>
+    </tr>
+    <tr style="font-size:20px;">
+        <td>
+            <p> <b>Kategori: </b> @selectedBeverageCategory.IcecekKategoriAd</p>
+        </td>
+    </tr>
+
+</table>
+
+
+

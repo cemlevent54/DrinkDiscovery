@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model List<DrinkDiscovery_Revised.Models.Icecekler>
+
+@{
+    var haftaninIcecekleri = (List<DrinkDiscovery_Revised.Models.Icecekler>)ViewBag.Icecekler;
+}
+
+<h2> Haftanın tercih edilen içecekleri</h2>
+
+<div class="container mt-2">
+    <div class="row">
+        @foreach (var haftaninicecek in haftaninIcecekleri)
+        {
+            if (haftaninicecek.HaftaninIcecegi == true)
+            {
+                <div class="col-md-3 col-sm-5">
+                    <div class="card card-block" style="text-align:center;justify-content:center;" onclick="location.href='@Url.Action("IcecekDetay", "Icecek", new { id = haftaninicecek.IcecekId })'" style="cursor:pointer;">
+                        @* <img src="@Url.Action("GetImage", "Icecek", new { id = item.icecek_id })" style="width:100px;height:100px;" /> *@
+                        <img src="@Url.Action("GetImage", "Icecek", new { id = haftaninicecek.IcecekId })">
+                        <div class="card-body" style="display:flex;flex-direction:column;">
+                            <h5 class="card-title mt-3 mb-3">@haftaninicecek.IcecekAd</h5>
+                            @* <p class="card-text">Açıklama</p> *@
+                            <p> @haftaninicecek.IcecekFiyat TL </p>
+                            @* <a href="#" class="btn btn-primary">Sepete Ekle</a> *@
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @* <div class="col-md-3 col-sm-6">
+        <div class="card card-block">
+        <img src="https://static.pexels.com/photos/7357/startup-photos.jpg" alt="Photo of sunset">
+        <div class="card-body">
+        <h5 class="card-title mt-3 mb-3">ProVyuh</h5>
+        <p class="card-text">This is a company that builds websites, web applications, and more.</p>
+        </div>
+        </div>
+        </div> *@
+    </div>
+</div>

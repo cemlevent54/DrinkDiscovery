@@ -1,0 +1,109 @@
+﻿@* @model HomeViewModel *@
+@using DrinkDiscovery_Revised.Models
+@{
+    // Layout = "~/Views/Shared/_Layout.cshtml";SSS
+    // Layout = null;
+    // var icecekKategoriler = (List<DrinkDiscovery_Revised.Models.IcecekKategoriler>)ViewBag.IcecekKategoriler ?? new List<DrinkDiscovery_Revised.Models.IcecekKategoriler>();
+    // var seciliKategori = (int)icecekKategoriler.Count;
+}
+@{
+    var icecekKategoriler = ViewBag.IcecekKategoriler as List<DrinkDiscovery_Revised.Models.IcecekKategoriler> ?? new List<DrinkDiscovery_Revised.Models.IcecekKategoriler>();
+    var tatliKategoriler = ViewBag.TatlilarKategoriler as List<DrinkDiscovery_Revised.Models.TatlilarKategoriler> ?? new List<DrinkDiscovery_Revised.Models.TatlilarKategoriler>();
+    var urunKategoriler = ViewBag.UrunKategoriler as List<DrinkDiscovery_Revised.Models.UrunKategoriler> ?? new List<DrinkDiscovery_Revised.Models.UrunKategoriler>();
+    
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DrinkDiscovery_Revised</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DrinkDiscovery_Revised.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" asp-append-version="true">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DrinkDiscovery_Revised</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                İçecekler
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @* @await Html.PartialAsync("IceceklerKategorilerPartial") *@
+                                @await Html.PartialAsync("~/Views/Home/IcecekKategorileriGetirPartial.cshtml", icecekKategoriler)
+                            </ul>
+                            @* <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @foreach (var icecek in Model.IcecekKategoriler)
+                            {
+                            <li><a class="dropdown-item" asp-area="" asp-controller="IcecekKategori" asp-action="Icecekler" asp-route-kategoriId="@icecek.IcecekKategoriId">@icecek.IcecekKategoriAd</a></li>
+                            }
+                            </ul> *@
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Tatlılar
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @await Html.PartialAsync("~/Views/Home/TatliKategorileriGetirPartial.cshtml", tatliKategoriler)
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Ürünler
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @await Html.PartialAsync("~/Views/Home/UrunKategorileriGetirPartial.cshtml", urunKategoriler)
+                            </ul> 
+                        </li>
+
+                    </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <form class="d-flex" action="@Url.Action("Search", "Home")" method="get" style="width: 100%; justify-content: flex-end;">
+                                <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" style="max-width: 300px;">
+                                <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+                            </form>
+                        </li>
+                        <li class="nav-item">
+                            @await Html.PartialAsync("_LoginPartial")
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - DrinkDiscovery_Revised - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+

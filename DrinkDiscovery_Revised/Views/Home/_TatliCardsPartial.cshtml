@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model List<DrinkDiscovery_Revised.Models.Tatlilar>
+
+@{
+    var populerTatlilar = (List<DrinkDiscovery_Revised.Models.Tatlilar>)ViewBag.Tatlilar;
+}
+
+<h2> Popüler Tatlılar</h2>
+
+<div class="container mt-2">
+    <div class="row">
+        @foreach (var tatli in populerTatlilar)
+        {
+            <div class="col-md-3 col-sm-5">
+                <div class="card card-block" style="text-align:center;justify-content:center;" onclick="location.href='@Url.Action("TatliDetay", "Tatli", new { id = tatli.TatliId })'" style="cursor:pointer;">
+                    @* <img src="@Url.Action("GetImage", "Icecek", new { id = item.icecek_id })" style="width:100px;height:100px;" /> *@
+                    <img src="@Url.Action("GetImage", "Tatli", new { id = tatli.TatliId })">
+                    <div class="card-body" style="display:flex;flex-direction:column;">
+                        <h5 class="card-title mt-3 mb-3">@tatli.TatliAd</h5>
+                        @* <p class="card-text">Açıklama</p> *@
+                        <p> @tatli.TatliFiyat TL </p>
+                        @* <a href="#" class="btn btn-primary">Sepete Ekle</a> *@
+
+                    </div>
+                </div>
+            </div>
+
+
+        }
+
+        @* <div class="col-md-3 col-sm-6">
+        <div class="card card-block">
+        <img src="https://static.pexels.com/photos/7357/startup-photos.jpg" alt="Photo of sunset">
+        <div class="card-body">
+        <h5 class="card-title mt-3 mb-3">ProVyuh</h5>
+        <p class="card-text">This is a company that builds websites, web applications, and more.</p>
+        </div>
+        </div>
+        </div> *@
+    </div>
+</div>

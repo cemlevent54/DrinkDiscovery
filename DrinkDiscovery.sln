@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrinkDiscovery", "DrinkDisc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrinkDiscovery_Admin_Revised", "DrinkDiscovery_Admin_Revised\DrinkDiscovery_Admin_Revised.csproj", "{736A148A-13B1-4E03-81CF-552A0F47BE4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrinkDiscovery_Revised", "DrinkDiscovery_Revised\DrinkDiscovery_Revised.csproj", "{F3F0B499-30BA-4530-AA71-0FFDCBE6EED3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{736A148A-13B1-4E03-81CF-552A0F47BE4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{736A148A-13B1-4E03-81CF-552A0F47BE4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{736A148A-13B1-4E03-81CF-552A0F47BE4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3F0B499-30BA-4530-AA71-0FFDCBE6EED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3F0B499-30BA-4530-AA71-0FFDCBE6EED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3F0B499-30BA-4530-AA71-0FFDCBE6EED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3F0B499-30BA-4530-AA71-0FFDCBE6EED3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

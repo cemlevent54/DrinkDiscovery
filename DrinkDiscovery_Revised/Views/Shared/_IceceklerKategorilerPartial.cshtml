@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    Layout = null;
+    var icecekKategoriler = (List<DrinkDiscovery_Revised.Models.IcecekKategoriler>)ViewBag.IcecekKategoriler ?? new List<DrinkDiscovery_Revised.Models.IcecekKategoriler>();
+    var seciliKategori = (int)icecekKategoriler.Count;
+}
+
+@model List<DrinkDiscovery_Revised.Models.IcecekKategoriler>
+
+
+@foreach (var icecek in icecekKategoriler)
+{
+    <li><a class="dropdown-item" asp-area="" asp-controller="IcecekKategori" asp-action="Icecekler" asp-route-kategoriId="@icecek.IcecekKategoriId">@icecek.IcecekKategoriAd</a></li>
+}
+
+

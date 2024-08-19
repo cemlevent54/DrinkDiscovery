@@ -1,0 +1,11 @@
+﻿@model List<DrinkDiscovery_Revised.Models.UrunKategoriler>
+
+
+@foreach (var urun in Model)
+{
+    <li>
+        <a class="dropdown-item" asp-area="" asp-controller="UrunKategori" asp-action="Urunler" asp-route-kategoriId="@urun.UrunKategoriId">
+            @urun.UrunKategoriAd
+        </a>
+    </li>
+}
