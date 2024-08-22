@@ -27,5 +27,7 @@ public partial class Urunler
 
     public virtual UrunKategoriler? UrunKategori { get; set; }
 
+    public virtual ICollection<UrunlerYorumlar> UrunlerYorumlars { get; set; } = new List<UrunlerYorumlar>();
+
     public virtual ICollection<Yorumlar> Yorumlars { get; set; } = new List<Yorumlar>();
 }

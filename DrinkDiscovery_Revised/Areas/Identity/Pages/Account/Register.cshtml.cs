@@ -123,6 +123,9 @@ namespace DrinkDiscovery_Revised.Areas.Identity.Pages.Account
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+
+
         }
 
 
@@ -146,6 +149,7 @@ namespace DrinkDiscovery_Revised.Areas.Identity.Pages.Account
                 user.kullanici_mail = Input.Email;
                 //user.kullanici_fotograf = Input.kullanici_fotograf;
                 user.kullanici_sifre = Input.Password;
+                
 
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);

@@ -27,5 +27,7 @@ public partial class Icecekler
 
     public virtual IcecekKategoriler? IcecekKategori { get; set; }
 
+    public virtual ICollection<IcecekYorumlar> IcecekYorumlars { get; set; } = new List<IcecekYorumlar>();
+
     public virtual ICollection<Yorumlar> Yorumlars { get; set; } = new List<Yorumlar>();
 }

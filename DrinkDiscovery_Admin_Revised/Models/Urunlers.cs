@@ -15,6 +15,8 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public float urun_puan { get; set; }
         public IList<Yorumlars> urun_yorumlar { get; set; }
 
+        public IList<UrunlerYorumlars> urun_yorumlari_s { get; set; }
+
         public bool display_slider { get; set; }
 
         //[ForeignKey("urun_kategori_id")]

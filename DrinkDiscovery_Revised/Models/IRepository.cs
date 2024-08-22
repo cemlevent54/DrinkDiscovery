@@ -14,6 +14,15 @@ namespace DrinkDiscovery_Revised.Models
         public IQueryable<Tatlilar> Tatlilar { get; }
         public IQueryable<TatlilarKategoriler> TatlilarKategoriler { get; }
 
+        // yorum tabloları
+        public IQueryable<IcecekYorumlar> IcecekYorumlar { get; }
+        public IQueryable<UrunlerYorumlar> UrunYorumlar { get; }
+        public IQueryable<TatlilarYorumlar> TatlilarYorumlar { get; }
+
+        //
+
+
+
 
         public IEnumerable<UrunKategoriler> GetUrunKategoriler();
         public IEnumerable<TatlilarKategoriler> GetTatlilarKategoriler();

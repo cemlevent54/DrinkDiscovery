@@ -16,6 +16,8 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public bool? haftanin_icecegi { get; set; }
         public IList<Yorumlars>? icecek_yorumlar { get; set; }
 
+        public IList<IcecekYorumlars>? icecek_yorumlari_s { get; set; }
+
 
         
         public int beverage_cat_id { get; set; }

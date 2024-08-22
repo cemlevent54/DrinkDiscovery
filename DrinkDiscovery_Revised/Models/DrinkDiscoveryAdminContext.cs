@@ -19,6 +19,8 @@ public partial class DrinkDiscoveryAdminContext : DbContext
 
     public virtual DbSet<IcecekKategoriler> IcecekKategorilers { get; set; }
 
+    public virtual DbSet<IcecekYorumlar> IcecekYorumlars { get; set; }
+
     public virtual DbSet<Icecekler> Iceceklers { get; set; }
 
     public virtual DbSet<Kullanicilar> Kullanicilars { get; set; }
@@ -27,9 +29,13 @@ public partial class DrinkDiscoveryAdminContext : DbContext
 
     public virtual DbSet<TatlilarKategoriler> TatlilarKategorilers { get; set; }
 
+    public virtual DbSet<TatlilarYorumlar> TatlilarYorumlars { get; set; }
+
     public virtual DbSet<UrunKategoriler> UrunKategorilers { get; set; }
 
     public virtual DbSet<Urunler> Urunlers { get; set; }
+
+    public virtual DbSet<UrunlerYorumlar> UrunlerYorumlars { get; set; }
 
     public virtual DbSet<Yorumlar> Yorumlars { get; set; }
 
@@ -61,6 +67,23 @@ public partial class DrinkDiscoveryAdminContext : DbContext
 
             entity.Property(e => e.IcecekKategoriId).HasColumnName("icecek_kategori_id");
             entity.Property(e => e.IcecekKategoriAd).HasColumnName("icecek_kategori_ad");
+        });
+
+        modelBuilder.Entity<IcecekYorumlar>(entity =>
+        {
+            entity.HasKey(e => e.YorumId);
+
+            entity.HasIndex(e => e.YorumIcecekicecekId, "IX_IcecekYorumlars_yorum_icecekicecek_id");
+
+            entity.Property(e => e.YorumId).HasColumnName("yorum_id");
+            entity.Property(e => e.YorumIcecekicecekId).HasColumnName("yorum_icecekicecek_id");
+            entity.Property(e => e.YorumIcerik).HasColumnName("yorum_icerik");
+            entity.Property(e => e.YorumKullaniciId).HasColumnName("yorum_kullanici_id");
+            entity.Property(e => e.YorumOnay).HasColumnName("yorum_onay");
+            entity.Property(e => e.YorumPuan).HasColumnName("yorum_puan");
+            entity.Property(e => e.YorumTarih).HasColumnName("yorum_tarih");
+
+            entity.HasOne(d => d.YorumIcecekicecek).WithMany(p => p.IcecekYorumlars).HasForeignKey(d => d.YorumIcecekicecekId);
         });
 
         modelBuilder.Entity<Icecekler>(entity =>
@@ -132,6 +155,23 @@ public partial class DrinkDiscoveryAdminContext : DbContext
             entity.Property(e => e.TatliKategoriAd).HasColumnName("tatli_kategori_ad");
         });
 
+        modelBuilder.Entity<TatlilarYorumlar>(entity =>
+        {
+            entity.HasKey(e => e.YorumId);
+
+            entity.HasIndex(e => e.YorumTatlitatliId, "IX_TatlilarYorumlars_yorum_tatlitatli_id");
+
+            entity.Property(e => e.YorumId).HasColumnName("yorum_id");
+            entity.Property(e => e.YorumIcerik).HasColumnName("yorum_icerik");
+            entity.Property(e => e.YorumKullaniciId).HasColumnName("yorum_kullanici_id");
+            entity.Property(e => e.YorumOnay).HasColumnName("yorum_onay");
+            entity.Property(e => e.YorumPuan).HasColumnName("yorum_puan");
+            entity.Property(e => e.YorumTarih).HasColumnName("yorum_tarih");
+            entity.Property(e => e.YorumTatlitatliId).HasColumnName("yorum_tatlitatli_id");
+
+            entity.HasOne(d => d.YorumTatlitatli).WithMany(p => p.TatlilarYorumlars).HasForeignKey(d => d.YorumTatlitatliId);
+        });
+
         modelBuilder.Entity<UrunKategoriler>(entity =>
         {
             entity.HasKey(e => e.UrunKategoriId);
@@ -162,6 +202,23 @@ public partial class DrinkDiscoveryAdminContext : DbContext
             entity.Property(e => e.UrunResim).HasColumnName("urun_resim");
 
             entity.HasOne(d => d.UrunKategori).WithMany(p => p.Urunlers).HasForeignKey(d => d.UrunKategoriId);
+        });
+
+        modelBuilder.Entity<UrunlerYorumlar>(entity =>
+        {
+            entity.HasKey(e => e.YorumId);
+
+            entity.HasIndex(e => e.YorumUrunurunId, "IX_UrunlerYorumlars_yorum_urunurun_id");
+
+            entity.Property(e => e.YorumId).HasColumnName("yorum_id");
+            entity.Property(e => e.YorumIcerik).HasColumnName("yorum_icerik");
+            entity.Property(e => e.YorumKullaniciId).HasColumnName("yorum_kullanici_id");
+            entity.Property(e => e.YorumOnay).HasColumnName("yorum_onay");
+            entity.Property(e => e.YorumPuan).HasColumnName("yorum_puan");
+            entity.Property(e => e.YorumTarih).HasColumnName("yorum_tarih");
+            entity.Property(e => e.YorumUrunurunId).HasColumnName("yorum_urunurun_id");
+
+            entity.HasOne(d => d.YorumUrunurun).WithMany(p => p.UrunlerYorumlars).HasForeignKey(d => d.YorumUrunurunId);
         });
 
         modelBuilder.Entity<Yorumlar>(entity =>

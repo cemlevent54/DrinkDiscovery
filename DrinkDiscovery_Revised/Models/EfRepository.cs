@@ -19,6 +19,10 @@ namespace DrinkDiscovery_Revised.Models
         public IQueryable<UrunKategoriler> UrunKategoriler => context.UrunKategorilers;
         public IQueryable<Tatlilar> Tatlilar => context.Tatlilars;
         public IQueryable<TatlilarKategoriler> TatlilarKategoriler => context.TatlilarKategorilers;
+        public IQueryable<IcecekYorumlar> IcecekYorumlar => context.IcecekYorumlars;
+        public IQueryable<UrunlerYorumlar> UrunYorumlar => context.UrunlerYorumlars;
+        public IQueryable<TatlilarYorumlar> TatlilarYorumlar => context.TatlilarYorumlars;
+
 
         public IEnumerable<UrunKategoriler> GetUrunKategoriler()
         {

@@ -17,6 +17,8 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public bool display { get; set; }
 
         public IList<Yorumlars>? tatli_yorumlar { get; set; }
+
+        public IList<TatlilarYorumlars>? tatli_yorumlari_s { get; set; }
         public TatlilarKategoris? tatli_kategori { get; set; }
 
     }

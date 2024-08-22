@@ -27,5 +27,7 @@ public partial class Tatlilar
 
     public virtual TatlilarKategoriler? TatliKategori { get; set; }
 
+    public virtual ICollection<TatlilarYorumlar> TatlilarYorumlars { get; set; } = new List<TatlilarYorumlar>();
+
     public virtual ICollection<Yorumlar> Yorumlars { get; set; } = new List<Yorumlar>();
 }

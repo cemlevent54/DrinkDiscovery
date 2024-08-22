@@ -14,5 +14,6 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public byte[] kullanici_fotograf { get; set; }
 
         public IList<Yorumlars> kullanici_yorumlar { get; set; }
+        
     }
 }

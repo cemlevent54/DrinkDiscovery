@@ -59,5 +59,17 @@ namespace DrinkDiscovery_Revised.Controllers
         {
             return PartialView(repository.UrunKategoriler.ToList());
         }
+
+        //[HttpGet]
+        //public IActionResult YorumEkle()
+        //{
+        //    // yorumun hangi kategoriye ait olduðunu belirlemek için kategori belirlenir
+        //    return View();
+
+        //}
+
+        
+
+        
     }
 }

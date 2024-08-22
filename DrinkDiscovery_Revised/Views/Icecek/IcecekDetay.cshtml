@@ -55,5 +55,19 @@
 
 </table>
 
+<h2>Yorumlar</h2>
+
+@await Html.PartialAsync("IcecekYorumlariGoruntule")
+<br />
+
+@if (User.Identity.IsAuthenticated)
+{
+    @await Html.PartialAsync("IcecekYorumEkle") 
+}
+else
+{
+    <p>Yorum yapabilmek için giriş yapmalısınız.</p>
+}
+
 
 
