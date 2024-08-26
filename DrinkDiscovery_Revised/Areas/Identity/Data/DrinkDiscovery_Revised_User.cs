@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -17,10 +18,14 @@ public class DrinkDiscovery_Revised_User : IdentityUser
 
     public string? kullanici_mail { get; set; } 
 
-    public string? kullanici_telefon { get; set; } 
+    public string? kullanici_telefon { get; set; }
 
+    
     public byte[]? kullanici_fotograf { get; set; } 
 
     public string? kullanici_username { get; set; }
+    [NotMapped]
+    public IFormFile? kullanici_fotograf_file { get; set; }
+
 }
 

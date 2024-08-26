@@ -85,9 +85,9 @@ namespace DrinkDiscovery_Revised.Areas.Identity.Pages.Account
             [Display(Name = "kullanıcı adı")]
             public string kullanici_username { get; set; }
 
-            //[Required]
-            //[Display(Name = "fotograf")]
-            //public byte[] kullanici_fotograf
+            
+            [Display(Name = "fotograf")]
+            public byte[] kullanici_fotograf;
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -124,6 +124,10 @@ namespace DrinkDiscovery_Revised.Areas.Identity.Pages.Account
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
 
+            public IFormFile kullanici_fotograf_iformfile { get; set; }
+
+            public string kullanici_fotograf_src { get; set; }
+
 
 
         }
@@ -149,8 +153,15 @@ namespace DrinkDiscovery_Revised.Areas.Identity.Pages.Account
                 user.kullanici_mail = Input.Email;
                 //user.kullanici_fotograf = Input.kullanici_fotograf;
                 user.kullanici_sifre = Input.Password;
-                
 
+                if (Input.kullanici_fotograf_iformfile != null && Input.kullanici_fotograf_iformfile.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await Input.kullanici_fotograf_iformfile.CopyToAsync(memoryStream);
+                        user.kullanici_fotograf = memoryStream.ToArray();
+                    }
+                }
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

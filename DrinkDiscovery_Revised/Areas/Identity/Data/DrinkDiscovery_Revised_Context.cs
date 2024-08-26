@@ -33,6 +33,7 @@ public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<Drink
         builder.Property(p => p.kullanici_telefon).HasColumnName("KullaniciTelefon").HasMaxLength(50);
         builder.Property(p => p.kullanici_fotograf).HasColumnName("KullaniciFotograf").HasColumnType("varbinary(max)"); 
         builder.Property(p => p.kullanici_username).HasColumnName("KullaniciUsername").HasMaxLength(50);
+        //builder.Property(p => p.kullanici_fotograf_file).HasColumnName("KullaniciFotografFile");
 
     }
 }

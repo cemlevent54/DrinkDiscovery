@@ -2,16 +2,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using DrinkDiscovery_Revised.Areas.Identity.Data;
 using DrinkDiscovery_Revised.Models;
+using DrinkDiscovery_Revised.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DrinkDiscovery_Revised_ContextConnection") ?? throw new InvalidOperationException("Connection string 'DrinkDiscovery_Revised_ContextConnection' not found.");
 
-builder.Services.AddDbContext<DrinkDiscovery_Revised_Context>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<DrinkDiscovery_Revised_Context>(options => options.UseSqlServer(connectionString, sqlServerOptions =>
+{
+    sqlServerOptions.CommandTimeout(60); // Set the timeout to 60 seconds or more
+}));
 
 builder.Services.AddDefaultIdentity<DrinkDiscovery_Revised_User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<DrinkDiscovery_Revised_Context>().AddDefaultTokenProviders(); ;
 
 // repository add
 builder.Services.AddScoped<DrinkDiscoveryAdminContext>();
 builder.Services.AddScoped<IRepository, EfRepository>();
+// Register your custom UserService
+builder.Services.AddScoped<UserService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
