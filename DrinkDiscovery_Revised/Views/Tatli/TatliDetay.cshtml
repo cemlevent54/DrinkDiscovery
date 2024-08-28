@@ -60,3 +60,14 @@
 </table>
 
 <h2>Yorumlar</h2>
+
+@await Html.PartialAsync("TatliYorumlariGoruntule") 
+
+@if(User.Identity.IsAuthenticated)
+{
+    @await Html.PartialAsync("TatliYorumEkle")
+}
+else
+{
+    
+}

@@ -6,6 +6,7 @@ using DrinkDiscovery_Revised.Helpers;
 using DrinkDiscovery_Revised.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using NuGet.Versioning;
 
 namespace DrinkDiscovery_Revised.Controllers
 {
@@ -64,33 +65,21 @@ namespace DrinkDiscovery_Revised.Controllers
             var userInfos = getUserInfos(yorumlar);
             ViewBag.UserInfos = userInfos;
 
-
-
-
-            //var model = new HomeViewModel(repository);
-            //
-            //{
-            //    Icecekler = repository.Icecekler,
-            //    IcecekKategoriler = repository.IcecekKategoriler,
-            //    TatlilarKategoriler = repository.TatlilarKategoriler,
-            //    UrunKategoriler = repository.UrunKategoriler,
-            //};
-
-            //return View(model);
             return View();
         }
 
-        public Dictionary<string, Tuple<string, byte[]>> getUserInfos(List<IcecekYorumlar> yorumlar)
+        public Dictionary<string, Tuple<string, byte[],int>> getUserInfos(List<IcecekYorumlar> yorumlar)
         {
-            Dictionary<string, Tuple<string, byte[]>> userInfos = new Dictionary<string, Tuple<string, byte[]>>();
+            Dictionary<string, Tuple<string, byte[],int>> userInfos = new Dictionary<string, Tuple<string, byte[], int>>();
             foreach (var yorum in yorumlar)
             {
+                
                 var user = userService.GetUserDetailsByIdAsync(yorum.YorumKullaniciId);
                 if (user != null)
                 {
                     if (!userInfos.ContainsKey(yorum.YorumKullaniciId))
                     {
-                        userInfos.Add(yorum.YorumKullaniciId, Tuple.Create(user.Result.kullanici_username, user.Result.kullanici_fotograf));
+                        userInfos.Add(yorum.YorumKullaniciId, Tuple.Create(user.Result.kullanici_username, user.Result.kullanici_fotograf,yorum.YorumId));
                     }
                 }
             }
@@ -162,7 +151,14 @@ namespace DrinkDiscovery_Revised.Controllers
         }
 
         
-
+        public IActionResult DeleteComment(int id)
+        {
+            var yorumlar = repository.IcecekYorumlar.ToList();
+            var yorum = repository.IcecekYorumlar.First(i => i.YorumId == id);
+            var yorumicecekid = yorum.YorumIcecekicecekId;
+            repository.Delete(yorum);
+            return RedirectToAction("IcecekDetay", new {id = yorumicecekid});
+        }
         
     }
 }

@@ -1,17 +1,15 @@
-﻿@*
+﻿
+@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-
-@* // yorum görüntüleme html css yaz *@
-@* @model IEnumerable<DrinkDiscovery_Revised.Models.IcecekYorumlar> *@
 
 @using DrinkDiscovery_Revised.Helpers;
 @using System.Security.Claims;
 
 @{
-    var icecekyorumlari = ViewBag.BeverageComments as IEnumerable<DrinkDiscovery_Revised.Models.IcecekYorumlar> ?? Enumerable.Empty<DrinkDiscovery_Revised.Models.IcecekYorumlar>();
-    var comm = icecekyorumlari;
-    var userInfos = ViewBag.UserInfos as Dictionary<string, Tuple<string, byte[],int>> ?? new Dictionary<string, Tuple<string, byte[],int>>();
+    var urunyorumlari = ViewBag.ProductComments as IEnumerable<DrinkDiscovery_Revised.Models.UrunlerYorumlar> ?? Enumerable.Empty<DrinkDiscovery_Revised.Models.UrunlerYorumlar>();
+    var comm = urunyorumlari;
+    var userInfos = ViewBag.UserInfos as Dictionary<string, Tuple<string, byte[], int>> ?? new Dictionary<string, Tuple<string, byte[], int>>();
     var x = userInfos;
     var logineduserid = User.FindFirstValue(ClaimTypes.NameIdentifier);
 }
@@ -21,9 +19,9 @@
         <div class="row d-flex justify-content-start">
             <!-- justify-content-center yerine justify-content-start -->
             <div class="col-md-11 col-lg-9 col-xl-7">
-                @foreach (var comment in icecekyorumlari)
+                @foreach (var comment in urunyorumlari)
                 {
-                    if (comment.YorumIcecekicecekId == ViewBag.SelectedBeverage.IcecekId)
+                    if (comment.YorumUrunurunId == ViewBag.SelectedProduct.UrunId)
                     {
                         <div class="d-flex flex-start mb-4">
                             <img class="rounded-circle shadow-1-strong me-3"
@@ -47,7 +45,7 @@
                                             <div class="d-flex align-items-center">
                                                 <a href="#!" class="link-muted me-2"><i class="fas fa-thumbs-up me-1"></i>132</a>
                                                 <a href="#!" class="link-muted me-2"><i class="fas fa-thumbs-down me-1"></i>15</a>
-                                                @if(userInfos.ContainsKey(logineduserid))
+                                                @if (userInfos.ContainsKey(logineduserid))
                                                 {
                                                     if (userInfos[logineduserid].Item1 == userInfos[comment.YorumKullaniciId].Item1)
                                                     {

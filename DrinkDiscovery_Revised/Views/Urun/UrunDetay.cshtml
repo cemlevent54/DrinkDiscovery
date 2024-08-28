@@ -60,5 +60,14 @@
 
 <h2>Yorumlar</h2>
 
+@await Html.PartialAsync("UrunYorumlariGoruntule")
 
+@if (User.Identity.IsAuthenticated)
+{
+    @await Html.PartialAsync("UrunYorumEkle")
+}
+else
+{
+
+}
 
