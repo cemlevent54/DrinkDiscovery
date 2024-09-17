@@ -7,6 +7,8 @@ using DrinkDiscovery_Revised.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using NuGet.Versioning;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System.Security.Claims;
 
 namespace DrinkDiscovery_Revised.Controllers
 {
@@ -134,6 +136,7 @@ namespace DrinkDiscovery_Revised.Controllers
 
                 
                 
+                
                 // Assuming that the user ID is already set correctly in yeni_yorum
                 repository.Add(yeni_yorum);
                 
@@ -145,20 +148,121 @@ namespace DrinkDiscovery_Revised.Controllers
                 // Return a NotFound result if the drink was not found
                 return NotFound();
             }
-
+           
             // Redirect to the IcecekDetay action, passing the drink ID as a parameter
             return RedirectToAction("IcecekDetay", new { id = icecekid });
         }
 
-        
+
         public IActionResult DeleteComment(int id)
         {
             var yorumlar = repository.IcecekYorumlar.ToList();
             var yorum = repository.IcecekYorumlar.First(i => i.YorumId == id);
             var yorumicecekid = yorum.YorumIcecekicecekId;
+            var yorumid = yorum.YorumId;
+            var begenitablo = repository.UserProductCommentAction.Where(i => i.CommentId == yorumid).ToList();
+            foreach (var item in begenitablo)
+            {
+                repository.Delete(item);
+            }
             repository.Delete(yorum);
             return RedirectToAction("IcecekDetay", new {id = yorumicecekid});
         }
-        
+
+        public IActionResult LikeComment(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get logged-in user ID
+            var yorum = repository.IcecekYorumlar.First(i => i.YorumId == id);
+            var yorumicecekid = yorum.YorumIcecekicecekId;
+
+            // Check if the user already liked/disliked the comment
+            var existingAction = repository.UserBeverageCommentAction.FirstOrDefault(a => a.CommentId == id && a.UserId == userId);
+
+            if (existingAction != null)
+            {
+                if (existingAction.IsLiked)
+                {
+                    // User already liked the comment, so do nothing or display a message
+                    return RedirectToAction("IcecekDetay", new { id = yorumicecekid });
+                }
+                else
+                {
+                    // User disliked before, so reverse dislike and add a like
+                    yorum.YorumDislikeCount--;
+                    yorum.YorumLikeCount++;
+                    existingAction.IsLiked = true; // Change to like
+                }
+            }
+            else
+            {
+                // First time liking the comment
+                yorum.YorumLikeCount++;
+                UserBeverageCommentAction userBeverageCommentAction = new UserBeverageCommentAction
+                {
+                    UserId = userId,
+                    CommentId = id,
+                    IsLiked = true
+                };
+                repository.Add(userBeverageCommentAction);
+            }
+
+            repository.Update(yorum);
+            repository.SaveChanges();
+
+            return RedirectToAction("IcecekDetay", new { id = yorumicecekid });
+        }
+
+
+
+        public IActionResult DislikeComment(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get logged-in user ID
+            var yorum = repository.IcecekYorumlar.First(i => i.YorumId == id);
+            var yorumicecekid = yorum.YorumIcecekicecekId;
+
+            // Check if the user already liked/disliked the comment
+            var existingAction = repository.UserBeverageCommentAction.FirstOrDefault(a => a.CommentId == id && a.UserId == userId);
+
+            if (existingAction != null)
+            {
+                if (!existingAction.IsLiked)
+                {
+                    // User already disliked the comment, so do nothing or display a message
+                    return RedirectToAction("IcecekDetay", new { id = yorumicecekid });
+                }
+                else
+                {
+                    // User liked before, so reverse like and add a dislike
+                    yorum.YorumLikeCount--;
+                    yorum.YorumDislikeCount++;
+                    existingAction.IsLiked = false; // Change to dislike
+                }
+            }
+            else
+            {
+                // First time disliking the comment
+                yorum.YorumDislikeCount++;
+                UserBeverageCommentAction userBeverageCommentAction = new UserBeverageCommentAction
+                {
+                    UserId = userId,
+                    CommentId = id,
+                    IsLiked = false // Set the action as dislike
+                };
+                repository.Add(userBeverageCommentAction);
+            }
+
+            repository.Update(yorum);
+            repository.SaveChanges();
+
+            return RedirectToAction("IcecekDetay", new { id = yorumicecekid });
+        }
+
+
+
+
+
+
+
+
     }
 }

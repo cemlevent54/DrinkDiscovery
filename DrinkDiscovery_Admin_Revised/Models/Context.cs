@@ -20,6 +20,10 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public DbSet<UrunKategoris> UrunKategoriler { get; set; }
         public DbSet<Tatlilars> Tatlilar { get; set; }
         public DbSet<TatlilarKategoris> TatlilarKategoriler { get; set; }
+        public DbSet<UserBeverageCommentActions> UserBeverageCommentActions { get; set; }
+        public DbSet<UserSweetCommentActions> UserSweetCommentActions { get; set; }
+        public DbSet<UserProductCommentActions> UserProductCommentActions { get; set; }
+
 
     }
 }

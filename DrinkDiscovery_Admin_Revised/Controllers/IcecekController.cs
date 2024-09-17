@@ -25,7 +25,7 @@ namespace DrinkDiscovery_Admin_Revised.Controllers
             // İçcek adına göre arama
             var icecekler = repository.Icecekler
                 .Include(i => i.icecek_kategori) // Include the related category if needed
-                .Where(i => i.icecek_ad.StartsWith(search) || string.IsNullOrEmpty(search))
+                .Where(i => i.icecek_ad.Contains(search) || string.IsNullOrEmpty(search))
                 .ToList();
 
             return View("IcecekListele", icecekler);

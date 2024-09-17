@@ -37,6 +37,12 @@ public partial class DrinkDiscoveryAdminContext : DbContext
 
     public virtual DbSet<UrunlerYorumlar> UrunlerYorumlars { get; set; }
 
+    public virtual DbSet<UserBeverageCommentAction> UserBeverageCommentActions { get; set; }
+
+    public virtual DbSet<UserProductCommentAction> UserProductCommentActions { get; set; }
+
+    public virtual DbSet<UserSweetCommentAction> UserSweetCommentActions { get; set; }
+
     public virtual DbSet<Yorumlar> Yorumlars { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -76,9 +82,12 @@ public partial class DrinkDiscoveryAdminContext : DbContext
             entity.HasIndex(e => e.YorumIcecekicecekId, "IX_IcecekYorumlars_yorum_icecekicecek_id");
 
             entity.Property(e => e.YorumId).HasColumnName("yorum_id");
+            entity.Property(e => e.YorumDislikeCount).HasColumnName("yorum_dislike_count");
             entity.Property(e => e.YorumIcecekicecekId).HasColumnName("yorum_icecekicecek_id");
             entity.Property(e => e.YorumIcerik).HasColumnName("yorum_icerik");
             entity.Property(e => e.YorumKullaniciId).HasColumnName("yorum_kullanici_id");
+            entity.Property(e => e.YorumLikeCount).HasColumnName("yorum_like_count");
+            entity.Property(e => e.YorumLikeState).HasColumnName("yorum_like_state");
             entity.Property(e => e.YorumOnay).HasColumnName("yorum_onay");
             entity.Property(e => e.YorumPuan).HasColumnName("yorum_puan");
             entity.Property(e => e.YorumTarih).HasColumnName("yorum_tarih");
@@ -162,8 +171,11 @@ public partial class DrinkDiscoveryAdminContext : DbContext
             entity.HasIndex(e => e.YorumTatlitatliId, "IX_TatlilarYorumlars_yorum_tatlitatli_id");
 
             entity.Property(e => e.YorumId).HasColumnName("yorum_id");
+            entity.Property(e => e.YorumDislikeCount).HasColumnName("yorum_dislike_count");
             entity.Property(e => e.YorumIcerik).HasColumnName("yorum_icerik");
             entity.Property(e => e.YorumKullaniciId).HasColumnName("yorum_kullanici_id");
+            entity.Property(e => e.YorumLikeCount).HasColumnName("yorum_like_count");
+            entity.Property(e => e.YorumLikeState).HasColumnName("yorum_like_state");
             entity.Property(e => e.YorumOnay).HasColumnName("yorum_onay");
             entity.Property(e => e.YorumPuan).HasColumnName("yorum_puan");
             entity.Property(e => e.YorumTarih).HasColumnName("yorum_tarih");
@@ -211,14 +223,41 @@ public partial class DrinkDiscoveryAdminContext : DbContext
             entity.HasIndex(e => e.YorumUrunurunId, "IX_UrunlerYorumlars_yorum_urunurun_id");
 
             entity.Property(e => e.YorumId).HasColumnName("yorum_id");
+            entity.Property(e => e.YorumDislikeCount).HasColumnName("yorum_dislike_count");
             entity.Property(e => e.YorumIcerik).HasColumnName("yorum_icerik");
             entity.Property(e => e.YorumKullaniciId).HasColumnName("yorum_kullanici_id");
+            entity.Property(e => e.YorumLikeCount).HasColumnName("yorum_like_count");
+            entity.Property(e => e.YorumLikeState).HasColumnName("yorum_like_state");
             entity.Property(e => e.YorumOnay).HasColumnName("yorum_onay");
             entity.Property(e => e.YorumPuan).HasColumnName("yorum_puan");
             entity.Property(e => e.YorumTarih).HasColumnName("yorum_tarih");
             entity.Property(e => e.YorumUrunurunId).HasColumnName("yorum_urunurun_id");
 
             entity.HasOne(d => d.YorumUrunurun).WithMany(p => p.UrunlerYorumlars).HasForeignKey(d => d.YorumUrunurunId);
+        });
+
+        modelBuilder.Entity<UserBeverageCommentAction>(entity =>
+        {
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CommentId).HasColumnName("comment_id");
+            entity.Property(e => e.IsLiked).HasColumnName("is_liked");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+        });
+
+        modelBuilder.Entity<UserProductCommentAction>(entity =>
+        {
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CommentId).HasColumnName("comment_id");
+            entity.Property(e => e.IsLiked).HasColumnName("is_liked");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+        });
+
+        modelBuilder.Entity<UserSweetCommentAction>(entity =>
+        {
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CommentId).HasColumnName("comment_id");
+            entity.Property(e => e.IsLiked).HasColumnName("is_liked");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
         });
 
         modelBuilder.Entity<Yorumlar>(entity =>

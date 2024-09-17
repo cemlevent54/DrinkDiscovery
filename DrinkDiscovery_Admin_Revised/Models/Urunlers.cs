@@ -15,7 +15,7 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public float urun_puan { get; set; }
         public IList<Yorumlars> urun_yorumlar { get; set; }
 
-        public IList<UrunlerYorumlars> urun_yorumlari_s { get; set; }
+        public IList<UrunlerYorumlars>? urun_yorumlari_s { get; set; }
 
         public bool display_slider { get; set; }
 
@@ -23,5 +23,8 @@ namespace DrinkDiscovery_Admin_Revised.Models
 
         public int product_cat_id { get; set; }
         public UrunKategoris? urun_kategori { get; set; }
+
+        // begeni
+        //public ICollection<UrunYorumBegenme>? urun_begenmeler { get; set; }
     }
 }

@@ -14,11 +14,16 @@ public partial class IcecekYorumlar
     public DateTime? YorumTarih { get; set; }
 
     public string? YorumKullaniciId { get; set; }
-    
 
     public bool? YorumOnay { get; set; }
 
     public int? YorumIcecekicecekId { get; set; }
+
+    public int YorumDislikeCount { get; set; }
+
+    public int YorumLikeCount { get; set; }
+
+    public bool YorumLikeState { get; set; }
 
     public virtual Icecekler? YorumIcecekicecek { get; set; }
 }

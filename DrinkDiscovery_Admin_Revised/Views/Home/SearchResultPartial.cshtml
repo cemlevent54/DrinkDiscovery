@@ -1,0 +1,96 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var icecekler = ViewBag.Icecekler as List<Iceceklers>;
+    var tatlilar = ViewBag.Tatlilar as List<Tatlilars>;
+    var urunler = ViewBag.Urunler as List<Urunlers>;
+}
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Kategori Adi</th>
+            <th>Resim</th>
+            <th>Puanı</th>
+            <th>Fiyatı</th>
+            <th>Sil</th>
+            <th>Düzenle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in icecekler)
+        {
+            // get rid of null reference exception
+            if (item.icecek_kategori == null)
+            {
+                item.icecek_kategori = new IcecekKategoris();
+            }
+
+            <tr>
+                <td>@item.icecek_ad</td>
+                <td>@item.icecek_kategori.icecek_kategori_ad</td>
+                <td>
+                    <img src="@Url.Action("GetImage", "Icecek", new { id = item.icecek_id })" style="width:100px;height:100px;" />
+                </td>
+                <td>@item.icecek_puan</td>
+                <td>@item.icecek_fiyat</td>
+                <td>
+                    <a href="@Url.Action("IcecekSil", "Icecek", new { id = item.icecek_id })" class="btn btn-danger" onclick="confirmDeletion('@Url.Action("Delete", "Icecek", new { id = item.icecek_id })')">Sil</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("IcecekDuzenle", "Icecek", new { id = item.icecek_id })" class="btn btn-primary">Düzenle</a>
+                </td>
+            </tr>
+        }
+        @foreach (var item in tatlilar)
+        {
+            if (item.tatli_kategori == null)
+            {
+                item.tatli_kategori = new TatlilarKategoris();
+            }
+
+            <tr>
+                <td>@item.tatli_ad</td>
+                <td>@item.tatli_kategori.tatli_kategori_ad</td>
+                <td>
+                    <img src="@Url.Action("GetImage", "Tatlilar", new { id = item.tatli_id })" style="width:100px;height:100px;" />
+                </td>
+                <td>@item.tatli_puan</td>
+                <td>@item.tatli_fiyat</td>
+                <td>
+                    <a href="@Url.Action("TatliSil", "Tatlilar", new { id = item.tatli_id })" class="btn btn-danger" onclick="confirmDeletion('@Url.Action("TatliSil", "Tatlilar", new { id = item.tatli_id })')">Sil</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("TatliDuzenle", "Tatlilar", new { id = item.tatli_id })" class="btn btn-primary">Düzenle</a>
+                </td>
+            </tr>
+        }
+        @foreach (var item in urunler)
+        {
+            if (item.urun_kategori == null)
+            {
+                item.urun_kategori = new UrunKategoris();
+            }
+
+            <tr>
+                <td>@item.urun_ad</td>
+                <td>@item.urun_kategori.urun_kategori_ad</td>
+                <td>
+                    <img src="@Url.Action("GetImage", "Urunler", new { id = item.urun_id })" style="width:100px;height:100px;" />
+                </td>
+                <td>@item.urun_puan</td>
+                <td>@item.urun_fiyat</td>
+                <td>
+                    <a href="@Url.Action("UrunSil", "Urunler", new { id = item.urun_id })" class="btn btn-danger" onclick="confirmDeletion('@Url.Action("UrunSil", "Urun", new { id = item.urun_id })')">Sil</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("UrunDuzenle", "Urunler", new { id = item.urun_id })" class="btn btn-primary">Düzenle</a>
+                </td>
+            </tr>
+        }
+
+</table>

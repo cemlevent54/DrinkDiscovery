@@ -4,6 +4,7 @@ using DrinkDiscovery_Admin_Revised.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrinkDiscovery_Admin_Revised.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240916183813_add_yorum_like_state")]
+    partial class add_yorum_like_state
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,20 +215,11 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("yorum_id"));
 
-                    b.Property<int>("yorum_dislike_count")
-                        .HasColumnType("int");
-
                     b.Property<string>("yorum_icerik")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("yorum_kullanici_id")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("yorum_like_count")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("yorum_like_state")
-                        .HasColumnType("bit");
 
                     b.Property<bool?>("yorum_onay")
                         .HasColumnType("bit");
@@ -313,20 +307,11 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("yorum_id"));
 
-                    b.Property<int>("yorum_dislike_count")
-                        .HasColumnType("int");
-
                     b.Property<string>("yorum_icerik")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("yorum_kullanici_id")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("yorum_like_count")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("yorum_like_state")
-                        .HasColumnType("bit");
 
                     b.Property<bool?>("yorum_onay")
                         .HasColumnType("bit");
@@ -390,72 +375,6 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.HasIndex("urun_kategori_id");
 
                     b.ToTable("Urunler");
-                });
-
-            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.UserBeverageCommentActions", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int?>("comment_id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("is_liked")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("user_id")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("UserBeverageCommentActions");
-                });
-
-            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.UserProductCommentActions", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int?>("comment_id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("is_liked")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("user_id")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("UserProductCommentActions");
-                });
-
-            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.UserSweetCommentActions", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int?>("comment_id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("is_liked")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("user_id")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("UserSweetCommentActions");
                 });
 
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.Yorumlars", b =>

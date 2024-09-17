@@ -19,7 +19,12 @@ namespace DrinkDiscovery_Revised.Models
         public IQueryable<UrunlerYorumlar> UrunYorumlar { get; }
         public IQueryable<TatlilarYorumlar> TatlilarYorumlar { get; }
 
-        //
+        // yorum begeni tabloları
+        public IQueryable<UserBeverageCommentAction> UserBeverageCommentAction { get; }
+        public IQueryable<UserSweetCommentAction> UserSweetCommentAction { get; }
+        public IQueryable<UserProductCommentAction> UserProductCommentAction { get; }
+
+        
 
 
 

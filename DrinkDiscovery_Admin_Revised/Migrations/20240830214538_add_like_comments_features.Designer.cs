@@ -4,6 +4,7 @@ using DrinkDiscovery_Admin_Revised.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrinkDiscovery_Admin_Revised.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240830214538_add_like_comments_features")]
+    partial class add_like_comments_features
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,6 +67,33 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.ToTable("IcecekKategoriler");
                 });
 
+            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.IcecekYorumBegenme", b =>
+                {
+                    b.Property<int>("icecek_begeni_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("icecek_begeni_id"));
+
+                    b.Property<bool>("icecek_begeni_durum")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("icecek_begeni_kullanici_id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("icecek_begeni_yorum_id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("icecek_yorumyorum_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("icecek_begeni_id");
+
+                    b.HasIndex("icecek_yorumyorum_id");
+
+                    b.ToTable("IcecekYorumBegenme");
+                });
+
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.IcecekYorumlars", b =>
                 {
                     b.Property<int>("yorum_id")
@@ -71,9 +101,6 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("yorum_id"));
-
-                    b.Property<int>("yorum_dislike_count")
-                        .HasColumnType("int");
 
                     b.Property<int?>("yorum_icecekicecek_id")
                         .HasColumnType("int");
@@ -83,12 +110,6 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
 
                     b.Property<string>("yorum_kullanici_id")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("yorum_like_count")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("yorum_like_state")
-                        .HasColumnType("bit");
 
                     b.Property<bool?>("yorum_onay")
                         .HasColumnType("bit");
@@ -188,6 +209,33 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.ToTable("Kullanicilar");
                 });
 
+            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.TatliYorumBegenme", b =>
+                {
+                    b.Property<int>("tatli_begeni_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("tatli_begeni_id"));
+
+                    b.Property<bool>("tatli_begeni_durum")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("tatli_begeni_kullanici_id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("tatli_begeni_yorum_id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("tatli_yorumyorum_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("tatli_begeni_id");
+
+                    b.HasIndex("tatli_yorumyorum_id");
+
+                    b.ToTable("TatliYorumBegenme");
+                });
+
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.TatlilarKategoris", b =>
                 {
                     b.Property<int>("tatli_kategori_id")
@@ -212,20 +260,11 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("yorum_id"));
 
-                    b.Property<int>("yorum_dislike_count")
-                        .HasColumnType("int");
-
                     b.Property<string>("yorum_icerik")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("yorum_kullanici_id")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("yorum_like_count")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("yorum_like_state")
-                        .HasColumnType("bit");
 
                     b.Property<bool?>("yorum_onay")
                         .HasColumnType("bit");
@@ -305,6 +344,38 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.ToTable("UrunKategoriler");
                 });
 
+            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.UrunYorumBegenme", b =>
+                {
+                    b.Property<int>("urun_begeni_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("urun_begeni_id"));
+
+                    b.Property<int?>("Urunlersurun_id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("urun_begeni_durum")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("urun_begeni_kullanici_id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("urun_begeni_yorum_id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("urun_yorumyorum_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("urun_begeni_id");
+
+                    b.HasIndex("Urunlersurun_id");
+
+                    b.HasIndex("urun_yorumyorum_id");
+
+                    b.ToTable("UrunYorumBegenme");
+                });
+
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.UrunlerYorumlars", b =>
                 {
                     b.Property<int>("yorum_id")
@@ -313,20 +384,11 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("yorum_id"));
 
-                    b.Property<int>("yorum_dislike_count")
-                        .HasColumnType("int");
-
                     b.Property<string>("yorum_icerik")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("yorum_kullanici_id")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("yorum_like_count")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("yorum_like_state")
-                        .HasColumnType("bit");
 
                     b.Property<bool?>("yorum_onay")
                         .HasColumnType("bit");
@@ -392,72 +454,6 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.ToTable("Urunler");
                 });
 
-            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.UserBeverageCommentActions", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int?>("comment_id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("is_liked")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("user_id")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("UserBeverageCommentActions");
-                });
-
-            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.UserProductCommentActions", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int?>("comment_id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("is_liked")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("user_id")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("UserProductCommentActions");
-                });
-
-            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.UserSweetCommentActions", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int?>("comment_id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("is_liked")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("user_id")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("UserSweetCommentActions");
-                });
-
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.Yorumlars", b =>
                 {
                     b.Property<int>("yorum_id")
@@ -507,6 +503,15 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.ToTable("Yorumlar");
                 });
 
+            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.IcecekYorumBegenme", b =>
+                {
+                    b.HasOne("DrinkDiscovery_Admin_Revised.Models.IcecekYorumlars", "icecek_yorum")
+                        .WithMany("icecek_begenmeler")
+                        .HasForeignKey("icecek_yorumyorum_id");
+
+                    b.Navigation("icecek_yorum");
+                });
+
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.IcecekYorumlars", b =>
                 {
                     b.HasOne("DrinkDiscovery_Admin_Revised.Models.Iceceklers", "yorum_icecek")
@@ -525,6 +530,15 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.Navigation("icecek_kategori");
                 });
 
+            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.TatliYorumBegenme", b =>
+                {
+                    b.HasOne("DrinkDiscovery_Admin_Revised.Models.TatlilarYorumlars", "tatli_yorum")
+                        .WithMany("tatli_begenmeler")
+                        .HasForeignKey("tatli_yorumyorum_id");
+
+                    b.Navigation("tatli_yorum");
+                });
+
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.TatlilarYorumlars", b =>
                 {
                     b.HasOne("DrinkDiscovery_Admin_Revised.Models.Tatlilars", "yorum_tatli")
@@ -541,6 +555,19 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                         .HasForeignKey("tatli_kategori_id");
 
                     b.Navigation("tatli_kategori");
+                });
+
+            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.UrunYorumBegenme", b =>
+                {
+                    b.HasOne("DrinkDiscovery_Admin_Revised.Models.Urunlers", null)
+                        .WithMany("urun_begenmeler")
+                        .HasForeignKey("Urunlersurun_id");
+
+                    b.HasOne("DrinkDiscovery_Admin_Revised.Models.UrunlerYorumlars", "urun_yorum")
+                        .WithMany()
+                        .HasForeignKey("urun_yorumyorum_id");
+
+                    b.Navigation("urun_yorum");
                 });
 
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.UrunlerYorumlars", b =>
@@ -585,6 +612,11 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.Navigation("Iceceklers");
                 });
 
+            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.IcecekYorumlars", b =>
+                {
+                    b.Navigation("icecek_begenmeler");
+                });
+
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.Iceceklers", b =>
                 {
                     b.Navigation("icecek_yorumlar");
@@ -602,6 +634,11 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.Navigation("Tatlilars");
                 });
 
+            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.TatlilarYorumlars", b =>
+                {
+                    b.Navigation("tatli_begenmeler");
+                });
+
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.Tatlilars", b =>
                 {
                     b.Navigation("tatli_yorumlar");
@@ -616,6 +653,8 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
 
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.Urunlers", b =>
                 {
+                    b.Navigation("urun_begenmeler");
+
                     b.Navigation("urun_yorumlar");
 
                     b.Navigation("urun_yorumlari_s");

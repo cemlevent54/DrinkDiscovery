@@ -19,5 +19,11 @@ public partial class UrunlerYorumlar
 
     public int? YorumUrunurunId { get; set; }
 
+    public int YorumDislikeCount { get; set; }
+
+    public int YorumLikeCount { get; set; }
+
+    public bool YorumLikeState { get; set; }
+
     public virtual Urunler? YorumUrunurun { get; set; }
 }

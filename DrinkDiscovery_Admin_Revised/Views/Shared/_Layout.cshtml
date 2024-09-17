@@ -95,8 +95,8 @@
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <form class="d-flex me-3">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="max-width:300px">
+                            <form class="d-flex" action="@Url.Action("Search", "Home")" method="get" style="width: 100%; justify-content: flex-end;">
+                                <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" style="max-width: 300px;">
                                 <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
                             </form>
                         </li>

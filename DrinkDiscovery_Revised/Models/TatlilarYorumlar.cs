@@ -19,5 +19,11 @@ public partial class TatlilarYorumlar
 
     public int? YorumTatlitatliId { get; set; }
 
+    public int YorumDislikeCount { get; set; }
+
+    public int YorumLikeCount { get; set; }
+
+    public bool YorumLikeState { get; set; }
+
     public virtual Tatlilar? YorumTatlitatli { get; set; }
 }
