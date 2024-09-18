@@ -1,0 +1,89 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var icecekler = ViewBag.Icecekler as List<Icecekler>;
+    var tatlilar = ViewBag.Tatlilar as List<Tatlilar>;
+    var urunler = ViewBag.Urunler as List<Urunler>;
+}
+
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Kategori Adi</th>
+            <th>Resim</th>
+            <th>Puanı</th>
+            <th>Fiyatı</th>
+            <th>Detay</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in icecekler)
+        {
+            // get rid of null reference exception
+            if (item.IcecekKategori == null)
+            {
+                @* item.IcecekKategori = new IcecekKategoris(); *@
+            }
+
+            <tr>
+                <td>@item.IcecekAd</td>
+                <td>@item.IcecekKategori.IcecekKategoriAd</td>
+                <td>
+                    <img src="@Url.Action("GetImage", "Icecek", new { id = item.IcecekId })" style="width:100px;height:100px;" />
+                </td>
+                <td>@item.IcecekPuan</td>
+                <td>@item.IcecekFiyat</td>
+                <td>
+                    <a href="@Url.Action("IcecekDetay", "Icecek", new { id = item.IcecekId })" class="btn btn-primary">Detay</a
+                </td>
+            </tr>
+        }
+        @foreach (var item in tatlilar)
+        {
+            if (item.TatliKategori == null)
+            {
+                @* item.TatliKategori = new TatlilarKategoris(); *@
+            }
+
+            <tr>
+                <td>@item.TatliAd</td>
+                <td>@item.TatliKategori.TatliKategoriAd</td>
+                <td>
+                    <img src="@Url.Action("GetImage", "Tatli", new { id = item.TatliId })" style="width:100px;height:100px;" />
+                </td>
+                <td>@item.TatliPuan</td>
+                <td>@item.TatliFiyat</td>
+                <td>
+                    <a href="@Url.Action("TatliDetay", "Tatli", new { id = item.TatliId })" class="btn btn-primary">Detay</a>
+                </td>
+            </tr>
+        }
+        @foreach (var item in urunler)
+        {
+            if (item.UrunKategori == null)
+            {
+                @* item.UrunKategori = new UrunKategoris(); *@
+            }
+
+            <tr>
+                <td>@item.UrunAd</td>
+                <td>@item.UrunKategori.UrunKategoriAd</td>
+                <td>
+                    <img src="@Url.Action("GetImage", "Urun", new { id = item.UrunId })" style="width:100px;height:100px;" />
+                </td>
+                <td>@item.UrunPuan</td>
+                <td>@item.UrunFiyat</td>
+                <td>
+                    <a href="@Url.Action("UrunDetay", "Urun", new { id = item.UrunId })" class="btn btn-primary">Detay</a>
+                </td>
+            </tr>
+        }
+
+</table>

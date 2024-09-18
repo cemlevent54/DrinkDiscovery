@@ -40,36 +40,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                İçecekler
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @* @await Html.PartialAsync("IceceklerKategorilerPartial") *@
-                                @await Html.PartialAsync("~/Views/Home/IcecekKategorileriGetirPartial.cshtml", icecekKategoriler)
-                            </ul>
-                            @* <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @foreach (var icecek in Model.IcecekKategoriler)
-                            {
-                            <li><a class="dropdown-item" asp-area="" asp-controller="IcecekKategori" asp-action="Icecekler" asp-route-kategoriId="@icecek.IcecekKategoriId">@icecek.IcecekKategoriAd</a></li>
-                            }
-                            </ul> *@
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="IndexIcecekler">İçecekler</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Tatlılar
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @await Html.PartialAsync("~/Views/Home/TatliKategorileriGetirPartial.cshtml", tatliKategoriler)
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="IndexTatlilar">Tatlılar</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Ürünler
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @await Html.PartialAsync("~/Views/Home/UrunKategorileriGetirPartial.cshtml", urunKategoriler)
-                            </ul> 
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="IndexUrunler">Ürünler</a>
                         </li>
 
                     </ul>

@@ -1,0 +1,50 @@
+﻿@model List<DrinkDiscovery_Revised.Models.TatlilarKategoriler>
+@{
+    ViewData["Title"] = "IndexTatlilar";
+    var tatlilar = ViewBag.Tatlilar as List<DrinkDiscovery_Revised.Models.Tatlilar> ?? new List<DrinkDiscovery_Revised.Models.Tatlilar>();
+
+}
+
+<div class="btn-group" role="group">
+    @foreach (var tatli in Model)
+    {
+        <a class="btn btn-outline-secondary"
+           asp-area=""
+           asp-controller="Home"
+           asp-action="IndexTatlilar"
+           asp-route-kategoriId="@tatli.TatliKategoriId">
+            @tatli.TatliKategoriAd
+        </a>
+    }
+</div>
+
+<br />
+<br />
+
+<div class="container mt-2">
+    <div class="row">
+        @foreach (var tatli in tatlilar)
+        {
+
+            <div class="col-md-3 col-sm-5">
+
+                <div class="card card-block" style="text-align:center;justify-content:center;" onclick="location.href='@Url.Action("TatliDetay", "Tatli", new { id = tatli.TatliId })'" style="cursor:pointer;">
+                    @* <img src="@Url.Action("GetImage", "Icecek", new { id = item.icecek_id })" style="width:100px;height:100px;" /> *@
+                    <img src="@Url.Action("GetImage", "Tatli", new { id = tatli.TatliId })">
+                    <div class="card-body" style="display:flex;flex-direction:column;">
+                        <h5 class="card-title mt-3 mb-3">@tatli.TatliAd</h5>
+                        @* <p class="card-text">Açıklama</p> *@
+                        <p> @tatli.TatliFiyat TL </p>
+                        @* <a href="#" class="btn btn-primary">Sepete Ekle</a> *@
+
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+</div>
+
+

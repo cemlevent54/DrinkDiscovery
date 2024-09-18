@@ -1,0 +1,52 @@
+﻿@model List<DrinkDiscovery_Revised.Models.IcecekKategoriler>
+@{
+    ViewData["Title"] = "IndexIcecekler";
+    var icecekler = ViewBag.Icecekler as List<DrinkDiscovery_Revised.Models.Icecekler> ?? new List<DrinkDiscovery_Revised.Models.Icecekler>();
+}
+
+
+
+<!-- kategorileri kutular halinde tek tek göster yukarıda-->
+
+
+<div class="btn-group" role="group">
+    @foreach (var icecek in Model)
+    {
+        <a class="btn btn-outline-secondary"
+           asp-area=""
+           asp-controller="Home"
+           asp-action="IndexIcecekler"
+           asp-route-kategoriId="@icecek.IcecekKategoriId">
+            @icecek.IcecekKategoriAd
+        </a>
+    }
+</div>
+
+<br />
+<br />
+
+<div class="container mt-2">
+    <div class="row">
+        @foreach (var icecek in icecekler)
+        {
+
+            <div class="col-md-3 col-sm-5">
+
+                <div class="card card-block" style="text-align:center;justify-content:center;" onclick="location.href='@Url.Action("IcecekDetay", "Icecek", new { id = icecek.IcecekId })'" style="cursor:pointer;">
+                    @* <img src="@Url.Action("GetImage", "Icecek", new { id = item.icecek_id })" style="width:100px;height:100px;" /> *@
+                    <img src="@Url.Action("GetImage", "Icecek", new { id = icecek.IcecekId })">
+                    <div class="card-body" style="display:flex;flex-direction:column;">
+                        <h5 class="card-title mt-3 mb-3">@icecek.IcecekAd</h5>
+                        @* <p class="card-text">Açıklama</p> *@
+                        <p> @icecek.IcecekFiyat TL </p>
+                        @* <a href="#" class="btn btn-primary">Sepete Ekle</a> *@
+
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+</div>
