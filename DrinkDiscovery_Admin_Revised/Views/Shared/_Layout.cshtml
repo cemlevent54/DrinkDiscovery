@@ -67,19 +67,8 @@
                                 Kullanıcılar
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Kullanıcı Ekleme</a></li>
-                                <li><a class="dropdown-item" href="#">Kullanıcı Silme</a></li>
-                                <li><a class="dropdown-item" href="#">Kullanıcı Düzenleme</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Adminler
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Admin Ekleme</a></li>
-                                <li><a class="dropdown-item" href="#">Admin Silme</a></li>
-                                <li><a class="dropdown-item" href="#">Admin Düzenleme</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="ListUsers">Kullanıcı İşlemleri</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Index">Rol Yönetimi</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -87,8 +76,9 @@
                                 Yorumlar
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">İçecek Yorum</a></li>
-                                <li><a class="dropdown-item" href="#">Ürün Yorum</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="CommentManagement" asp-action="ListBeverageComments">İçecek Yorum</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="CommentManagement" asp-action="ListSweetComments">Tatlı Yorum</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="CommentManagement" asp-action="ListProductComments">Ürün Yorum</a></li>
                             </ul>
                         </li>
 
@@ -99,6 +89,9 @@
                                 <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" style="max-width: 300px;">
                                 <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
                             </form>
+                        </li>
+                        <li class="nav-item">
+                            @await Html.PartialAsync("_LoginPartial")
                         </li>
                         
                     </ul>

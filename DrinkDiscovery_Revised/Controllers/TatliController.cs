@@ -53,6 +53,7 @@ namespace DrinkDiscovery_Revised.Controllers
             // yorumlar partial için eklendi
             int sweetId = ViewBag.SelectedSweet.TatliId;
             var yorumlar = repository.TatlilarYorumlar.Where(i => i.YorumTatlitatliId == sweetId)
+                .Where(i => i.YorumOnay == true)
                 .ToList();
 
             ViewBag.SweetComments = yorumlar;

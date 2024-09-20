@@ -1,14 +1,17 @@
-﻿using System.Linq.Expressions;
+﻿using DrinkDiscovery_Admin_Revised.Areas.Identity.Data;
+using System.Linq.Expressions;
 
 namespace DrinkDiscovery_Admin_Revised.Models
 {
     public class EfRepository : IRepository
     {
         private Context context;
+        private DrinkDiscovery_Admin_Revised_Context user_context;
 
-        public EfRepository(Context _context)
+        public EfRepository(Context _context, DrinkDiscovery_Admin_Revised_Context _user_context)
         {
             context = _context;
+            user_context= _user_context;
         }
         public IQueryable<Adminlers> Adminler => context.Adminler;
         public IQueryable<Iceceklers> Icecekler => context.Icecekler;
@@ -19,6 +22,21 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public IQueryable<UrunKategoris> UrunKategoriler => context.UrunKategoriler;
         public IQueryable<Tatlilars> Tatlilar => context.Tatlilar;
         public IQueryable<TatlilarKategoris> TatlilarKategoriler => context.TatlilarKategoriler;
+
+        public IQueryable<DrinkDiscovery_Admin_Revised_User> Users => user_context.Users;
+
+
+        // yorumlar 
+        public IQueryable<IcecekYorumlars> IcecekYorumlars => context.IcecekYorumlars;
+        public IQueryable<UrunlerYorumlars> UrunlerYorumlars => context.UrunlerYorumlars;
+        public IQueryable<TatlilarYorumlars> TatlilarYorumlars => context.TatlilarYorumlars;
+
+        // yorum response
+        public IQueryable<UserBeverageCommentActions> UserBeverageCommentActions => context.UserBeverageCommentActions;
+        public IQueryable<UserSweetCommentActions> UserSweetCommentActions => context.UserSweetCommentActions;
+        public IQueryable<UserProductCommentActions> UserProductCommentActions => context.UserProductCommentActions;
+
+
 
 
         public void Add<T>(T entity) where T : class
@@ -89,6 +107,22 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public Task UpdateAsync<T>(T entity) where T : class
         {
             throw new NotImplementedException();
+        }
+
+        public void UpdateUser(DrinkDiscovery_Admin_Revised_User user)
+        {
+            user_context.Users.Update(user);
+        }
+
+        public void SaveChangesUser()
+        {
+            user_context.SaveChanges();
+        }
+
+        public void DeleteUser(DrinkDiscovery_Admin_Revised_User user)
+        {
+            user_context.Users.Remove(user);
+            SaveChangesUser();
         }
     }
 }

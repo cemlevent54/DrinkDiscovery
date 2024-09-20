@@ -46,6 +46,7 @@ namespace DrinkDiscovery_Revised.Controllers
             // yorumlar partial için eklendi
             int productId = ViewBag.selectedProduct.UrunId;
             var yorumlar = repository.UrunYorumlar.Where(i => i.YorumUrunurunId == productId)
+                .Where(i => i.YorumOnay == true)
                 .ToList();
             ViewBag.ProductComments = yorumlar;
 

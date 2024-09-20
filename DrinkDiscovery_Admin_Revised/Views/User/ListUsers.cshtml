@@ -1,0 +1,64 @@
+﻿@using DrinkDiscovery_Admin_Revised.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<DrinkDiscovery_Admin_Revised.Areas.Identity.Data.DrinkDiscovery_Admin_Revised_User>
+@{
+    ViewData["Title"] = "ListUsers";
+}
+
+@inject RoleManager<IdentityRole> roleManager
+@inject UserManager<DrinkDiscovery_Admin_Revised_User> userManager
+
+
+<h1>List Users</h1>
+<form class="d-flex" action="@Url.Action("Search", "User")" method="get" style="width: 100%; justify-content: flex-end;">
+    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" style="max-width: 300px;">
+    <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+</form>
+<table class="table table-striped">
+    <tr>
+        <th>Photo</th>
+        <th>Ad</th>
+        <th>Soyad</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Telefon Numarası</th>
+        <th>Kullanıcı Rolü</th>
+        <th>Kullanıcı Sil</th>
+        <th>Kullanıcı Düzenle</th>
+    </tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>
+                <img src="@Url.Action("GetImage", "User", new { id = user.Id })" style="width:100px;height:100px;" />
+            </td>
+            <td>@user.kullanici_ad</td>
+            <td>@user.kullanici_soyad</td>
+            <td>@user.kullanici_username</td>
+            <td>@user.Email</td>
+            <td>@user.kullanici_telefon</td>
+            <td> 
+                @userManager.GetRolesAsync(user).Result.FirstOrDefault()
+            </td>
+            <td>
+                <a href="@Url.Action("DeleteUser", "User", new { id = user.Id })" class="btn btn-danger" onclick="confirmDeletion('@Url.Action("DeleteUser", "User", new { id = user.Id })')">Sil</a>
+            </td>
+            <td>
+                <a href="@Url.Action("UpdateUser", "User", new { id = user.Id })" class="btn btn-primary">Düzenle</a>
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+<!-- JavaScript -->
+<script src="~/js/site.js"></script>
+
+<script type="text/javascript">
+    function confirmDeletion(url) {
+        if (confirm("Gerçekten silmek istiyor musunuz?")) {
+            window.location.href = url;
+        }
+    }
+</script>

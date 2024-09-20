@@ -1,0 +1,139 @@
+﻿@using DrinkDiscovery_Admin_Revised.Areas.Identity.Data
+@using DrinkDiscovery_Admin_Revised.Models
+@using Microsoft.AspNetCore.Identity
+@model DrinkDiscovery_Admin_Revised.Areas.Identity.Data.DrinkDiscovery_Admin_Revised_User
+@{
+    ViewData["Title"] = "UpdateUser";
+    var allRoles = roleManager.Roles.ToList();
+    var userRoles = userManager.GetRolesAsync(Model).Result;
+}
+
+@inject RoleManager<IdentityRole> roleManager
+@inject UserManager<DrinkDiscovery_Admin_Revised_User> userManager
+
+<h1>Update User</h1>
+
+@using (Html.BeginForm("UpdateUser", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <table class="table table-active">
+        <tr>
+            <td>
+                @* will be removed *@
+                <label for="user_id" class="form-label">User ID</label>
+                @Html.TextBoxFor(item => item.Id, new { @class = "form-control", @readonly = "readonly" })
+            </td>
+            <td>
+                <label for="kullanici_resim" class="form-label">Kullanıcı Resim</label> <br />
+                <img id="selectedImage" src="@Url.Action("GetImage", "User", new { id = Model.Id })" style="width:100px;height:100px;" />
+                <br />
+                
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+
+                <div class="mb-3">
+                    <label for="kullanici_ad" class="form-label">Kullanıcı Adı</label>
+                    @Html.TextBoxFor(x => x.kullanici_ad, new { @class = "form-control", @id = "kullanici_ad", style = "width: 350px;" })
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label for="kullanici_soyad" class="form-label">Kullanıcı Soyadı</label>
+                    @Html.TextAreaFor(x => x.kullanici_soyad, new { @class = "form-control", @id = "kullanici_soyad", style = "width: 350px;" })
+                </div>
+            </td>
+
+
+        </tr>
+        <tr>
+
+            <td>
+                <div class="mb-3">
+                    <label for="kullanici_mail" class="form-label">Kullanıcı Mail</label>
+                    @Html.TextAreaFor(x => x.kullanici_mail, new { @class = "form-control", @id = "kullanici_mail", style = "width: 350px;" })
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label for="kullanici_telefon" class="form-label">Kullanıcı Telefon</label>
+                    @Html.TextAreaFor(x => x.kullanici_telefon, new { @class = "form-control", @id = "kullanici_telefon", style = "width: 350px;" })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="mb-3">
+                    <label for="kullanici_username" class="form-label">Username</label>
+                    @Html.TextBoxFor(x => x.kullanici_username, new { @class = "form-control", @id = "kullanici_username", style = "width: 350px;" })
+                </div>
+            </td>
+                @* rol düzenlemek icin combobox *@
+            <td>
+                <div class="mb-3">
+                    <label for="user_role" class="form-label">Kullanıcı Rol</label>
+                    <select id="user_role" name="selectedRole" class="form-control" style="width: 350px;">
+                        @foreach (var role in allRoles)
+                        {
+                            if (userRoles.Contains(role.Name))
+                            {
+                                <option value="@role.Name" selected="selected">@role.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@role.Name">@role.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                
+
+
+            </td>
+
+
+
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <button class="btn btn-info" style="width: 350px;">Kullanıcı Düzenle</button>
+            </td>
+        </tr>
+
+
+    </table>
+
+    <br />
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+<script>
+    document.getElementById('tatli_resmi').addEventListener('change', function (event) {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const image = document.getElementById('selectedImage');
+                image.src = e.target.result;
+                image.style.display = 'block';
+                image.style.width = '100px';
+                image.style.height = '100px';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    });
+</script>

@@ -59,6 +59,7 @@ namespace DrinkDiscovery_Revised.Controllers
             // yorumlar partial için eklendi
             int beverageId = ViewBag.SelectedBeverage.IcecekId;
             var yorumlar = repository.IcecekYorumlar.Where(i => i.YorumIcecekicecekId == beverageId)
+                .Where(i => i.YorumOnay == true)
                 .ToList();
             ViewBag.BeverageComments = yorumlar;
             // get usernames,photos etc.

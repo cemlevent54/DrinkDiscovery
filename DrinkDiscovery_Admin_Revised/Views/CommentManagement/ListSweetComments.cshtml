@@ -1,0 +1,60 @@
+﻿@model IEnumerable<DrinkDiscovery_Admin_Revised.Models.TatlilarYorumlars>
+@using DrinkDiscovery_Admin_Revised.Areas.Identity.Data
+@using DrinkDiscovery_Admin_Revised.Models
+@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "ListSweetComments";
+}
+@inject UserManager<DrinkDiscovery_Admin_Revised_User> userManager
+
+<h1>List Sweet Comments</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Yorum ID</th>
+            <th>Yorum</th>
+            <th>Yorum Tarihi</th>
+            <th>Yorum Yapan</th>
+            <th>Tatlı Adı</th>
+            <th>Tatlı ID</th>
+            <th>Yorum Sil</th>
+            <th>Yorum Onayla</th>
+            <th>Yorum Reddet</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || !Model.Any())
+        {
+            <tr>
+                <td colspan="9">No records found</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr style="background-color: @(item.yorum_onay == true ? "#d4edda" : item.yorum_onay == false ? "#f8d7da" : "inherit")">
+                    <td>@item.yorum_id</td>
+                    <td>@item.yorum_icerik</td>
+                    <td>@item.yorum_tarih.ToString()</td>
+                    <td>
+                        @userManager.FindByIdAsync(item.yorum_kullanici_id).Result.kullanici_username
+                    </td>
+                    <td>@item.yorum_tatli?.tatli_ad</td> <!-- Handling null beverage -->
+                    <td>@item.yorum_tatli?.tatli_id</td> <!-- Handling null beverage -->
+                    <td>
+                        <a href="@Url.Action("DeleteSweetComment", "CommentManagement", new { id = item.yorum_id })" class="btn btn-danger"
+                           onclick="return confirm('Are you sure you want to delete this comment?');">Sil</a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("ConfirmSweetComment", "CommentManagement", new { id = item.yorum_id })" class="btn btn-success">Onayla</a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("RejectSweetComment", "CommentManagement", new { id = item.yorum_id })" class="btn btn-warning">Reddet</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
