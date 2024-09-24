@@ -1,4 +1,5 @@
 ﻿using DrinkDiscovery_Admin_Revised.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -8,6 +9,7 @@ using NuGet.Versioning;
 
 namespace DrinkDiscovery_Admin_Revised.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class IcecekController : Controller
     {
         private IRepository repository;

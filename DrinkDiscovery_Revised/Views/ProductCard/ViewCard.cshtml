@@ -1,0 +1,77 @@
+﻿@using DrinkDiscovery_Revised.Models;
+@using DrinkDiscovery_Revised.Areas.Identity.Data;
+@model IEnumerable<DrinkDiscovery_Revised.Models.ShoppingCard>
+
+@{
+    ViewData["Title"] = "ViewCard";
+    var productInformations = ViewBag.ProductInformations as Dictionary<int, Dictionary<string, string>> ?? new Dictionary<int, Dictionary<string, string>>();
+}
+
+<div style="display: flex; justify-content: space-between;">
+    <!-- Shopping Cart Table -->
+    <div style="width: 70%;">
+        <h1>View Card</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Ürün resmi</th>
+                    <th style="width: 25%;">Ürün ismi</th>
+                    <th style="width: 15%;">Ürün fiyatı</th>
+                    <th style="width: 20%;">Ürün Adeti + -</th>
+                    <th style="width: 15%;">Toplam Fiyat</th>
+                    <th style="width: 10%;">Sepetten Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var totalprice = 0;
+                    var orderSummary = new List<string>();
+                }
+                @foreach (var item in Model)
+                {
+                    var productInfo = productInformations[item.ProductId];
+                    var priceperproduct = int.Parse(productInfo["UrunFiyat"]) * item.Count;
+                    <tr>
+                        <td>
+                            <img src="@Url.Action("GetImage", "ProductCard", new { id = item.ProductId })" style="width:100px;height:100px;" />
+                        </td>
+                        <td>@productInfo["UrunAd"]</td>
+                        <td>@productInfo["UrunFiyat"] TL</td>
+                        <td>
+                            <div class="quantity-selector justify-content-center">
+                                <a class="btn btn-danger btn-minus h-8 w-8" asp-area="" asp-controller="ProductCard" asp-action="DecreaseCount" asp-route-id="@item.ProductId">-</a>
+                                <span>@item.Count</span>
+                                <a class="btn btn-primary btn-plus h-8 w-8" asp-area="" asp-controller="ProductCard" asp-action="IncreaseCount" asp-route-id="@item.ProductId">+</a>
+                            </div>
+                        </td>
+                        <td>@priceperproduct TL</td>
+                        <td>
+                            <a class="btn btn-danger" asp-area="" asp-controller="ProductCard" asp-action="DeleteCard" asp-route-id="@item.ProductId">Sil</a>
+                        </td>
+                    </tr>
+                    totalprice += priceperproduct;
+                    orderSummary.Add($"{productInfo["UrunAd"]} (x{item.Count}) - {priceperproduct} TL");
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Order Summary Box -->
+    <div style="width: 25%; border: 1px solid ; padding: 20px; border-radius: 10px; background-color: azure;">
+        <h2>Sipariş Özeti</h2>
+        <ul style="list-style-type: none; padding: 0;">
+            @foreach (var summary in orderSummary)
+            {
+                <li style="font-size: smaller; margin-bottom: 5px;">@summary</li>
+            }
+        </ul>
+        <hr />
+        <div style="margin-top: 10px;">
+            <strong>Toplam Fiyat:</strong> @totalprice TL
+        </div>
+        <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+            <a href="@Url.Action("ConfirmCard", "ProductCard")" class="btn btn-success" style="width: 48%;">Sepeti Onayla</a>
+            <a href="@Url.Action("DeleteAllCard", "ProductCard")" class="btn btn-danger" style="width: 48%;">Sepeti Boşalt</a>
+        </div>
+    </div>
+</div>

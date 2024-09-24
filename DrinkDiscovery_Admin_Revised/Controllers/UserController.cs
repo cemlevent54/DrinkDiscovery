@@ -4,9 +4,11 @@ using DrinkDiscovery_Admin_Revised.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DrinkDiscovery_Admin_Revised.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         

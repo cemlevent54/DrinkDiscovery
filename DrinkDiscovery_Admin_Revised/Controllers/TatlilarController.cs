@@ -1,10 +1,12 @@
 ﻿using DrinkDiscovery_Admin_Revised.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace DrinkDiscovery_Admin_Revised.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TatlilarController : Controller
     {
         private readonly IRepository repository;

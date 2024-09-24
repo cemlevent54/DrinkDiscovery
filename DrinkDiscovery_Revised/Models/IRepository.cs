@@ -24,6 +24,14 @@ namespace DrinkDiscovery_Revised.Models
         public IQueryable<UserSweetCommentAction> UserSweetCommentAction { get; }
         public IQueryable<UserProductCommentAction> UserProductCommentAction { get; }
 
+        // card tables
+        public IQueryable<ShoppingCard> ShoppingCard { get; }
+        // order tables
+        public IQueryable<Order> Order { get; }
+        public IQueryable<OrderItem> OrderItem { get; }
+
+
+
         
 
 
@@ -34,6 +42,7 @@ namespace DrinkDiscovery_Revised.Models
         public IEnumerable<IcecekKategoriler> GetIcecekKategoriler();
         public IEnumerable<Icecekler> GetHaftaninIcecekleri();
         public IEnumerable<Urunler> GetUrunler();
+
 
         public Dictionary<string, int> GetIcecekIsimleri();
 
@@ -53,5 +62,8 @@ namespace DrinkDiscovery_Revised.Models
         Task SaveChangesAsync();
         Task DeleteAllAsync();
         Task<IQueryable<T>> FindAsync<T>(Expression<Func<T, bool>> predicate) where T : class;
+
+        // removerange
+        void RemoveRange<T>(IEnumerable<T> entities) where T : class;
     }
 }

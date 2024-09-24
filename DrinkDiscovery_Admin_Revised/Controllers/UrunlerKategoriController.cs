@@ -1,9 +1,11 @@
 ﻿using DrinkDiscovery_Admin_Revised.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace DrinkDiscovery_Admin_Revised.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UrunlerKategoriController : Controller
     {
         public IActionResult Index()

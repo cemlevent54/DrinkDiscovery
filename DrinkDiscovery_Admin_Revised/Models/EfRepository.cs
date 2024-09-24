@@ -36,6 +36,9 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public IQueryable<UserSweetCommentActions> UserSweetCommentActions => context.UserSweetCommentActions;
         public IQueryable<UserProductCommentActions> UserProductCommentActions => context.UserProductCommentActions;
 
+        public IQueryable<ShoppingCards> ShoppingCards => context.ShoppingCards;
+
+
 
 
 

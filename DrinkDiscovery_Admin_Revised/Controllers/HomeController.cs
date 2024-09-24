@@ -1,4 +1,5 @@
 using DrinkDiscovery_Admin_Revised.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Core.Types;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 
 namespace DrinkDiscovery_Admin_Revised.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

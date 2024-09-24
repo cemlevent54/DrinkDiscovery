@@ -25,6 +25,12 @@ public partial class DrinkDiscoveryAdminContext : DbContext
 
     public virtual DbSet<Kullanicilar> Kullanicilars { get; set; }
 
+    public virtual DbSet<Order> Orders { get; set; }
+
+    public virtual DbSet<OrderItem> OrderItems { get; set; }
+
+    public virtual DbSet<ShoppingCard> ShoppingCards { get; set; }
+
     public virtual DbSet<Tatlilar> Tatlilars { get; set; }
 
     public virtual DbSet<TatlilarKategoriler> TatlilarKategorilers { get; set; }
@@ -130,6 +136,50 @@ public partial class DrinkDiscoveryAdminContext : DbContext
             entity.Property(e => e.KullaniciSifre).HasColumnName("kullanici_sifre");
             entity.Property(e => e.KullaniciSoyad).HasColumnName("kullanici_soyad");
             entity.Property(e => e.KullaniciTelefon).HasColumnName("kullanici_telefon");
+        });
+
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.ToTable("Order");
+
+            entity.Property(e => e.OrderId).HasColumnName("order_id");
+            entity.Property(e => e.Email).HasColumnName("email");
+            entity.Property(e => e.OrderDate).HasColumnName("order_date");
+            entity.Property(e => e.OrderDeliveryAddress).HasColumnName("order_delivery_address");
+            entity.Property(e => e.OrderPaymentMethod).HasColumnName("order_payment_method");
+            entity.Property(e => e.OrderPaymentStatus).HasColumnName("order_payment_status");
+            entity.Property(e => e.OrderStatus).HasColumnName("order_status");
+            entity.Property(e => e.OrderTotalPrice).HasColumnName("order_total_price");
+            entity.Property(e => e.PhoneNumber).HasColumnName("phone_number");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+        });
+
+        modelBuilder.Entity<OrderItem>(entity =>
+        {
+            entity.ToTable("OrderItem");
+
+            entity.HasIndex(e => e.OrderIdFk, "IX_OrderItem_order_id_fk");
+
+            entity.Property(e => e.OrderId).HasColumnName("order_id");
+            entity.Property(e => e.OrderIdFk).HasColumnName("order_id_fk");
+            entity.Property(e => e.OrderItemId).HasColumnName("order_item_id");
+            entity.Property(e => e.OrderPrice).HasColumnName("order_price");
+            entity.Property(e => e.OrderProductCategoryId).HasColumnName("order_product_category_id");
+            entity.Property(e => e.OrderProductId).HasColumnName("order_product_id");
+            entity.Property(e => e.OrderQuantity).HasColumnName("order_quantity");
+
+            entity.HasOne(d => d.OrderIdFkNavigation).WithMany(p => p.OrderItems).HasForeignKey(d => d.OrderIdFk);
+        });
+
+        modelBuilder.Entity<ShoppingCard>(entity =>
+        {
+            entity.HasKey(e => e.CardId);
+
+            entity.Property(e => e.CardId).HasColumnName("card_id");
+            entity.Property(e => e.CategoryId).HasColumnName("category_id");
+            entity.Property(e => e.Count).HasColumnName("count");
+            entity.Property(e => e.ProductId).HasColumnName("product_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
         });
 
         modelBuilder.Entity<Tatlilar>(entity =>

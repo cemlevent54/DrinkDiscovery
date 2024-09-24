@@ -4,6 +4,7 @@ using DrinkDiscovery_Admin_Revised.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrinkDiscovery_Admin_Revised.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240924171523_add_order_and_order_details_class")]
+    partial class add_order_and_order_details_class
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,7 +191,49 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.ToTable("Kullanicilar");
                 });
 
-            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.Order", b =>
+            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.OrderDetails", b =>
+                {
+                    b.Property<int>("order_item_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("order_item_id"));
+
+                    b.Property<string>("order_address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("order_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("product_id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("product_order_confirmation")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("product_order_date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("product_order_status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("product_per_price")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("product_total_price")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("order_item_id");
+
+                    b.HasIndex("order_id");
+
+                    b.ToTable("OrderDetails");
+                });
+
+            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.Orders", b =>
                 {
                     b.Property<int>("order_id")
                         .ValueGeneratedOnAdd()
@@ -196,72 +241,12 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("order_id"));
 
-                    b.Property<string>("email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("order_date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("order_delivery_address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("order_payment_method")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("order_payment_status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("order_status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float?>("order_total_price")
-                        .HasColumnType("real");
-
-                    b.Property<string>("phone_number")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("user_id")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("order_id");
 
-                    b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("order_id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("order_id1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("order_item_id")
-                        .HasColumnType("int");
-
-                    b.Property<float>("order_price")
-                        .HasColumnType("real");
-
-                    b.Property<int>("order_product_category_id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("order_product_id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("order_quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("order_id1");
-
-                    b.ToTable("OrderItem");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.ShoppingCards", b =>
@@ -626,13 +611,15 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.Navigation("icecek_kategori");
                 });
 
-            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.OrderItem", b =>
+            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.OrderDetails", b =>
                 {
-                    b.HasOne("DrinkDiscovery_Admin_Revised.Models.Order", "order")
-                        .WithMany("order_items")
-                        .HasForeignKey("order_id1");
+                    b.HasOne("DrinkDiscovery_Admin_Revised.Models.Orders", "Order")
+                        .WithMany("order_details")
+                        .HasForeignKey("order_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("order");
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.TatlilarYorumlars", b =>
@@ -707,9 +694,9 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.Navigation("kullanici_yorumlar");
                 });
 
-            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.Order", b =>
+            modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.Orders", b =>
                 {
-                    b.Navigation("order_items");
+                    b.Navigation("order_details");
                 });
 
             modelBuilder.Entity("DrinkDiscovery_Admin_Revised.Models.TatlilarKategoris", b =>

@@ -150,7 +150,7 @@
                         <h5 class="card-title mt-3 mb-3">@urun.UrunAd</h5>
                         @* <p class="card-text">Açıklama</p> *@
                         <p> @urun.UrunFiyat TL </p>
-                        <a href="#" class="btn btn-primary">Sepete Ekle</a> 
+                        <a class="btn btn-danger" asp-area="" asp-controller="ProductCard" asp-action="CreateCard" asp-route-urunId="@urun.UrunId">Sepete Ekle</a>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ using DrinkDiscovery_Admin_Revised.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrinkDiscovery_Admin_Revised.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240924191309_new_order_classes")]
+    partial class new_order_classes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,29 +199,11 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("order_id"));
 
-                    b.Property<string>("email")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("order_date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("order_delivery_address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("order_payment_method")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("order_payment_status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("order_status")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<float?>("order_total_price")
                         .HasColumnType("real");
-
-                    b.Property<string>("phone_number")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("user_id")
                         .HasColumnType("nvarchar(max)");

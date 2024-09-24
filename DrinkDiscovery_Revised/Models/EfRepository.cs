@@ -25,8 +25,10 @@ namespace DrinkDiscovery_Revised.Models
         public IQueryable<UserBeverageCommentAction> UserBeverageCommentAction => context.UserBeverageCommentActions;
         public IQueryable<UserSweetCommentAction> UserSweetCommentAction => context.UserSweetCommentActions;
         public IQueryable<UserProductCommentAction> UserProductCommentAction => context.UserProductCommentActions;
+        public IQueryable<ShoppingCard> ShoppingCard => context.ShoppingCards;
+        public IQueryable<Order> Order => context.Orders;
+        public IQueryable<OrderItem> OrderItem => context.OrderItems;
 
-        
 
 
 
@@ -123,6 +125,11 @@ namespace DrinkDiscovery_Revised.Models
         public Task UpdateAsync<T>(T entity) where T : class
         {
             throw new NotImplementedException();
+        }
+
+        public void RemoveRange<T>(IEnumerable<T> entities) where T : class
+        {
+            context.Set<T>().RemoveRange(entities);
         }
     }
 }

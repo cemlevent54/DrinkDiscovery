@@ -26,6 +26,11 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public IQueryable<UserSweetCommentActions> UserSweetCommentActions { get; }
         public IQueryable<UserProductCommentActions> UserProductCommentActions { get; }
 
+        // card
+        public IQueryable<ShoppingCards> ShoppingCards { get; }
+
+
+
 
 
         public void Add<T>(T entity) where T : class;

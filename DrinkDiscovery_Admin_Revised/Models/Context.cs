@@ -30,6 +30,12 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public DbSet<UrunlerYorumlars> UrunlerYorumlars { get; set; }
         public DbSet<TatlilarYorumlars> TatlilarYorumlars { get; set; }
 
+        public DbSet<ShoppingCards> ShoppingCards { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderItem> OrderItem { get; set; }
+
+
+
 
     }
 }
