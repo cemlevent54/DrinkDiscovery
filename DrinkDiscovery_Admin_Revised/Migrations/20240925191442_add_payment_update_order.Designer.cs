@@ -4,6 +4,7 @@ using DrinkDiscovery_Admin_Revised.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrinkDiscovery_Admin_Revised.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240925191442_add_payment_update_order")]
+    partial class add_payment_update_order
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,9 +217,6 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.Property<bool>("order_shopping_cart_status")
                         .HasColumnType("bit");
 
-                    b.Property<string>("order_state")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("order_status")
                         .HasColumnType("nvarchar(max)");
 
@@ -281,7 +281,7 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                     b.Property<int>("order_id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("order_id_fk")
+                    b.Property<int>("order_id_fk")
                         .HasColumnType("int");
 
                     b.Property<float>("payment_amount")
@@ -309,9 +309,6 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("payment_status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("payment_user_id")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("payment_id");
@@ -696,7 +693,9 @@ namespace DrinkDiscovery_Admin_Revised.Migrations
                 {
                     b.HasOne("DrinkDiscovery_Admin_Revised.Models.Order", "order")
                         .WithMany()
-                        .HasForeignKey("order_id_fk");
+                        .HasForeignKey("order_id_fk")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("order");
                 });

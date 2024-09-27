@@ -1,12 +1,78 @@
-﻿
+﻿@using DrinkDiscovery_Revised.Models;
+@model DrinkDiscovery_Revised.Models.Order
+
 @{
-    ViewData["Title"] = "ConfirmCard";
+    ViewData["Title"] = "Confirm Address";
 }
 
-<h1>Confirm Card</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header text-center bg-primary text-white">
+                    <h3>Confirm Address Information</h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("ConfirmAddress", "Payment", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+                    {
+                        @* order id ye code behindda ulasmak icin hidden tanımla *@
+                        @Html.HiddenFor(item => item.OrderId)
+                        @* how to reach *@
+                        <div class="form-group row mb-3">
+                            <label for="Email" class="col-sm-4 col-form-label"><b>Email:</b></label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(item => item.Email, new { @class = "form-control", placeholder = "Enter your email" })
+                            </div>
+                        </div>
 
-@* first page-> adres bilgileri
-second page-> ödeme bilgileri *@
+                        <div class="form-group row mb-3">
+                            <label for="OrderDeliveryAddress" class="col-sm-4 col-form-label"><b>Delivery Address:</b></label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(item => item.OrderDeliveryAddress, new { @class = "form-control", placeholder = "Enter delivery address" })
+                            </div>
+                        </div>
 
+                        <div class="form-group row mb-3">
+                            <label for="PhoneNumber" class="col-sm-4 col-form-label"><b>Phone Number:</b></label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(item => item.PhoneNumber, new { @class = "form-control", placeholder = "Enter phone number" })
+                            </div>
+                        </div>
 
+                        <div class="form-group row mb-3">
+                            <label for="OrderPaymentMethod" class="col-sm-4 col-form-label"><b>Payment Method:</b></label>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(i => i.OrderPaymentMethod, new SelectList(new List<SelectListItem>
+                            {
+                            new SelectListItem { Text = "Kredi Kartı", Value = "Kredi Kartı" },
+                            new SelectListItem { Text = "Nakit", Value = "Nakit" },
+                            new SelectListItem { Text = "Havale", Value = "Havale" }
+                            }, "Value", "Text"), new { @class = "form-control" })
+                            </div>
+                        </div>
 
+                        <div class="form-group row mb-3">
+                            <label for="OrderPaymentStatus" class="col-sm-4 col-form-label"><b>Payment Status:</b></label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(item => item.OrderPaymentStatus, new { @class = "form-control", @readonly = "readonly", @value = "pending" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <label for="OrderStatus" class="col-sm-4 col-form-label"><b>Order Status:</b></label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(item => item.OrderStatus, new { @class = "form-control", @readonly = "readonly", @value = "preparing" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <div class="col-sm-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Confirm Address</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

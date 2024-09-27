@@ -29,6 +29,8 @@ public partial class DrinkDiscoveryAdminContext : DbContext
 
     public virtual DbSet<OrderItem> OrderItems { get; set; }
 
+    public virtual DbSet<Payment> Payments { get; set; }
+
     public virtual DbSet<ShoppingCard> ShoppingCards { get; set; }
 
     public virtual DbSet<Tatlilar> Tatlilars { get; set; }
@@ -148,6 +150,8 @@ public partial class DrinkDiscoveryAdminContext : DbContext
             entity.Property(e => e.OrderDeliveryAddress).HasColumnName("order_delivery_address");
             entity.Property(e => e.OrderPaymentMethod).HasColumnName("order_payment_method");
             entity.Property(e => e.OrderPaymentStatus).HasColumnName("order_payment_status");
+            entity.Property(e => e.OrderShoppingCartStatus).HasColumnName("order_shopping_cart_status");
+            entity.Property(e => e.OrderState).HasColumnName("order_state");
             entity.Property(e => e.OrderStatus).HasColumnName("order_status");
             entity.Property(e => e.OrderTotalPrice).HasColumnName("order_total_price");
             entity.Property(e => e.PhoneNumber).HasColumnName("phone_number");
@@ -169,6 +173,29 @@ public partial class DrinkDiscoveryAdminContext : DbContext
             entity.Property(e => e.OrderQuantity).HasColumnName("order_quantity");
 
             entity.HasOne(d => d.OrderIdFkNavigation).WithMany(p => p.OrderItems).HasForeignKey(d => d.OrderIdFk);
+        });
+
+        modelBuilder.Entity<Payment>(entity =>
+        {
+            entity.ToTable("Payment");
+
+            entity.HasIndex(e => e.OrderIdFk, "IX_Payment_order_id_fk");
+
+            entity.Property(e => e.PaymentId).HasColumnName("payment_id");
+            entity.Property(e => e.OrderId).HasColumnName("order_id");
+            entity.Property(e => e.OrderIdFk).HasColumnName("order_id_fk");
+            entity.Property(e => e.PaymentAmount).HasColumnName("payment_amount");
+            entity.Property(e => e.PaymentCardCvv).HasColumnName("payment_card_cvv");
+            entity.Property(e => e.PaymentCardExpiryDate).HasColumnName("payment_card_expiry_date");
+            entity.Property(e => e.PaymentCardNumber).HasColumnName("payment_card_number");
+            entity.Property(e => e.PaymentCartHolderName).HasColumnName("payment_cart_holder_name");
+            entity.Property(e => e.PaymentConfirmation).HasColumnName("payment_confirmation");
+            entity.Property(e => e.PaymentDate).HasColumnName("payment_date");
+            entity.Property(e => e.PaymentMethod).HasColumnName("payment_method");
+            entity.Property(e => e.PaymentStatus).HasColumnName("payment_status");
+            entity.Property(e => e.PaymentUserId).HasColumnName("payment_user_id");
+
+            entity.HasOne(d => d.OrderIdFkNavigation).WithMany(p => p.Payments).HasForeignKey(d => d.OrderIdFk);
         });
 
         modelBuilder.Entity<ShoppingCard>(entity =>

@@ -28,6 +28,10 @@ namespace DrinkDiscovery_Admin_Revised.Models
 
         // card
         public IQueryable<ShoppingCards> ShoppingCards { get; }
+        public IQueryable<Order> Order { get; }
+        public IQueryable<OrderItem> OrderItem { get; }
+        public IQueryable<Payment> Payment { get; }
+
 
 
 

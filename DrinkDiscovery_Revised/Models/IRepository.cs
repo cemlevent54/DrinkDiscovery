@@ -32,6 +32,8 @@ namespace DrinkDiscovery_Revised.Models
 
 
 
+
+
         
 
 
@@ -65,5 +67,9 @@ namespace DrinkDiscovery_Revised.Models
 
         // removerange
         void RemoveRange<T>(IEnumerable<T> entities) where T : class;
+
+
+        // addpayment
+        void AddPayment<T>(T entity) where T : class;
     }
 }

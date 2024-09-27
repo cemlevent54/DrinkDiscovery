@@ -37,6 +37,9 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public IQueryable<UserProductCommentActions> UserProductCommentActions => context.UserProductCommentActions;
 
         public IQueryable<ShoppingCards> ShoppingCards => context.ShoppingCards;
+        public IQueryable<Order> Order => context.Order;
+        public IQueryable<OrderItem> OrderItem => context.OrderItem;
+        public IQueryable<Payment> Payment => context.Payment;
 
 
 

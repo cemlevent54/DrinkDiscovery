@@ -1,0 +1,71 @@
+﻿@model DrinkDiscovery_Revised.Models.Payment
+@{
+    ViewData["Title"] = "ConfirmPayment";
+    var order = (DrinkDiscovery_Revised.Models.Order)ViewBag.Order;
+    var x = order;
+    ViewBag.Order = x;
+}
+
+<h1>ConfirmPayment</h1>
+
+<form asp-action="ConfirmPayment" asp-controller="Payment" class="form-group" enctype="multipart/form-data">
+
+    <table class="table table-active">
+        <tr>
+            <td>
+                <div class="form-group row mb-3">
+                    <label for="CardHolderName" class="col-sm-4 col-form-label"><b>Card Holder Name:</b></label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(item => item.PaymentCartHolderName, new { @class = "form-control", placeholder = "CardHolder Name" })
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="form-group row mb-3">
+                    <label for="CardNumber" class="col-sm-4 col-form-label"><b>Card  Number:</b></label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(item => item.PaymentCardNumber, new { @class = "form-control", placeholder = "Card Number" })
+                    </div>
+                </div>
+            </td>
+
+        </tr>
+
+        <tr>
+            <td>
+                <div class="form-group row mb-3">
+                    <label for="CardExpiryDate" class="col-sm-4 col-form-label"><b>Card  Expiry Date:</b></label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(item => item.PaymentCardExpiryDate, new { @class = "form-control", placeholder = "Card Number" })
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="form-group row mb-3">
+                    <label for="CardCvv" class="col-sm-4 col-form-label"><b>Card  Cvv:</b></label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(item => item.PaymentCardCvv, new { @class = "form-control", placeholder = "Card Cvv" })
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div class="form-group row mb-3">
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Confirm Payment</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+
+    </table>
+
+    <br />
+    <br />
+
+
+</form>

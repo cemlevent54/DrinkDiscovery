@@ -34,6 +34,8 @@ namespace DrinkDiscovery_Admin_Revised.Models
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
 
+        public DbSet<Payment> Payment { get; set; }
+
 
 
 

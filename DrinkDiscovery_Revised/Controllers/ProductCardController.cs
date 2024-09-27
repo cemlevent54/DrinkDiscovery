@@ -230,19 +230,22 @@ namespace DrinkDiscovery_Revised.Controllers
         // order tablosuna ekle, buradan sil.
         // bilgileri tut, siparişi onaylamazsa ve sepette kalsın derse tekrar bu bilgileri çek.
         // siparişi onaylarsa, order tablosuna ekle, shoppingcard tablosundan sil.
+        
         public IActionResult ConfirmCard(int id)
         {
             string userid = LoginedUserId();
             var shoppingcards = repository.ShoppingCard
                 .Where(c => c.UserId == userid)
                 .ToList();
-            
+
             var order = new Order
             {
                 UserId = userid,
                 OrderDate = DateTime.Now,
-                OrderTotalPrice = shoppingcards.Sum(c => c.Count * GetProductPrice(c.ProductId))
+                OrderTotalPrice = shoppingcards.Sum(c => c.Count * GetProductPrice(c.ProductId)),
+                OrderState = "in-address"
             };
+
             repository.Add(order);
 
             foreach (var card in shoppingcards)
@@ -276,8 +279,8 @@ namespace DrinkDiscovery_Revised.Controllers
                     }
                 }
             }
-
-            return View("ConfirmCard");
+            
+            return View("ConfirmCard",order);
         }
 
         public float GetProductPrice(int productId)

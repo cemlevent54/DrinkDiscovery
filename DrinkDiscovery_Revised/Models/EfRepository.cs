@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DrinkDiscovery_Revised.Models
 {
@@ -122,14 +123,21 @@ namespace DrinkDiscovery_Revised.Models
             await context.SaveChangesAsync();
         }
 
-        public Task UpdateAsync<T>(T entity) where T : class
+        public async Task UpdateAsync<T>(T entity) where T : class
         {
-            throw new NotImplementedException();
+            context.Set<T>().Update(entity);  // Marks the entity as modified
+            await context.SaveChangesAsync(); // Saves the changes to the database
         }
 
         public void RemoveRange<T>(IEnumerable<T> entities) where T : class
         {
             context.Set<T>().RemoveRange(entities);
+        }
+
+        public void AddPayment<T>(T entity) where T : class
+        {
+            context.Set<T>().Add(entity);
+            SaveChanges();
         }
     }
 }

@@ -1,0 +1,84 @@
+﻿@model DrinkDiscovery_Revised.Models.Payment
+@{
+    ViewData["Title"] = "ConfirmAddress";
+    var order = (DrinkDiscovery_Revised.Models.Order)ViewBag.Order;
+}
+
+<h1>Confirm Address(Kart ödeme bilgileri)</h1>
+
+@* <div class="mb-3">
+    <label for="icecek_malzemeler" class="form-label">İçecek Malzemeler</label>
+    @Html.TextAreaFor(x => x.icecek_malzemeler, new { @class = "form-control", @id = "icecek_malzemeler", style = "width: 600px;height: 200px;", rows = "5" })
+</div>
+ *@
+@* <div class="mb-3">
+    <label for="icecek_puan" class="form-label">İçecek Puanı</label>
+    @Html.TextBoxFor(x => x.icecek_puan, new { @class = "form-control", @id = "icecek_puan", style = "width: 350px;" })
+</div> *@
+@* <div class="form-group">
+    <label for="icecek_kategori_id" class="control-label">Kategori</label>
+    @Html.DropDownListFor(i => i.icecek_kategori.icecek_kategori_id, (IEnumerable<SelectListItem>)ViewBag.dgr, new { @class = "form-control", style = "width: 350px;" })
+</div> *@
+
+<form asp-action="ConfirmPayment" asp-controller="Payment" class="form-group" enctype="multipart/form-data">
+
+    <table class="table table-active">
+        <tr>
+            <td>
+                <div class="form-group row mb-3">
+                    <label for="CardHolderName" class="col-sm-4 col-form-label"><b>Card Holder Name:</b></label>
+                    <div class="col-sm-8">
+                            @Html.TextBoxFor(item => item.PaymentCartHolderName, new { @class = "form-control", placeholder = "CardHolder Name" })
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="form-group row mb-3">
+                    <label for="CardNumber" class="col-sm-4 col-form-label"><b>Card  Number:</b></label>
+                    <div class="col-sm-8">
+                            @Html.TextBoxFor(item => item.PaymentCardNumber, new { @class = "form-control", placeholder = "Card Number" })
+                    </div>
+                </div>
+            </td>
+
+        </tr>
+
+        <tr>
+            <td>
+                <div class="form-group row mb-3">
+                    <label for="CardExpiryDate" class="col-sm-4 col-form-label"><b>Card  Expiry Date:</b></label>
+                    <div class="col-sm-8">
+                            @Html.TextBoxFor(item => item.PaymentCardExpiryDate, new { @class = "form-control", placeholder = "Card Number" })
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="form-group row mb-3">
+                    <label for="CardCvv" class="col-sm-4 col-form-label"><b>Card  Cvv:</b></label>
+                    <div class="col-sm-8">
+                            @Html.TextBoxFor(item => item.PaymentCardCvv, new { @class = "form-control", placeholder = "Card Cvv" })
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div class="form-group row mb-3">
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Confirm Payment</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+
+    </table>
+
+    <br />
+    <br />
+
+
+</form>
+

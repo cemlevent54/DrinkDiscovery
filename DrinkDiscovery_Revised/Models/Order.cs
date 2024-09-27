@@ -25,5 +25,11 @@ public partial class Order
 
     public string? PhoneNumber { get; set; }
 
+    public bool OrderShoppingCartStatus { get; set; }
+
+    public string? OrderState { get; set; }
+
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+
+    public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 }
