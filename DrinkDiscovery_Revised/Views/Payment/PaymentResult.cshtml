@@ -1,7 +1,36 @@
-﻿
+﻿@using DrinkDiscovery_Revised.Models;
+@using DrinkDiscovery_Revised.Areas.Identity.Data;
+@using Microsoft.AspNetCore.Identity
 @{
     ViewData["Title"] = "PaymentResult";
+    var orderSummary = ViewBag.OrderSummary as Dictionary<int, Dictionary<string, string>> ?? new Dictionary<int, Dictionary<string, string>>();
+    var totalprice = orderSummary.Sum(x => int.Parse(x.Value["UrunFiyat"]) * int.Parse(x.Value["Count"]));
+    
 }
 
 <h1>PaymentResult</h1>
+@inject UserManager<DrinkDiscovery_Revised_User> UserManager;
 
+@* payment informations in a box *@
+<!-- Order Summary Box -->
+<div style="width: 25%; border: 1px solid; padding: 20px; border-radius: 10px; background-color: azure;">
+    <h2>Sipariş Özeti</h2>
+    <ul style="list-style-type: none; padding: 0;">
+        @foreach (var summary in orderSummary)
+        {
+            <li style="font-size: smaller; margin-bottom: 5px;">
+                @{
+                    var price = int.Parse(summary.Value["UrunFiyat"]) * int.Parse(summary.Value["Count"]);
+                }
+                @summary.Value["UrunAd"] x @summary.Value["Count"] - @price TL
+            </li>
+        }
+    </ul>
+    <hr />
+    <div style="margin-top: 10px;">
+        <strong>Toplam Fiyat:</strong> @totalprice TL
+    </div>
+    <div>
+        <a href="@Url.Action("SendVerificationEmail", "Email")" class="btn btn-success" style="width: 48%;">Sepeti Onayla</a>
+    </div>
+</div>

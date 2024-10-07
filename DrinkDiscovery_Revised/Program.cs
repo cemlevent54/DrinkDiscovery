@@ -3,8 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using DrinkDiscovery_Revised.Areas.Identity.Data;
 using DrinkDiscovery_Revised.Models;
 using DrinkDiscovery_Revised.Controllers;
+using DrinkDiscovery_Revised.SMTP;
+
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DrinkDiscovery_Revised_ContextConnection") ?? throw new InvalidOperationException("Connection string 'DrinkDiscovery_Revised_ContextConnection' not found.");
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 
 builder.Services.AddDbContext<DrinkDiscovery_Revised_Context>(options => options.UseSqlServer(connectionString, sqlServerOptions =>
 {

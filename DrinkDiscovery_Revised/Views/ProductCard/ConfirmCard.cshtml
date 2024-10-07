@@ -15,9 +15,11 @@
                 <div class="card-body">
                     @using (Html.BeginForm("ConfirmAddress", "Payment", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
                     {
-                        @* order id ye code behindda ulasmak icin hidden tanımla *@
+                        @Html.AntiForgeryToken() 
+
+                        @* Hidden field for OrderId *@
                         @Html.HiddenFor(item => item.OrderId)
-                        @* how to reach *@
+
                         <div class="form-group row mb-3">
                             <label for="Email" class="col-sm-4 col-form-label"><b>Email:</b></label>
                             <div class="col-sm-8">
@@ -70,9 +72,63 @@
                                 <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Confirm Address</button>
                             </div>
                         </div>
+
+                        <div class="form-group row mb-3">
+                            <div class="col-sm-12 text-center">
+                                <button type="submit" id="btnsiparissil" class="btn btn-alert btn-lg" style="width: 100%;">Siparişi sil ve anasayfaya dön</button>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/lib/jquery/jquery.min.js"></script>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#btnsiparissil").click(function (e) {
+                e.preventDefault(); // Prevent the form from submitting immediately
+
+                // Show confirmation prompt
+                var confirmDelete = window.confirm("Gerçekten siparişi silmek istiyor musunuz?");
+                if (confirmDelete) {
+                    // If the user confirms, proceed with the deletion
+                    $.ajax({
+                        url: "/Payment/DeleteIncompleteOrder",
+                        type: "POST",
+                        data: { orderId: @Model.OrderId },
+                        headers: {
+                            // Include the anti-forgery token in the request header
+                            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                // Show a success message and redirect after a delay
+                                alert("Sipariş başarıyla silindi!");
+                                setTimeout(function () {
+                                    window.location.href = "/";
+                                }, 2000);
+                            } else {
+                                alert("Sipariş silinemedi. Durum: " + response.message);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error details: ", status, error);
+                            alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+                        }
+                    });
+                } else {
+                    // If the user cancels, continue with the process without deleting
+                    alert("Sipariş silme işlemi iptal edildi.");
+                }
+            });
+
+            
+        });
+    </script>
+}

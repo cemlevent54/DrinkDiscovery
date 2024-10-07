@@ -128,6 +128,8 @@ namespace DrinkDiscovery_Revised.Areas.Identity.Pages.Account
 
             public string kullanici_fotograf_src { get; set; }
 
+            public string kullanici_email_verification_token { get; set; }
+
 
 
         }
@@ -162,14 +164,20 @@ namespace DrinkDiscovery_Revised.Areas.Identity.Pages.Account
                         user.kullanici_fotograf = memoryStream.ToArray();
                     }
                 }
+                
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                user.email_verification_token = token;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+                    // Generate the email confirmation token
+                    
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

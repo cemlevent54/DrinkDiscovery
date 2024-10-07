@@ -4,6 +4,7 @@ using DrinkDiscovery_Revised.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrinkDiscovery_Revised.Migrations
 {
     [DbContext(typeof(DrinkDiscovery_Revised_Context))]
-    partial class DrinkDiscovery_Revised_ContextModelSnapshot : ModelSnapshot
+    [Migration("20241002190140_email_verification_token")]
+    partial class email_verification_token
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

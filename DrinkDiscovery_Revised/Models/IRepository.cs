@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using DrinkDiscovery_Revised.Areas.Identity.Data;
+using System.Linq.Expressions;
 
 namespace DrinkDiscovery_Revised.Models
 {
@@ -29,7 +30,9 @@ namespace DrinkDiscovery_Revised.Models
         // order tables
         public IQueryable<Order> Order { get; }
         public IQueryable<OrderItem> OrderItem { get; }
+        public IQueryable<Payment> Payment { get; }
 
+        
 
 
 

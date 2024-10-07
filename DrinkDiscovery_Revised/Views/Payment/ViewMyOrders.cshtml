@@ -1,0 +1,68 @@
+﻿@model DrinkDiscovery_Revised.Models.Payment
+@using DrinkDiscovery_Revised.Models
+
+@{
+    ViewData["Title"] = "ViewMyOrders";
+    var orders = ViewBag.OrderInfos as List<Order> ?? new List<Order>();
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">My Orders</h1>
+    @if (orders.Count > 0)
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Sipariş Tarihi</th>
+                        <th scope="col">Sipariş Fiyat</th>
+                        <th scope="col">Teslim Adresi</th>
+                        <th scope="col">Ödeme Yöntemi</th>
+                        <th scope="col">Ödeme Durumu</th>
+                        <th scope="col">Sipariş Durumu</th>
+                        <th scope="col">İptal Et</th>
+                        <th scope="col">Sipariş Detay Görüntüle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < orders.Count; i++)
+                    {
+                        <tr>
+                            <td>@orders[i].OrderDate?.ToString("dd/MM/yyyy")</td>
+                            <td>@orders[i].OrderTotalPrice?.ToString("C")</td>
+                            <td>@orders[i].OrderDeliveryAddress</td>
+                            <td>@orders[i].OrderPaymentMethod</td>
+                            <td>@orders[i].OrderPaymentStatus</td>
+                            <td>@orders[i].OrderStatus</td>
+                            <td>
+                                <a asp-action="CancellingOrder" asp-controller="Payment" asp-route-orderId="@orders[i].OrderId" class="btn btn-danger">Sipariş Sil</a>
+                            </td>
+                            <td>
+                                <a asp-action="ViewOrderDetails" asp-controller="Payment" asp-route-orderId="@orders[i].OrderId" class="btn btn-primary">Sipariş Detayı</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center" role="alert">
+            You have no orders yet.
+        </div>
+    }
+</div>
+
+<!-- JavaScript -->
+<script src="~/js/site.js"></script>
+
+<!-- JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function confirmDeletion(url) {
+        if (confirm("Gerçekten silmek istiyor musunuz?")) {
+            window.location.href = url;
+        }
+    }
+</script>

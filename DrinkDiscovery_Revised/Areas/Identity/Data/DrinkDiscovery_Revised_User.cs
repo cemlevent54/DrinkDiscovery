@@ -24,6 +24,7 @@ public class DrinkDiscovery_Revised_User : IdentityUser
     public byte[]? kullanici_fotograf { get; set; } 
 
     public string? kullanici_username { get; set; }
+    public string? email_verification_token { get; set; }
     [NotMapped]
     public IFormFile? kullanici_fotograf_file { get; set; }
 

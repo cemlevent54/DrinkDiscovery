@@ -29,6 +29,9 @@ namespace DrinkDiscovery_Revised.Models
         public IQueryable<ShoppingCard> ShoppingCard => context.ShoppingCards;
         public IQueryable<Order> Order => context.Orders;
         public IQueryable<OrderItem> OrderItem => context.OrderItems;
+        public IQueryable<Payment> Payment => context.Payments;
+
+        
 
 
 
@@ -106,16 +109,16 @@ namespace DrinkDiscovery_Revised.Models
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync<T>(T entity) where T : class
+        public async Task DeleteAsync<T>(T entity) where T : class
         {
-            throw new NotImplementedException();
+            await Task.FromResult(context.Set<T>().Remove(entity));
         }
 
-        public Task<IQueryable<T>> FindAsync<T>(Expression<Func<T, bool>> predicate) where T : class
+        public async Task<IQueryable<T>> FindAsync<T>(Expression<Func<T, bool>> predicate) where T : class
         {
             //var resultList = await context.Set<T>().Where(predicate).ToListAsync();
             //return resultList.AsQueryable();
-            throw new NotImplementedException();
+            return await Task.FromResult(context.Set<T>().Where(predicate));
         }
 
         public async Task SaveChangesAsync()
@@ -139,5 +142,6 @@ namespace DrinkDiscovery_Revised.Models
             context.Set<T>().Add(entity);
             SaveChanges();
         }
+        
     }
 }

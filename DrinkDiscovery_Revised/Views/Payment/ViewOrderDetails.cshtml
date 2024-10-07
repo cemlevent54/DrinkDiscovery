@@ -1,0 +1,80 @@
+﻿@model DrinkDiscovery_Revised.Models.Order
+@using DrinkDiscovery_Revised.Models
+
+@{
+    ViewData["Title"] = "View Order Details";
+    var order = ViewBag.Order as List<Order> ?? new List<Order>();
+    var orderitem = ViewBag.OrderItems as List<OrderItem> ?? new List<OrderItem>();
+    var products = ViewBag.Products as List<Urunler> ?? new List<Urunler>();
+    
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Order Details</h1>
+
+    @foreach (var o in order)
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title">Order Information</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Order ID:</strong> @o.OrderId</p>
+                <p><strong>Order Date:</strong> @o.OrderDate?.ToString("MM/dd/yyyy")</p>
+                <p><strong>Total Price:</strong> ₺@o.OrderTotalPrice</p>
+                <p><strong>Delivery Address:</strong> @o.OrderDeliveryAddress</p>
+                <p><strong>Email:</strong> @o.Email</p>
+                <p><strong>Phone Number:</strong> @o.PhoneNumber</p>
+                <p><strong>Payment Method:</strong> @o.OrderPaymentMethod</p>
+                <p><strong>Payment Status:</strong> @o.OrderPaymentStatus</p>
+                <p><strong>Order Status:</strong> @o.OrderStatus</p>
+                <p><strong>Order State:</strong> @o.OrderState</p>
+            </div>
+        </div>
+    }
+
+    <h2>Order Items</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ürün İsmi</th>
+                <th>Ürün Kategorisi</th>
+                <th>Ürün Miktarı</th>
+                <th>Ürün Fiyatı</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in orderitem)
+            {
+                
+                <tr>
+                    
+                    <td>
+                        @if(products.Contains(products.Find(p => p.UrunId == item.OrderProductId)))
+                        {
+                            @products.Find(p => p.UrunId == item.OrderProductId).UrunAd
+                        }
+                    </td>
+                    <td>
+                        @if(products.Contains(products.Find(p => p.UrunId == item.OrderProductId)))
+                        {
+                            @products.Find(p => p.UrunId == item.OrderProductId).UrunKategori.UrunKategoriAd
+                        }
+                    </td>
+                    <td>
+                        @item.OrderQuantity
+                    </td>
+                    <td>
+                        @if (products.Contains(products.Find(p => p.UrunId == item.OrderProductId)))
+                        {
+                            @products.Find(p => p.UrunId == item.OrderProductId).UrunFiyat
+                        }
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
